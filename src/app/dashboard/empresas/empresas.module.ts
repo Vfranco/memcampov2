@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from 'src/app/guards/auth.guard';
 
 import { CultivosComponent } from './cultivos/cultivos.component';
 import { FincasComponent } from './fincas/fincas.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
-import { AuthGuard } from 'src/app/guards/auth.guard';
 
 const empresaRoute : Routes = [
 	{ path : 'dashboard/empresas/cultivos', component : CultivosComponent, canActivate: [AuthGuard] },
