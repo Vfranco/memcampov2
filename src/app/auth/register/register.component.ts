@@ -1,15 +1,27 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+	selector: 'app-register',
+	templateUrl: './register.component.html',
+	styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+	statusRegister : boolean = false;
+	statusMessagePassword :boolean = false;
+	errorMessageRegister: string = '';
+	colorStatus: string = '';
+	btnRegisterUser: string = 'Registrar Usuario';
+	password: string = '';
+	confirm: string = '';
 
-  ngOnInit() {
-  }
+	constructor() { }
 
+	ngOnInit() {
+	}
+
+	registerDataUser(userData: NgForm){
+		console.log(userData);
+	}
 }

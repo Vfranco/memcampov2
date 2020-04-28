@@ -1,1 +1,41 @@
-<p>login works!</p>
+<app-navlogin></app-navlogin>
+
+<div class="mc-logo"></div>
+<div class="o-page o-page--center mc-backgroud-color" style="padding-top: 13rem;">
+    <div class="o-page__card">
+        <div class="c-card u-mb-xsmall">
+            <header class="c-card__header u-pt-large">
+                <a class="c-card__icon" href="#!">
+                    <img src="./assets/img/logo-agrosabanas-dashboard.svg" alt="Dashboard UI Kit">
+                </a>
+                <h1 class="u-h3 u-text-center u-mb-zero">Bienvenido a Memoria de Campo</h1>
+            </header>
+
+            <form #frmLogin="ngForm" class="c-card__body" autocomplete="off" (ngSubmit)="frmLogin">
+                <div class="c-field u-mb-small">
+                    <label class="c-field__label" for="correo">Correo Electronico</label>
+                    <input class="c-input" type="email" id="correo" placeholder="Ingresa tu correo ...">
+                </div>
+
+                <div class="c-field u-mb-small">
+                    <label class="c-field__label" for="contraseña">Contraseña</label>
+                    <input class="c-input" type="password" id="contraseña" placeholder="Tu contraseña ...">
+                </div>
+
+                <button class="c-btn c-btn--success c-btn--fullwidth" type="submit">{{ buttonText }}</button>
+
+                <div class="c-alert c-alert--danger u-mt-small" *ngIf="!statusLogin">
+                    <i class="c-alert__icon fa fa-times-circle"></i>
+                    {{ errorMessage }}
+                </div>
+                <span class="c-divider c-divider--small has-text u-mv-medium">Memoria de Campo</span>
+            </form>
+        </div>
+        <div class="o-line">
+            <a [routerLink]="['/register']" class="u-text-mute u-text-small u-color-white">Registrate</a>
+            <a [routerLink]="['/recovery']" class="u-text-mute u-text-small u-color-white">Olvidaste tu contraseña ?</a>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>

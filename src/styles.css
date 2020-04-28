@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+.mc-logo {
+    background: url('./assets/img/back-mem-campo.jpg') no-repeat top;
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+
+}
+
+.mc-backgroud-color {
+    background: rgba(44, 44, 44, 0.2);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.69), rgba(0, 128, 45, 0.71));
+}
+
+.u-color-white {
+    color: white !important;
+    font-weight: bold;
+}
+
+.card-width-450 {
+    width: 800px !important;
+    margin: auto;
+}
+
+.no-margin {
+    margin: auto !important;
+    width: auto !important;
+}
+
+@media(max-height: 768px) {
+    .o-page {
+        padding-top: 8rem !important;
+    }
+}

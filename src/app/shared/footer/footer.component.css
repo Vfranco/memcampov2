@@ -1,0 +1,35 @@
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer {
+    padding: 24px 0;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 24px 0;
+}
+
+.container-footer {
+    height: 100%;
+    z-index: 1;
+    text-align: center;
+    position: relative;
+}
+
+.footer .copyright {
+    float: right;
+}
+
+.footer ul li a {
+    color: white;
+    padding: 0.5rem;
+    font-size: 0.8571em;
+    text-transform: uppercase;
+    text-decoration: none;
+}

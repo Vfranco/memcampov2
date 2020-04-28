@@ -1,1 +1,36 @@
-<p>recovery works!</p>
+<app-navlogin></app-navlogin>
+
+<div class="mc-logo"></div>
+<div class="o-page o-page--center mc-backgroud-color">
+    <div class="o-page__card">
+        <div class="c-card u-mb-xsmall">
+            <header class="c-card__header u-text-center u-pt-large">
+                <a class="c-card__icon" href="#!">
+                    <img src="./assets/img/logo-agrosabanas-dashboard.svg" alt="Memoria de Campo">
+                </a>
+                <div class="row u-justify-center">
+                    <div class="col-9">
+                        <h1 class="u-h3">Olvidaste tu contraseña ?</h1>
+                        <p class="u-h6 u-text-mute">
+                            Ingresa tu correo, y recibiras instrucciones de como reestablecerla
+                        </p>
+                    </div>
+                </div>
+            </header>
+            
+            <form class="c-card__body">
+                <div class="c-field u-mb-small">
+                    <label class="c-field__label" for="input1">Correo Electronico</label>
+                    <input class="c-input" type="email" id="input1" placeholder="clark@dashboard.com"> 
+                </div>
+
+                <button class="c-btn c-btn--success c-btn--fullwidth" type="submit">Enviar Instrucciones</button>
+            </form>
+        </div>
+        <a class="u-text-mute u-text-small u-color-white" [routerLink]="['/register']">
+            No tienes una cuenta aún ?
+        </a>
+    </div>
+</div>
+
+<app-footer></app-footer>

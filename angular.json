@@ -25,6 +25,7 @@
             ],
             "styles": [
               "src/styles.css",
+              "src/assets/css/app.css",
               "src/assets/css/main.min.css"
             ],
             "scripts": [
