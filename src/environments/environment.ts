@@ -3,8 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  API_REST : 'http://local.apimemcampo.com',
+	production: false,
+	BASE_URL_BLOG: "https://blog.memoriadecampo.com",
+	BASE_URL_IMG: "https://api.memoriadecampo.com",
+	ID_BASE_URL: 1,
+	API_BPA: "http://localapi.memcampo.com"
 };
 
 /*

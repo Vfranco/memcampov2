@@ -5,13 +5,15 @@ import { TopComponent } from './top/top.component';
 import { MenuComponent } from './menu/menu.component';
 import { NavloginComponent } from './navlogin/navlogin.component';
 import { FooterComponent } from './footer/footer.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
 	declarations: [
 		TopComponent,
 		MenuComponent,
 		NavloginComponent,
-		FooterComponent
+		FooterComponent,
+		SidebarComponent
 	],
 	imports: [
 		CommonModule
@@ -19,7 +21,9 @@ import { FooterComponent } from './footer/footer.component';
 	exports: [
 		TopComponent, 
 		MenuComponent, 
-		NavloginComponent, FooterComponent
+		NavloginComponent,
+		FooterComponent, 
+		SidebarComponent
 	]
 })
 export class SharedModule { }
