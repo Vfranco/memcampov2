@@ -1,0 +1,10 @@
+.c-pull-right { float: right !important; }
+.c-modal__header { background: linear-gradient(180deg,#4CAF50,#4CAF50) !important; }
+.c-field__label { color: #535d6b;}
+.u-mt-logo { margin-top: 16.25rem!important; }
+.c-login-horizontal .c-login__icon { background: #2ea1f8; background: linear-gradient(180deg,#36b047,#36ae47); }
+.c-card__icon { background: #2ea1f8; background: linear-gradient(180deg,#36b047,#36ae47);}
+.c-input:focus { border: 1px solid #36ae47; }
+.c-badge--full-width { width: 100%; text-align: center;}
+.c-combobox { width: 100%; padding: 8px 4px 8px 4px; border-radius: 3px; font-size: 15px; color: #717171; }
+.c-combobox :focus { border: 1px solid #36ae47; }
