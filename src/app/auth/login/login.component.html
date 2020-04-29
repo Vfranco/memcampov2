@@ -11,7 +11,7 @@
                 <h1 class="u-h3 u-text-center u-mb-zero">Bienvenido a Memoria de Campo</h1>
             </header>
 
-            <form #frmLogin="ngForm" class="c-card__body" autocomplete="off" (ngSubmit)="frmLogin">
+            <form #frmLogin="ngForm" class="c-card__body" autocomplete="off" (ngSubmit)="initLogin(frmLogin)">
                 <div class="c-field u-mb-small">
                     <label class="c-field__label" for="correo">Correo Electronico</label>
                     <input class="c-input" type="email" id="correo" placeholder="Ingresa tu correo ...">

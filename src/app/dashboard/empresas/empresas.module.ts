@@ -8,9 +8,9 @@ import { FincasComponent } from './fincas/fincas.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 
 const empresaRoute : Routes = [
-	{ path : 'dashboard/empresas/cultivos', component : CultivosComponent, canActivate: [AuthGuard] },
-	{ path : 'dashboard/empresas/fincas', component : FincasComponent, canActivate: [AuthGuard] },
-	{ path : 'dashboard/empresas/usuarios', component : UsuariosComponent, canActivate: [AuthGuard] }
+	{ path : 'cultivos/empresa/:idempresa', component : CultivosComponent, canActivate: [AuthGuard] },
+	{ path : 'fincas/empresa/:idempresa', component : FincasComponent, canActivate: [AuthGuard] },
+	{ path : 'usuarios/empresa/:idempresa', component : UsuariosComponent, canActivate: [AuthGuard] }
 ]
 
 @NgModule({

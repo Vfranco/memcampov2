@@ -1,0 +1,18 @@
+<!--SideBar -->
+<app-sidebar 
+    [rol]="'Agricultor'" 
+    [menu]="menuOptions">
+</app-sidebar>
+<!-- end SideBar -->
+
+<!-- mainContent -->
+<main class="o-page__content">
+    <app-top></app-top>
+    <app-toolbar></app-toolbar>
+
+    <div class="container-fluid">
+        <!-- here routerOulet -->
+        <router-outlet></router-outlet>
+    </div>
+</main>
+<!-- end mainContent-->

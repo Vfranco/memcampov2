@@ -1,1 +1,23 @@
-<p>sidebar works!</p>
+<!-- SIDEBAR -->
+<div class="o-page__sidebar js-page-sidebar">
+    <div class="c-sidebar">
+        <a class="c-sidebar__brand" href="#">
+            <img class="c-sidebar__brand-img" src="./assets/img/logo-agrosabanas-dashboard.svg" alt="Memoria de Campo"> Memoria de Campo
+        </a>
+
+        <h4 class="c-sidebar__title">{{rol}}</h4>
+        <ul class="c-sidebar__list">
+
+            <li class="c-sidebar__item">
+                <a class="c-sidebar__link" [routerLink]="['cultivos']" routerLinkActive="is-active">
+                    <i class="fa fa-home u-mr-xsmall"></i>Mis Cultivos
+                </a>
+            </li>            
+            <li class="c-sidebar__item">
+                <a class="c-sidebar__link" [routerLink]="['fincas']" routerLinkActive="is-active">
+                    <i class="fa fa-home u-mr-xsmall"></i>Mis Fincas
+                </a>
+            </li>
+        </ul>        
+    </div>
+</div>

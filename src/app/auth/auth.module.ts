@@ -18,13 +18,14 @@ const authRoute : Routes = [
 	declarations: [
 		LoginComponent,
 		RegisterComponent,
-		RecoveryComponent
+		RecoveryComponent		
 	],
 	imports: [
 		CommonModule,
 		FormsModule,
 		RouterModule.forChild(authRoute),
 		SharedModule
-	]
+	],
+	exports: []
 })
 export class AuthModule { }

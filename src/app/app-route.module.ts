@@ -4,11 +4,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 const appRoute: Routes = [
-	{ path: '', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
-	{ path: '', loadChildren: () => import('./dashboard/agricultor/agricultor.module').then(m => m.AgricultorModule )},
-	{ path: '', loadChildren: () => import('./dashboard/editor/editor.module').then(m => m.EditorModule )},
-	{ path: '', loadChildren: () => import('./dashboard/empresas/empresas.module').then(m => m.EmpresasModule )},
-	{ path: '', loadChildren: () => import('./dashboard/administrator/administrator.module').then(m => m.AdministratorModule )},
+	{ path: '', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },	
+	{ path: '', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule )},
 	{ path: '**', redirectTo: '', pathMatch: 'full' }
 ]
 

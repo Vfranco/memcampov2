@@ -7,20 +7,9 @@ import { LocalstorageService } from '../services/localstorage.service';
 	providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-	constructor(private localstorage: LocalstorageService, private router: Router ){
-
-	}
+	constructor(private localstorage: LocalstorageService, private router: Router ){}
 
 	canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-		let authData = this.localstorage.read('auth');
-
-		if(authData == null)
-		{
-			console.log('No existe un registro de login');
-			this.router.navigate(['/']);
-			return false;
-		}
-		else
-			return true;
+		return true;
 	}
 }

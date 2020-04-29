@@ -10,11 +10,11 @@ import { BpaComponent } from './bpa/bpa.component';
 import { CategoriasComponent } from './categorias/categorias.component';
 
 const editorRoute : Routes = [
-	{ path : 'dashboard/editor/documentos', component: DocumentosComponent, canActivate: [AuthGuard] },
-	{ path : 'dashboard/editor/list', component: ListdocumentosComponent, canActivate: [AuthGuard] },
-	{ path : 'dashboard/editor/tips', component: TipsComponent, canActivate: [AuthGuard] },
-	{ path : 'dashboard/editor/bpa', component: BpaComponent, canActivate: [AuthGuard] },
-	{ path : 'dashboard/editor/categorias', component: CategoriasComponent, canActivate: [AuthGuard] }
+	{ path : 'documentos', component: DocumentosComponent },
+	{ path : 'list', component: ListdocumentosComponent },
+	{ path : 'tips', component: TipsComponent },
+	{ path : 'bpa', component: BpaComponent },
+	{ path : 'categorias', component: CategoriasComponent }
 ]
 
 @NgModule({

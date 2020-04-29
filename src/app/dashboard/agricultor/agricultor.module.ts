@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { AuthGuard } from 'src/app/guards/auth.guard';
 
 import { FincasComponent } from './fincas/fincas.component';
 import { CultivosComponent } from './cultivos/cultivos.component';
 
 const agricultorRoute : Routes = [
-	{ path: 'dashboard/cultivos/:uid', component: CultivosComponent, canActivate : [AuthGuard] },
-	{ path: 'dashboard/fincas/:uid', component: FincasComponent, canActivate: [AuthGuard] }
+	{ path: 'cultivos', component: CultivosComponent},
+	{ path: 'fincas', component: FincasComponent}
 ]
 
 @NgModule({
@@ -18,6 +19,7 @@ const agricultorRoute : Routes = [
 	],
 	imports: [
 		CommonModule,
+		SharedModule,
 		RouterModule.forChild(agricultorRoute)
 	]	
 })

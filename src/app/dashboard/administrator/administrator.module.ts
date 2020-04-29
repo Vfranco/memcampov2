@@ -4,14 +4,17 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from 'src/app/guards/auth.guard';
 import { CiclodevidaComponent } from './ciclodevida/ciclodevida.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
 
 const adminRoutes : Routes = [
-	{ path : 'dashboard/administrator/ciclodevida', component: CiclodevidaComponent, canActivate: [AuthGuard] }
+	{ path : 'ciclodevida', component: CiclodevidaComponent, canActivate: [AuthGuard] },
+	{ path : 'usuarios', component: UsuariosComponent, canActivate: [AuthGuard] }
 ]
 
 @NgModule({
 	declarations: [
-		CiclodevidaComponent
+		CiclodevidaComponent,
+		UsuariosComponent
 	],
 	imports: [
 		CommonModule,
