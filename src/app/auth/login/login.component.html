@@ -11,18 +11,36 @@
                 <h1 class="u-h3 u-text-center u-mb-zero">Bienvenido a Memoria de Campo</h1>
             </header>
 
-            <form #frmLogin="ngForm" class="c-card__body" autocomplete="off" (ngSubmit)="initLogin(frmLogin)">
+            <form #frmLogin="ngForm" role="form" class="c-card__body" autocomplete="off" (ngSubmit)="initLogin(frmLogin)" novalidate>
                 <div class="c-field u-mb-small">
                     <label class="c-field__label" for="correo">Correo Electronico</label>
-                    <input class="c-input" type="email" id="correo" placeholder="Ingresa tu correo ...">
+                    <input
+                        name="email"
+                        [(ngModel)]="model.email"
+                        [ngClass]="{
+                            'c-input--success'  : email.valid && (email.dirty || email.touched),
+                            'c-input--danger'   : email.invalid && (email.dirty || email.touched)
+                        }"
+                        type="email"
+                        class="c-input"
+                        #email="ngModel"
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                        placeholder="Ingresa tu correo ..." required>
+                        <small class="c-field__message u-color-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+                            <i class="fa fa-times-circle"></i>Ingrese un correo valido
+                        </small>
                 </div>
-
                 <div class="c-field u-mb-small">
                     <label class="c-field__label" for="contraseña">Contraseña</label>
-                    <input class="c-input" type="password" id="contraseña" placeholder="Tu contraseña ...">
+                    <input                        
+                        name="pass"
+                        [(ngModel)]="model.pass"
+                        type="password"
+                        class="c-input"
+                        placeholder="Tu contraseña ..." required>
                 </div>
-
-                <button class="c-btn c-btn--success c-btn--fullwidth" type="submit">{{ buttonText }}</button>
+                
+                <button class="c-btn c-btn--success c-btn--fullwidth" type="submit" [disabled]="frmLogin.invalid">{{ buttonText }}</button>
 
                 <div class="c-alert c-alert--danger u-mt-small" *ngIf="!statusLogin">
                     <i class="c-alert__icon fa fa-times-circle"></i>
