@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
 		this.firebase.auth.signInWithEmailAndPassword(this.model.email, this.model.pass).then(result => {
 			console.log(result);
 
+			this.route.navigate(['dashboard/mc/123/cultivos']);
 			this.buttonText = 'Iniciar Sesión';
 		});
 	}
