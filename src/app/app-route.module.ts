@@ -2,8 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+
 import { environment } from 'src/environments/environment';
 
 const appRoute: Routes = [
@@ -22,6 +25,7 @@ const appRoute: Routes = [
 			preloadingStrategy : PreloadAllModules
 		}),
 		AngularFireModule.initializeApp(environment.firebase),
+		AngularFirestoreModule,
 		AngularFireAuthModule
 	],
 	exports : [RouterModule]

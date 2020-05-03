@@ -1,15 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Router } from '@angular/router';
+import { LocalstorageService } from 'src/app/services/localstorage.service';
 
 @Component({
-  selector: 'app-top',
-  templateUrl: './top.component.html',
-  styleUrls: ['./top.component.css']
+	selector: 'app-top',
+	templateUrl: './top.component.html',
+	styleUrls: ['./top.component.css']
 })
 export class TopComponent implements OnInit {
 
-  constructor() { }
+	constructor(private firebase: AngularFireAuth, private route: Router, private localstorage: LocalstorageService) { }
 
-  ngOnInit() {
-  }
+	ngOnInit() {
+	}
 
+	logout(){
+		this.firebase.auth.signOut();
+		this.localstorage.remove('authUser');
+		this.route.navigate(['/']);
+	}
 }

@@ -3,6 +3,9 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Login } from 'src/app/models/login.model';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { AuthService } from 'src/app/services/auth.service';
+import { LocalstorageService } from 'src/app/services/localstorage.service';
+import { firebaseErrors } from 'src/app/constants/firebase.errors';
 
 @Component({
 	selector: 'app-login',
@@ -13,25 +16,50 @@ export class LoginComponent implements OnInit {
 
 	model: Login = new Login();
 
-	statusLogin : boolean = true;
-	buttonText : string = 'Iniciar Sesion';
-	errorMessage : string = '';
+	statusLogin: boolean = false;
+	buttonText: string = 'Iniciar Sesion';
+	errorMessage: string = 'algo';
 
-	constructor(private route: Router, private firebase: AngularFireAuth) { }
+	constructor(private route: Router, private auth: AuthService, private localstorage: LocalstorageService) { }
 
 	ngOnInit() {
-		window.localStorage.setItem('auth', JSON.stringify({'auth' : true }));
+		this.checkAuthUser();
 	}
 
-	initLogin(frmLogin: NgForm){
+	initLogin(frmLogin: NgForm) {
 		this.buttonText = 'Espere ...';
 
-		this.firebase.auth.signInWithEmailAndPassword(this.model.email, this.model.pass).then(result => {
-			console.log(result);
+		this.auth.login(frmLogin.value.email, frmLogin.value.pass).then(response => {
+			if (response) 
+			{
+				this.auth.getRolByUser(frmLogin.value.email).get().subscribe(document => {
+					if (document.empty) {
+						this.statusLogin = true;
+						this.errorMessage = 'No tienes una cuenta Activa';
+					}
+					else {
+						document.forEach(element => {
+							this.auth.routeByRol(element.data());
+							this.buttonText = 'Iniciar Sesion';
+						});
+					}
+				});
+			}
 
-			this.route.navigate(['dashboard/mc/123/cultivos']);
-			this.buttonText = 'Iniciar Sesión';
+		}).catch(error => {
+			this.statusLogin = true;
+			console.log(error.code);
+			this.errorMessage = firebaseErrors[error.code] || error.message;
+			this.buttonText = 'Iniciar Sesion';
 		});
 	}
 
+	checkAuthUser(){
+		let auth = this.localstorage.read('authUser');
+
+		if(auth != null || auth == undefined)
+			return false;
+
+		this.auth.setRouteUser(auth.rol, auth.uid);
+	}
 }

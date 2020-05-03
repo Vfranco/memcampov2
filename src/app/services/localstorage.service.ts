@@ -7,7 +7,15 @@ export class LocalstorageService {
 
 	constructor() { }
 
-	read(data: string){
-		return null;
+	create(prop, data){
+		return localStorage.setItem(prop, JSON.stringify(data));
+	}
+
+	read(prop: string){
+		return JSON.parse(localStorage.getItem(prop));
+	}
+
+	remove(prop){
+		return localStorage.removeItem(prop);
 	}
 }

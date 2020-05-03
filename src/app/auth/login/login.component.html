@@ -23,9 +23,9 @@
                         }"
                         type="email"
                         class="c-input"
-                        #email="ngModel"
+                        #email="ngModel"                        
                         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                        placeholder="Ingresa tu correo ..." required>
+                        placeholder="Ingresa tu correo ..." autofocus required>
                         <small class="c-field__message u-color-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
                             <i class="fa fa-times-circle"></i>Ingrese un correo valido
                         </small>
@@ -42,7 +42,7 @@
                 
                 <button class="c-btn c-btn--success c-btn--fullwidth" type="submit" [disabled]="frmLogin.invalid">{{ buttonText }}</button>
 
-                <div class="c-alert c-alert--danger u-mt-small" *ngIf="!statusLogin">
+                <div class="c-alert c-alert--danger u-mt-small" *ngIf="statusLogin">
                     <i class="c-alert__icon fa fa-times-circle"></i>
                     {{ errorMessage }}
                 </div>
