@@ -1,22 +1,18 @@
 <div class="o-page__sidebar js-page-sidebar">
     <div class="c-sidebar">
         <a class="c-sidebar__brand" href="#">
-            <img class="c-sidebar__brand-img" src="./assets/img/logo-agrosabanas-dashboard.svg" alt="Memoria de Campo"> Memoria de Campo
+            <img class="c-sidebar__brand-img" src="./assets/img/logo-agrosabanas-dashboard.svg" alt="Memoria de Campo">
+            Memoria de Campo
         </a>
 
-        <h4 class="c-sidebar__title">Agricultor</h4>
-        <ul class="c-sidebar__list">
+        <h4 class="c-sidebar__title">{{titleMenu}}</h4>
+        <ul class="c-sidebar__list" *ngFor="let option of menuOptions">
 
             <li class="c-sidebar__item">
-                <a class="c-sidebar__link" [routerLink]="['cultivos']" routerLinkActive="is-active">
-                    <i class="fa fa-home u-mr-xsmall"></i>Mis Cultivos
-                </a>
-            </li>            
-            <li class="c-sidebar__item">
-                <a class="c-sidebar__link" [routerLink]="['fincas']" routerLinkActive="is-active">
-                    <i class="fa fa-home u-mr-xsmall"></i>Mis Fincas
+                <a class="c-sidebar__link" [routerLink]="[option.href]">
+                    <i class="fa {{ option.icon }} u-mr-xsmall"></i> {{ option.namemenu }}
                 </a>
             </li>
-        </ul>        
+        </ul>
     </div>
 </div>
