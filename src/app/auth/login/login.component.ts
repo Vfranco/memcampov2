@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
 			console.log(error.code);
 			this.errorMessage = firebaseErrors[error.code] || error.message;
 			this.buttonText = 'Iniciar Sesion';
+			this.removeErrorMessage();
 		});
 	}
 
@@ -61,5 +62,11 @@ export class LoginComponent implements OnInit {
 			return false;
 
 		this.auth.setRouteUser(auth.rol, auth.uid);
+	}
+
+	removeErrorMessage(){
+		setTimeout(() => {
+			this.statusLogin = false;
+		}, 3000)
 	}
 }
