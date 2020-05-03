@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UserService } from 'src/app/services/user.service';
+import { ReadKeyExpr } from '@angular/compiler';
 
 @Component({
 	selector: 'app-sidebar',
@@ -11,6 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class SidebarComponent implements OnInit {
 
+	titleMenu : string = '';
 	menuOptions :any = [];
 
 	constructor(
@@ -27,8 +29,16 @@ export class SidebarComponent implements OnInit {
 
 	setMenuOptionsUser(uid){
 		this.firebase.readCollection('menuRoles').subscribe(result => {
-			console.log(this.userData.getRolUser());
+			this.setMenuByRol(this.userData.getRolUser(), result);
 		});
 	}
 
+	setMenuByRol(rol, menu){
+		switch(rol){
+			case '2':				
+				this.titleMenu = menu[0].menuUser[0].main;
+				this.menuOptions = menu[0].menuUser[0].options;
+			break;
+		}
+	}
 }
