@@ -19,5 +19,5 @@ export const collections: any = {
     UNIDADES_DE_COBRO: "unidades_de_cobro",
     UNIDADES_DE_MEDIDA: "unidades_de_medida",
     UNIDADES_DE_SUPERFICIE: "unidades_de_superficie",
-    USERSROLES: "usersRoles",
+    USERSROLES: "usersRoles"
 };
