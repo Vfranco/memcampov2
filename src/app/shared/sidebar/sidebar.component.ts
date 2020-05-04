@@ -14,6 +14,7 @@ export class SidebarComponent implements OnInit {
 
 	titleMenu : string = '';
 	menuOptions :any = [];
+	loadingSideBar:boolean = false;
 
 	constructor(
 		private route: ActivatedRoute, 
@@ -22,6 +23,7 @@ export class SidebarComponent implements OnInit {
 		private userData: UserService) { }
 
 	ngOnInit() {
+		this.loadingSideBar = true;
 		this.route.params.subscribe(uid => {
 			this.setMenuOptionsUser(uid)
 		});
@@ -38,6 +40,7 @@ export class SidebarComponent implements OnInit {
 			case '2':				
 				this.titleMenu = menu[0].menuUser[0].main;
 				this.menuOptions = menu[0].menuUser[0].options;
+				this.loadingSideBar = false;
 			break;
 		}
 	}

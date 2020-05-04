@@ -1,0 +1,8 @@
+.load {
+    background: #ccc;
+    width: 250px;
+    height: 15px;
+    border-radius: 2px;
+    background: linear-gradient(to right, #adadad, #ccc);
+    animation: load 1.0s infinite ease-out;
+}
