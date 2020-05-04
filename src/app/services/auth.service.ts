@@ -36,8 +36,16 @@ export class AuthService {
 			return false;
 
 		switch (rol) {
+			case '0':
+				this.route.navigate([`/dashboard/mc/${uid}/cultivos`]);
+				break;
+
 			case '2':
 				this.route.navigate([`/dashboard/mc/${uid}/cultivos`]);
+				break;
+
+			case '3':
+				this.route.navigate([`/dashboard/mc/${uid}/documentos`])
 				break;
 		}
 	}

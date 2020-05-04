@@ -1,4 +1,4 @@
-<div class="o-page__sidebar js-page-sidebar" *ngIf="!loadingSideBar">    
+<div class="o-page__sidebar js-page-sidebar" *ngIf="!loadingSideBar">
     <div class="c-sidebar">
         <a class="c-sidebar__brand" href="#">
             <img class="c-sidebar__brand-img" src="./assets/img/logo-agrosabanas-dashboard.svg" alt="Memoria de Campo">
@@ -13,10 +13,23 @@
                 </a>
             </li>
         </ul>
-    </div>        
+
+        <ng-container *ngIf="menuAdministrador.length > 0">
+            <h4 class="c-sidebar__title">Gestión Administrativa</h4>
+
+            <ul class="c-sidebar__list" *ngFor="let option of menuAdministrador">
+                <li class="c-sidebar__item">
+                    <a class="c-sidebar__link" [routerLink]="[option.href]">
+                        <i class="fa {{ option.icon }} u-mr-xsmall"></i> {{ option.namemenu }}
+                    </a>
+                </li>
+            </ul>
+        </ng-container>
+
+    </div>
 </div>
 
-<div class="o-page__sidebar js-page-sidebar" *ngIf="loadingSideBar">    
+<div class="o-page__sidebar js-page-sidebar" *ngIf="loadingSideBar">
     <div class="c-sidebar">
         <a class="c-sidebar__brand" href="#">
             <img class="c-sidebar__brand-img" src="./assets/img/logo-agrosabanas-dashboard.svg" alt="Memoria de Campo">
@@ -25,24 +38,26 @@
         <h4 class="c-sidebar__title">Cargando ...</h4>
 
         <ul class="c-sidebar__list">
-            <li class="c-sidebar__item">
+            <li class="c-sidebar__item u-mt-small">
                 <a class="c-sidebar__link">
                     <i class="bg load-icon"></i> <span class="bg load-text"></span>
                 </a>
             </li>
-            <li class="c-sidebar__item">
+            <li class="c-sidebar__item u-mt-small">
                 <a class="c-sidebar__link">
                     <i class="bg load-icon"></i> <span class="bg load-text"></span>
                 </a>
             </li>
-            <li class="c-sidebar__item">
+            <li class="c-sidebar__item u-mt-small">
+                <a class="c-sidebar__link">
+                    <i class="bg load-icon"></i> <span class="bg load-text"></span>
+                </a>
+            </li>
+            <li class="c-sidebar__item u-mt-small">
                 <a class="c-sidebar__link">
                     <i class="bg load-icon"></i> <span class="bg load-text"></span>
                 </a>
             </li>
         </ul>
-    </div>        
+    </div>
 </div>
-
-
-

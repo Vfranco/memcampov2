@@ -14,6 +14,7 @@ export class SidebarComponent implements OnInit {
 
 	titleMenu : string = '';
 	menuOptions :any = [];
+	menuAdministrador :any = [];
 	loadingSideBar:boolean = false;
 
 	constructor(
@@ -37,9 +38,25 @@ export class SidebarComponent implements OnInit {
 
 	setMenuByRol(rol, menu){
 		switch(rol){
+
+			case '0':
+				console.log(menu);				
+				this.titleMenu = menu[0].adminMenu[0].main;
+				this.menuOptions = menu[0].adminMenu[0].options;
+				this.menuAdministrador = menu[0].adminMenu[1].options;
+				this.loadingSideBar = false;
+			break;
+
 			case '2':				
 				this.titleMenu = menu[0].menuUser[0].main;
 				this.menuOptions = menu[0].menuUser[0].options;
+				this.loadingSideBar = false;
+			break;
+
+			case '3':
+				console.log(menu);				
+				this.titleMenu = menu[0].editMenu[0].main;
+				this.menuOptions = menu[0].editMenu[0].options;
 				this.loadingSideBar = false;
 			break;
 		}
