@@ -28,6 +28,15 @@ export class LoginComponent implements OnInit {
 		this.checkAuthUser();
 	}
 
+	checkAuthUser() {
+		let auth = this.localstorage.read('authUser');
+
+		if (auth != null || auth == undefined)
+			return false;
+
+		this.auth.setRouteUser(auth.rol, auth.uid);
+	}
+
 	initLogin(frmLogin: NgForm) {
 		this.buttonText = 'Espere ...';
 
@@ -54,15 +63,6 @@ export class LoginComponent implements OnInit {
 			this.buttonText = 'Iniciar Sesion';
 			this.removeErrorMessage();
 		});
-	}
-
-	checkAuthUser() {
-		let auth = this.localstorage.read('authUser');
-
-		if (auth != null || auth == undefined)
-			return false;
-
-		this.auth.setRouteUser(auth.rol, auth.uid);
 	}
 
 	removeErrorMessage() {
