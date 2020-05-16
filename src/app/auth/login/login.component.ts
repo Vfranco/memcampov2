@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Login } from 'src/app/models/login.model';
+// import { Login } from 'src/app/models/login.model';
+import { Login } from 'src/app/interface/login.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
 import { firebaseErrors } from 'src/app/constants/firebase.errors';
@@ -13,24 +14,34 @@ import { firebaseErrors } from 'src/app/constants/firebase.errors';
 })
 export class LoginComponent implements OnInit {
 
-	model: Login = new Login();
+	model: Login;
 
 	statusLogin: boolean = false;
 	buttonText: string = 'Iniciar Sesion';
 	errorMessage: string = 'algo';
 
-	constructor(private route: Router, private auth: AuthService, private localstorage: LocalstorageService) { }
+	constructor(private route: Router, private auth: AuthService, private localstorage: LocalstorageService) {
+		this.model = { email: "", pass: "" };
+	}
 
 	ngOnInit() {
 		this.checkAuthUser();
+	}
+
+	checkAuthUser() {
+		let auth = this.localstorage.read('authUser');
+
+		if (auth != null || auth == undefined)
+			return false;
+
+		this.auth.setRouteUser(auth.rol, auth.uid);
 	}
 
 	initLogin(frmLogin: NgForm) {
 		this.buttonText = 'Espere ...';
 
 		this.auth.login(frmLogin.value.email, frmLogin.value.pass).then(response => {
-			if (response) 
-			{
+			if (response) {
 				this.auth.getRolByUser(frmLogin.value.email).get().subscribe(document => {
 					if (document.empty) {
 						this.statusLogin = true;
@@ -54,16 +65,7 @@ export class LoginComponent implements OnInit {
 		});
 	}
 
-	checkAuthUser(){
-		let auth = this.localstorage.read('authUser');
-
-		if(auth != null || auth == undefined)
-			return false;
-
-		this.auth.setRouteUser(auth.rol, auth.uid);
-	}
-
-	removeErrorMessage(){
+	removeErrorMessage() {
 		setTimeout(() => {
 			this.statusLogin = false;
 		}, 3000)

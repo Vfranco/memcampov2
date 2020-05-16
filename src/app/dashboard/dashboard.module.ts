@@ -7,7 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { MainComponent } from './main/main.component';
 import { ProfileComponent } from './profile/profile.component';
 
-const profileRoute: Routes = [
+const dashboardRoute: Routes = [
 	{ 
 		path		: 'dashboard/mc/:uid', 
 		component	: MainComponent,
@@ -16,22 +16,26 @@ const profileRoute: Routes = [
 			{ 
 				path 			: '',
 				loadChildren 	: () => import('./agricultor/agricultor.module').then(m => m.AgricultorModule ),
-				canActivate 	: [AuthGuard]
+				canActivate 	: [AuthGuard],
+				data 			: { preload : false }
 			},
 			{
 				path			: '',
 				loadChildren	: () => import('./editor/editor.module').then(m => m.EditorModule),
-				canActivate		: [AuthGuard]
+				canActivate		: [AuthGuard],
+				data 			: { preload : false }
 			},
 			{
 				path			: '',
 				loadChildren	: () => import('./empresas/empresas.module').then(m => m.EmpresasModule),
-				canActivate		: [AuthGuard]
+				canActivate		: [AuthGuard],
+				data 			: { preload : false }
 			},
 			{
 				path			: '',
 				loadChildren	: () => import('./administrator/administrator.module').then(m => m.AdministratorModule),
-				canActivate		: [AuthGuard]
+				canActivate		: [AuthGuard],
+				data 			: { preload : false }
 			}
 		]		
 	}	
@@ -45,7 +49,7 @@ const profileRoute: Routes = [
 	imports: [
 		CommonModule,
 		SharedModule,
-		RouterModule.forChild(profileRoute)
+		RouterModule.forChild(dashboardRoute)
 	],
 	exports: [
 		ProfileComponent
