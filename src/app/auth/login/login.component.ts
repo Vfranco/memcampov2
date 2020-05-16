@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-// import { Login } from 'src/app/models/login.model';
 import { Login } from 'src/app/interface/login.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
