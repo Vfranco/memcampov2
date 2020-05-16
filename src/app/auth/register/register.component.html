@@ -10,8 +10,7 @@
                 <h1 class="u-h3 u-text-center u-mb-zero">Registrate para Empezar</h1>
             </header>
 
-            <form #registerForm="ngForm" class="c-card__body" autocomplete="off"
-                (ngSubmit)="registerDataUser(registerForm.value)">
+            <form #registerForm="ngForm" class="c-card__body" autocomplete="off" (ngSubmit)="registerDataUser(modelRegistroUsuarios, registerForm)">
                 <div class="row">
                     <div class="col">
                         <div class="c-field u-mb-small">
@@ -39,19 +38,19 @@
                         <div class="c-field u-mb-small">
                             <label class="c-field__label" for="correo">Correo Electronico</label>
                             <input 
-                                name="correo"
-                                [(ngModel)]="modelRegistroUsuarios.correo"
-                                #correo="ngModel"
+                                name="email"
+                                [(ngModel)]="modelRegistroUsuarios.email"
+                                #email="ngModel"
                                 [ngClass]="{
-                                    'c-input--success'  : correo.valid && (correo.dirty || correo.touched),
-                                    'c-input--danger'   : correo.invalid && (correo.dirty || correo.touched)
+                                    'c-input--success'  : email.valid && (email.dirty || email.touched),
+                                    'c-input--danger'   : email.invalid && (email.dirty || email.touched)
                                 }"
                                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                 class="c-input required" 
                                 type="email" 
-                                id="correo"
+                                id="email"
                                 placeholder="clark@memoriadecampo.com" required>
-                                <small class="c-field__message u-color-danger" *ngIf="correo.invalid && (correo.dirty || correo.touched)">
+                                <small class="c-field__message u-color-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
                                     <i class="fa fa-times-circle"></i>Ingrese un correo valido
                                 </small>
                         </div>
@@ -60,7 +59,7 @@
                         <div class="c-field u-mb-small">
                             <label class="c-field__label" for="pass">Contraseña (minimo 6 caracteres)</label>
                             <input 
-                                name="pass"
+                                name="password"
                                 [(ngModel)]="modelRegistroUsuarios.password"
                                 #pass="ngModel"
                                 class="c-input required" 
@@ -78,11 +77,17 @@
                                 class="c-input required" 
                                 type="password" 
                                 id="confirm"
-                                placeholder="Confirmar Contraseña" required>                                
+                                placeholder="Confirmar Contraseña" required>
                         </div>
 
-                        <button class="c-btn c-btn--success c-btn--fullwidth u-mt-medium" type="submit"
-                            [disabled]="modelRegistroUsuarios.password != modelRegistroUsuarios.confirm || modelRegistroUsuarios.password.length < 6">{{ btnRegisterUser }}</button>
+                        <button 
+                            class="c-btn c-btn--success c-btn--fullwidth u-mt-medium" 
+                            type="submit"
+                            [disabled]="modelRegistroUsuarios.password != modelRegistroUsuarios.confirm || modelRegistroUsuarios.password.length < 6 || btnRegisterUser != 'Registrar Usuario'">{{ btnRegisterUser }}</button>
+                    </div>
+                    <div class="c-alert c-alert--{{colorStatus}} u-mt-small" *ngIf="statusRegister">
+                        <i class="c-alert__icon fa fa-times-circle"></i>
+                        {{ errorMessageRegister }}
                     </div>
                 </div>
             </form>

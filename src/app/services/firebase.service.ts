@@ -14,6 +14,11 @@ export class FirebaseService {
 
 	constructor(private firestore: AngularFirestore) { }
 
+	storeData(collection, data){
+		let obj = JSON.parse(JSON.stringify(data));
+		return this.firestore.collection(collection).add(obj);
+	}
+
 	readCollection(collection) : Observable<any>{
 		this.itemsCollection = this.firestore.collection(collection);
 

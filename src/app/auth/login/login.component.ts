@@ -37,12 +37,12 @@ export class LoginComponent implements OnInit {
 		this.auth.setRouteUser(auth.rol, auth.uid);
 	}
 
-	initLogin(frmLogin: NgForm) {
+	initLogin(frmLogin: Login) {
 		this.buttonText = 'Espere ...';
 
-		this.auth.login(frmLogin.value.email, frmLogin.value.pass).then(response => {
+		this.auth.login(frmLogin.email, frmLogin.pass).then(response => {
 			if (response) {
-				this.auth.getRolByUser(frmLogin.value.email).get().subscribe(document => {
+				this.auth.getRolByUser(frmLogin.email).get().subscribe(document => {
 					if (document.empty) {
 						this.statusLogin = true;
 						this.errorMessage = 'No tienes una cuenta Activa';
@@ -58,7 +58,6 @@ export class LoginComponent implements OnInit {
 
 		}).catch(error => {
 			this.statusLogin = true;
-			console.log(error.code);
 			this.errorMessage = firebaseErrors[error.code] || error.message;
 			this.buttonText = 'Iniciar Sesion';
 			this.removeErrorMessage();

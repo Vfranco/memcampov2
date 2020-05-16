@@ -8,6 +8,7 @@ export const environment = {
 	BASE_URL_IMG: "https://api.memoriadecampo.com",
 	ID_BASE_URL: 1,
 	API_BPA: "http://localapi.memcampo.com",
+	RESET_PASSWORD : "http://localhost:4200/reset",
 	firebase: {
 		apiKey: "AIzaSyDbLvwEUgFL4rluWlHLE5HCAr-2ZzfhAtQ",
 		authDomain: "memoria-de-campo.firebaseapp.com",

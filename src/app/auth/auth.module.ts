@@ -7,18 +7,21 @@ import { SharedModule } from '../shared/shared.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { RecoveryComponent } from './recovery/recovery.component';
+import { ResetComponent } from './reset/reset.component';
 
 const authRoute : Routes = [
 	{ path : '', component : LoginComponent },
 	{ path : 'register', component : RegisterComponent },
-	{ path : 'recovery', component : RecoveryComponent }
+	{ path : 'recovery', component : RecoveryComponent },
+	{ path : 'reset', component : ResetComponent }
 ]
 
 @NgModule({
 	declarations: [
 		LoginComponent,
 		RegisterComponent,
-		RecoveryComponent		
+		RecoveryComponent,
+		ResetComponent		
 	],
 	imports: [
 		CommonModule,
@@ -26,6 +29,6 @@ const authRoute : Routes = [
 		RouterModule.forChild(authRoute),
 		SharedModule
 	],
-	exports: []
+	exports: [ResetComponent]
 })
 export class AuthModule { }

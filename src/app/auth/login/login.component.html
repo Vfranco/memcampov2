@@ -11,7 +11,7 @@
                 <h1 class="u-h3 u-text-center u-mb-zero">Bienvenido a Memoria de Campo</h1>
             </header>
 
-            <form #frmLogin="ngForm" role="form" class="c-card__body" autocomplete="off" (ngSubmit)="initLogin(frmLogin)" novalidate>
+            <form #frmLogin="ngForm" role="form" class="c-card__body" autocomplete="off" (ngSubmit)="initLogin(frmLogin.value)" novalidate>
                 <div class="c-field u-mb-small">
                     <label class="c-field__label" for="correo">Correo Electronico</label>
                     <input
@@ -25,7 +25,7 @@
                         class="c-input"
                         #email="ngModel"                        
                         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                        placeholder="Ingresa tu correo ..." autofocus required>
+                        placeholder="Ingresa tu correo ..." required>
                         <small class="c-field__message u-color-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
                             <i class="fa fa-times-circle"></i>Ingrese un correo valido
                         </small>

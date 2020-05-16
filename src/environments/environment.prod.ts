@@ -3,7 +3,8 @@ export const environment = {
 	BASE_URL_BLOG: "https://blog.memoriadecampo.com",
 	BASE_URL_IMG: "https://api.memoriadecampo.com",
 	ID_BASE_URL: 1,
-	API_BPA: "http://localapi.memcampo.com",
+	API_BPA: "https://api.memoriadecampo.com",
+	RESET_PASSWORD : "https://memoria-de-campo.firebaseio.com/reset",
 	firebase: {
 		apiKey: "AIzaSyDbLvwEUgFL4rluWlHLE5HCAr-2ZzfhAtQ",
 		authDomain: "memoria-de-campo.firebaseapp.com",

@@ -4,6 +4,7 @@ import { collections } from 'src/app/constants/constants';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Router } from '@angular/router';
 import { LocalstorageService } from './localstorage.service';
+import { AccountRegister } from '../models/registro.model';
 
 @Injectable({
 	providedIn: 'root'
@@ -18,6 +19,15 @@ export class AuthService {
 
 	login(email, password): Promise<any> {
 		return this.firebase.auth.signInWithEmailAndPassword(email, password);
+	}
+
+	createAccountFirebase(userData:AccountRegister): Promise<any> {
+		let obj = JSON.parse(JSON.stringify(userData));
+		return this.firebase.auth.createUserWithEmailAndPassword(obj.email, obj.password);
+	}
+
+	recoveryPassword(email, urlrecovery) : Promise<any>{
+		return this.firebase.auth.sendPasswordResetEmail(email, urlrecovery);
 	}
 
 	getRolByUser(email: string) {
