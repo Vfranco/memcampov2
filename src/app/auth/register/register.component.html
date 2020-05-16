@@ -1,69 +1,97 @@
 <app-navlogin></app-navlogin>
-
 <div class="mc-logo"></div>
 <div class="o-page o-page--center mc-backgroud-color">
     <div class="o-page__card no-margin">
-
-
         <div class="c-card u-mb-xsmall card-width-450">
             <header class="c-card__header u-pt-large">
                 <a class="c-card__icon" href="#!">
-                    <img src="./assets/img/logo-agrosabanas-dashboard.svg" alt="Dashboard UI Kit">
+                    <img src="./assets/img/logo-agrosabanas-dashboard.svg" alt="Memoria de Campo">
                 </a>
                 <h1 class="u-h3 u-text-center u-mb-zero">Registrate para Empezar</h1>
             </header>
 
             <form #registerForm="ngForm" class="c-card__body" autocomplete="off"
-                (ngSubmit)="registerDataUser(registerForm)">
+                (ngSubmit)="registerDataUser(registerForm.value)">
                 <div class="row">
                     <div class="col">
                         <div class="c-field u-mb-small">
                             <label class="c-field__label" for="nombres">Nombres</label>
-                            <input name="nombres" class="c-input required" type="email" id="nombres"
-                                placeholder="Nombres">
+                            <input 
+                                name="nombres"
+                                [(ngModel)]="modelRegistroUsuarios.nombres"
+                                #nombres="ngModel"
+                                class="c-input required" 
+                                type="email" id="nombres"
+                                placeholder="Nombres" required>
                         </div>
 
                         <div class="c-field u-mb-small">
                             <label class="c-field__label" for="apellidos">Apellidos</label>
-                            <input name="apellidos" class="c-input required" type="email" id="apellidos"
-                                placeholder="Apellidos">
+                            <input 
+                                name="apellidos"
+                                [(ngModel)]="modelRegistroUsuarios.apellidos"
+                                #apellidos="ngModel"
+                                class="c-input required" 
+                                type="email" 
+                                id="apellidos"
+                                placeholder="Apellidos" required>
                         </div>
                         <div class="c-field u-mb-small">
                             <label class="c-field__label" for="correo">Correo Electronico</label>
-                            <input name="correo" class="c-input required" type="email" id="correo"
-                                placeholder="clark@dashboard.com">
+                            <input 
+                                name="correo"
+                                [(ngModel)]="modelRegistroUsuarios.correo"
+                                #correo="ngModel"
+                                [ngClass]="{
+                                    'c-input--success'  : correo.valid && (correo.dirty || correo.touched),
+                                    'c-input--danger'   : correo.invalid && (correo.dirty || correo.touched)
+                                }"
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                class="c-input required" 
+                                type="email" 
+                                id="correo"
+                                placeholder="clark@memoriadecampo.com" required>
+                                <small class="c-field__message u-color-danger" *ngIf="correo.invalid && (correo.dirty || correo.touched)">
+                                    <i class="fa fa-times-circle"></i>Ingrese un correo valido
+                                </small>
                         </div>
                     </div>
                     <div class="col">
                         <div class="c-field u-mb-small">
-                            <label class="c-field__label" for="pass">Contraseña</label>
-                            <input name="pass" class="c-input required" type="password" id="pass"
-                                placeholder="Una contraseña segura">
+                            <label class="c-field__label" for="pass">Contraseña (minimo 6 caracteres)</label>
+                            <input 
+                                name="pass"
+                                [(ngModel)]="modelRegistroUsuarios.password"
+                                #pass="ngModel"
+                                class="c-input required" 
+                                type="password" 
+                                id="pass"
+                                placeholder="Una contraseña segura" required>
                         </div>
 
                         <div class="c-field u-mb-small">
-                            <label class="c-field__label" for="confirm">confirmr Contraseña</label>
-                            <input name="confirm" class="c-input required" type="password" id="confirm"
-                                placeholder="Confirmar Contraseña">
+                            <label class="c-field__label" for="confirm">Confirmar Contraseña</label>
+                            <input 
+                                name="confirm"
+                                [(ngModel)]="modelRegistroUsuarios.confirm"
+                                #confirm="ngModel" 
+                                class="c-input required" 
+                                type="password" 
+                                id="confirm"
+                                placeholder="Confirmar Contraseña" required>                                
                         </div>
 
                         <button class="c-btn c-btn--success c-btn--fullwidth u-mt-medium" type="submit"
-                            [disabled]="password != confirm">{{ btnRegisterUser }}</button>
+                            [disabled]="modelRegistroUsuarios.password != modelRegistroUsuarios.confirm || modelRegistroUsuarios.password.length < 6">{{ btnRegisterUser }}</button>
                     </div>
                 </div>
             </form>
-            
         </div>
         <div class="o-line card-width-450">
             <a class="u-text-mute u-text-small u-color-white" [routerLink]="['/']" title="Login">
                 <i class="fa fa-long-arrow-left u-mr-xsmall"></i> Ya tienes una cuenta ?, entra entonces
             </a>
         </div>
-
-        
-
     </div>
-
 </div>
-
 <app-footer></app-footer>

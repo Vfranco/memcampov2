@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Registrate } from 'src/app/models/registro.model';
 
 @Component({
 	selector: 'app-register',
@@ -8,20 +9,20 @@ import { NgForm } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
 
+	modelRegistroUsuarios : Registrate = new Registrate;
+
 	statusRegister : boolean = false;
 	statusMessagePassword :boolean = false;
 	errorMessageRegister: string = '';
 	colorStatus: string = '';
 	btnRegisterUser: string = 'Registrar Usuario';
-	password: string = '';
-	confirm: string = '';
 
 	constructor() { }
 
 	ngOnInit() {
 	}
 
-	registerDataUser(userData: NgForm){
+	registerDataUser(userData: Registrate){
 		console.log(userData);
 	}
 }
