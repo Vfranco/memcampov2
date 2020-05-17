@@ -1,0 +1,73 @@
+<div class="c-modal c-modal--xlarge modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="modal2"
+    data-backdrop="static">
+    <div class="c-modal__dialog modal-dialog" role="document">
+        <div class="c-modal__content">
+
+            <div class="c-modal__header">
+                <h3 class="c-modal__title">Crear una nueva Fase</h3>
+                <span class="c-modal__close" data-dismiss="modal" aria-label="Close">
+                    <i class="fa fa-close"></i>
+                </span>
+            </div>
+
+            <div class="c-modal__body">
+                <form id="frm-crear-fase" action="javascript:" autocomplete="off">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class=" c-field u-mb-small ">
+                                <label class="c-field__label" for="nombre_actividad ">Nombre de la Fase</label>
+                                <input class="c-input required" placeholder="Ejemplo: Germinacion" name="nombreFase"
+                                    id="nombreCrearFase" type="text" value="">
+                            </div>
+                            <div class="c-field u-mb-small ">
+                                <select id="crearFaseHabilitar" class="c-input c-combobox required">
+                                    <option value="" selected>Seleccioner estado de Fase</option>
+                                    <option value="1">true</option>
+                                    <option value="2">false</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="c-field u-mb-small ">
+                                <label class="c-field__label u-text-center">Duracion en dias de la Fase</label>
+                                <input class="c-input required" placeholder="Inicio de la etapa" id="inicioCrearFase"
+                                    type="number">
+                                <input class="c-input required u-mt-small" placeholder="Fin de la etapa"
+                                    id="finCrearFase" type="number">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <label class="c-field__label u-text-center">Duracion de la etapa segun libros:</label>
+                            <textarea class="c-input u-height-100 required" id="creaRangoDiasLiteratura"
+                                placeholder="Ejemplo: La etapa de germinacion de este cultivo varia de 3 a 5 días dependiendo de la literatura."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row u-mt-small">
+                        <div class="col-12">
+                            <label class="c-field__label">Escriba algunos detalles de esta etapa.</label>
+                            <textarea class="c-input required" id="crearDetalleFase"
+                                placeholder="Ejemplo: En la etapa de germinacion la semilla empieza a crecer."></textarea>
+                        </div>
+                    </div>
+                    <div class="row u-mt-small">
+                        <div class="col-12">
+                            <label class="c-field__label">Escriba algunas sugerencias para esta etapa.</label>
+                            <textarea class="c-input required" id="crearSugerenciasFase"
+                                placeholder="Ejemplo: Se sugiere que para esta estapa se apliquen en el suelo algunos abonos para fortalecer el crecimiento de la semilla."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row u-mt-small">
+                        <div class="col-12" style="text-align: center;">
+                            <button class="c-btn c-btn--info" style="width: 50%;">
+                                {{ buttomText }}
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
