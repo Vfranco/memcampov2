@@ -26,10 +26,38 @@ export class FirebaseService {
 			map(col => {
 				return col.map(document => {
 					const data = document.payload.doc.data();
-					data['id'] = document.payload.doc.id;
+					data['idDocument'] = document.payload.doc.id;
 
 					return data;
 				})
+			})
+		);
+	}
+
+	readCollectionByUserId(collection, uid) : Observable<any> {
+		this.itemsCollection = this.firestore.collection(collection, ref => ref.where('id_usuario', '==', uid));
+
+		return this.itemsCollection.snapshotChanges().pipe(
+			map(col => {
+				return col.map(document => {
+					const data = document.payload.doc.data();
+					data['idDocument'] = document.payload.doc.id;
+					return data;
+				});
+			})
+		);
+	}
+
+	readCollectionWhere(collection, field, expression, value) : Observable<any> {
+		this.itemsCollection = this.firestore.collection(collection, ref => ref.where(field, expression, value));
+
+		return this.itemsCollection.snapshotChanges().pipe(
+			map(col => {
+				return col.map(document => {
+					const data = document.payload.doc.data();
+					data['idDocument'] = document.payload.doc.id;
+					return data;
+				});
 			})
 		);
 	}

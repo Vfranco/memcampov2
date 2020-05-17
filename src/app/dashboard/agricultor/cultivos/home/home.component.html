@@ -1,0 +1,28 @@
+<!-- preload Data -->
+<div class="row" *ngIf="preloadData">
+    <div class="col-4">
+        <app-loader [showLoader]="preloadData"></app-loader>
+    </div>
+    <div class="col-4">
+        <app-loader [showLoader]="preloadData"></app-loader>
+    </div>
+    <div class="col-4">
+        <app-loader [showLoader]="preloadData"></app-loader>
+    </div>
+</div>
+<!-- end preload Data -->
+
+<div class="row u-m-small" *ngIf="preloadData == false && cultivosData.length == 0; else records;">
+    <div class="col-lg-12 u-text-center">
+        <img class="u-mt-logo" src="./assets/img/logo-agrosabanas.svg" height="100px" width="100px">
+        <label class="c-field__label"><strong>Memoria de Campo y BPA (Buenas Practicas Agricolas)</strong></label>
+        <button class="c-btn c-btn--success" data-toggle="modal" data-target="#modalCreateCultivo">Crear mi primer Cultivo</button>
+    </div>
+</div>
+<ng-template #records>
+    <div class="row">
+        <div class="col">
+            <pre>{{cultivosData | json}}</pre>
+        </div>
+    </div>
+</ng-template>

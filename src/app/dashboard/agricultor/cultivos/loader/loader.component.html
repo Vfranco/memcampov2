@@ -1,0 +1,18 @@
+<div *ngIf="showLoader">
+    <div class="c-project-card u-mb-medium">
+        <div class="c-graph-card__chart u-p-zero">
+            <ngx-skeleton-loader appearance="square" [theme]="{ width: '100%', height: '240px', 'border-radius': '2px'}"></ngx-skeleton-loader>
+        </div>
+        <div class="c-project-card__content">
+            <div class="c-project-card__head">
+                <ngx-skeleton-loader appearance="square" [theme]="{ width: '70px' }"></ngx-skeleton-loader>
+                <p class="c-project-card__info"><ngx-skeleton-loader appearance="square" [theme]="{ width: '100px' }"></ngx-skeleton-loader></p>
+            </div>
+            <div class="c-project-card__meta">
+                <p><ngx-skeleton-loader appearance="square" [theme]="{ width: '70px' }"></ngx-skeleton-loader></p>
+                <p><ngx-skeleton-loader appearance="square" [theme]="{ width: '70px' }"></ngx-skeleton-loader></p>
+                <p><ngx-skeleton-loader appearance="square" [theme]="{ width: '70px' }"></ngx-skeleton-loader></p>
+            </div>            
+        </div>
+    </div>
+</div>
