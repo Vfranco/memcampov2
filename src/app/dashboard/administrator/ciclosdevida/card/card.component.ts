@@ -10,7 +10,7 @@ export class CardComponent implements OnInit {
 
 	uid: string = "";
 	id: string  = "1";
-
+	
 	constructor(private activedRoute: ActivatedRoute, private router: Router) {
 		activedRoute.parent.params.subscribe(data => this.uid = data.uid);
 	}

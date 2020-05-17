@@ -11,6 +11,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { SearchoptionsComponent } from './searchoptions/searchoptions.component';
 import { CardLoaderComponent } from './card-loader/card-loader.component';
+import { CardDetailsLoaderComponent } from './card-details-loader/card-details-loader.component';
+import { CardDetailsImageLoaderComponent } from './card-details-image-loader/card-details-image-loader.component';
+import { TableLoaderComponent } from './table-loader/table-loader.component';
 
 @NgModule({
 	declarations: [
@@ -21,7 +24,10 @@ import { CardLoaderComponent } from './card-loader/card-loader.component';
 		SidebarComponent,
 		ToolbarComponent,
 		SearchoptionsComponent,
-		CardLoaderComponent
+		CardLoaderComponent,
+		CardDetailsLoaderComponent,
+		CardDetailsImageLoaderComponent,
+		TableLoaderComponent
 	],
 	imports: [
 		CommonModule,
@@ -29,14 +35,17 @@ import { CardLoaderComponent } from './card-loader/card-loader.component';
 		NgxSkeletonLoaderModule
 	],
 	exports: [
-		TopComponent, 
-		MenuComponent, 
+		TopComponent,
+		MenuComponent,
 		NavloginComponent,
-		FooterComponent, 
+		FooterComponent,
 		SidebarComponent,
 		ToolbarComponent,
 		SearchoptionsComponent,
-		CardLoaderComponent
+		CardLoaderComponent,
+		CardDetailsLoaderComponent,
+		CardDetailsImageLoaderComponent,
+		TableLoaderComponent
 	]
 })
 export class SharedModule { }

@@ -1,5 +1,20 @@
+<!-- preload Data -->
+<div class="row" *ngIf="preloadData">
+    <div class="col-4">        
+        <app-card-loader [showLoader]="preloadData"></app-card-loader>
+    </div>
+    <div class="col-4">
+        <app-card-loader [showLoader]="preloadData"></app-card-loader>
+    </div>
+    <div class="col-4">
+        <app-card-loader [showLoader]="preloadData"></app-card-loader>
+    </div>
+</div>
+<!-- end preload Data -->
+
+
 <!-- card -->
-<div class="row">
+<div class="row" *ngIf="!preloadData">
 	<div class="col-xl-4">
 		<app-card></app-card>
 	</div>
