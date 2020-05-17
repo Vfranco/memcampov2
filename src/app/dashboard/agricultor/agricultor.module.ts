@@ -12,13 +12,13 @@ const agricultorRoute : Routes = [
 
 @NgModule({
 	declarations: [		
-		
-		FincasComponent
+		FincasComponent,
 	],
 	imports: [
 		CommonModule,
 		SharedModule,
 		RouterModule.forChild(agricultorRoute)
-	]	
+	],
+	exports: []	
 })
 export class AgricultorModule { }

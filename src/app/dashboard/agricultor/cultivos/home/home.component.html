@@ -1,18 +1,4 @@
-<!-- preload Data -->
-<div class="row" *ngIf="preloadData">
-    <div class="col-4">        
-        <app-card-loader [showLoader]="preloadData"></app-card-loader>
-    </div>
-    <div class="col-4">
-        <app-card-loader [showLoader]="preloadData"></app-card-loader>
-    </div>
-    <div class="col-4">
-        <app-card-loader [showLoader]="preloadData"></app-card-loader>
-    </div>
-</div>
-<!-- end preload Data -->
-
-<div class="row u-m-small" *ngIf="preloadData == false && cultivosData.length == 0; else records;">
+<div class="row u-m-small" *ngIf="preloadData == false && cultivosCollections.length == 0; else records;">
     <div class="col-lg-12 u-text-center">
         <img class="u-mt-logo" src="./assets/img/logo-agrosabanas.svg" height="100px" width="100px">
         <label class="c-field__label"><strong>Memoria de Campo y BPA (Buenas Practicas Agricolas)</strong></label>
@@ -22,7 +8,7 @@
 <ng-template #records>
     <div class="row">
         <div class="col">
-            <pre>{{cultivosData | json}}</pre>
+            <app-resumen [showLoader]="preloadData" [data]="cultivosCollections"></app-resumen>
         </div>
     </div>
 </ng-template>
