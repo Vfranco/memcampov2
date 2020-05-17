@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 import { TopComponent } from './top/top.component';
 import { MenuComponent } from './menu/menu.component';
@@ -9,6 +10,7 @@ import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { SearchoptionsComponent } from './searchoptions/searchoptions.component';
+import { CardLoaderComponent } from './card-loader/card-loader.component';
 
 @NgModule({
 	declarations: [
@@ -18,11 +20,13 @@ import { SearchoptionsComponent } from './searchoptions/searchoptions.component'
 		FooterComponent,
 		SidebarComponent,
 		ToolbarComponent,
-		SearchoptionsComponent
+		SearchoptionsComponent,
+		CardLoaderComponent
 	],
 	imports: [
 		CommonModule,
-		RouterModule
+		RouterModule,
+		NgxSkeletonLoaderModule
 	],
 	exports: [
 		TopComponent, 
@@ -31,7 +35,8 @@ import { SearchoptionsComponent } from './searchoptions/searchoptions.component'
 		FooterComponent, 
 		SidebarComponent,
 		ToolbarComponent,
-		SearchoptionsComponent
+		SearchoptionsComponent,
+		CardLoaderComponent
 	]
 })
 export class SharedModule { }

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 import { FincasComponent } from './fincas/fincas.component';
 
@@ -19,8 +18,7 @@ const agricultorRoute : Routes = [
 	imports: [
 		CommonModule,
 		SharedModule,
-		RouterModule.forChild(agricultorRoute),
-		NgxSkeletonLoaderModule
+		RouterModule.forChild(agricultorRoute)
 	]	
 })
 export class AgricultorModule { }
