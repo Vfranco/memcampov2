@@ -1,26 +1,43 @@
-<div class="c-toolbar u-mb-medium">
-    <h3 class="c-toolbar__title has-divider">Gestiona tus Cultivos</h3>
-    <h5 class="c-toolbar__meta u-mr-auto">Dashboard</h5>
-
-    <div class="c-choice c-choice--radio u-mt-small u-mr-small">
-        <input class="c-choice__input" id="tipo" name="radios" type="radio">
-        <label class="c-choice__label" for="tipo">Tipo</label>
+<app-toolbar-loader [rol]="rol"></app-toolbar-loader>
+<div [ngSwitch]="rol">
+    <div class="c-toolbar u-mb-medium" *ngSwitchCase="'0'">
+        <h3 class="c-toolbar__title has-divider">Gestiona</h3>
+        <h5 class="c-toolbar__meta u-mr-auto">Dashboard</h5>
+       
+        <button type="button" class="c-btn c-btn--success u-ml-small" data-toggle="modal" data-target="#onBoardModal">
+            Crear Cultivo
+        </button>
     </div>
-    <div class="c-choice c-choice--radio u-mt-small u-mr-small">
-        <input class="c-choice__input" id="nombre" name="radios" type="radio">
-        <label class="c-choice__label" for="nombre">Nombre</label>
-    </div>
+    <div class="c-toolbar u-mb-medium" *ngSwitchCase="'2'">
+        <h3 class="c-toolbar__title has-divider">Gestiona tus Cultivos</h3>
+        <h5 class="c-toolbar__meta u-mr-auto">Dashboard</h5>
 
-    <div class="c-field c-field--inline has-icon-right u-hidden-down@tablet">
-        <label for="search-projects" class="u-visually-hidden"></label>
-        <input class="c-input" id="search-projects" type="text" placeholder="Buscar por ">
-        <span class="c-field__icon">
-            <i class="fa fa-search"></i>
-        </span>
-    </div>
+        <div class="c-choice c-choice--radio u-mt-small u-mr-small">
+            <input class="c-choice__input" id="tipo" name="radios" type="radio">
+            <label class="c-choice__label" for="tipo">Tipo</label>
+        </div>
+        <div class="c-choice c-choice--radio u-mt-small u-mr-small">
+            <input class="c-choice__input" id="nombre" name="radios" type="radio">
+            <label class="c-choice__label" for="nombre">Nombre</label>
+        </div>
 
-    <!-- Button trigger modal -->
-    <button type="button" class="c-btn c-btn--success u-ml-small" data-toggle="modal" data-target="#onBoardModal">
-        Crear Cultivo
-    </button>
+        <div class="c-field c-field--inline has-icon-right u-hidden-down@tablet">
+            <label for="search-projects" class="u-visually-hidden"></label>
+            <input class="c-input" id="search-projects" type="text" placeholder="Buscar por ">
+            <span class="c-field__icon">
+                <i class="fa fa-search"></i>
+            </span>
+        </div>
+        <button type="button" class="c-btn c-btn--success u-ml-small" data-toggle="modal" data-target="#modalCreateCultivo">
+            Crear Cultivo
+        </button>
+    </div>
+    <div class="c-toolbar u-mb-medium" *ngSwitchCase="'3'">
+        <h3 class="c-toolbar__title has-divider">Gestiona</h3>
+        <h5 class="c-toolbar__meta u-mr-auto">Dashboard</h5>
+                
+        <button type="button" class="c-btn c-btn--success u-ml-small" data-toggle="modal" data-target="#onBoardModal">
+            Crear Cultivo
+        </button>
+    </div>
 </div>

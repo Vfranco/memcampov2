@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
@@ -40,7 +40,6 @@ export class SidebarComponent implements OnInit {
 		switch(rol){
 
 			case '0':
-				console.log(menu);				
 				this.titleMenu = menu[0].adminMenu[0].main;
 				this.menuOptions = menu[0].adminMenu[0].options;
 				this.menuAdministrador = menu[0].adminMenu[1].options;
@@ -53,8 +52,7 @@ export class SidebarComponent implements OnInit {
 				this.loadingSideBar = false;
 			break;
 
-			case '3':
-				console.log(menu);				
+			case '3':			
 				this.titleMenu = menu[0].editMenu[0].main;
 				this.menuOptions = menu[0].editMenu[0].options;
 				this.loadingSideBar = false;

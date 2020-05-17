@@ -11,7 +11,7 @@ import { collections } from 'src/app/constants/constants';
 export class HomeComponent implements OnInit {
 
 	preloadData :boolean = false;
-	cultivosData : any = [];
+	cultivosCollections : any = [];
 
 	constructor(private firestore: FirebaseService, private route: ActivatedRoute) { }
 
@@ -25,7 +25,8 @@ export class HomeComponent implements OnInit {
 		this.preloadData = true;
 
 		this.firestore.readCollectionByUserId(collections.CULTIVOS, uid).subscribe(data => {
-			//this.cultivosData = data;
+			console.log(data);
+			this.cultivosCollections = data;			
 			this.preloadData = false;
 		});		
 	}
