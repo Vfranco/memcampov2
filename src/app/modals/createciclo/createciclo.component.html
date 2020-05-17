@@ -1,0 +1,45 @@
+<!-- Modal -->
+<div class="c-modal c-modal--large modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="modal1">
+	<div class="c-modal__dialog modal-dialog" role="document">
+		<div class="c-modal__content">
+			<div class="c-modal__header">
+				<h3 class="c-modal__title">Crear ciclo de vida</h3>
+				<span class="c-modal__close" data-dismiss="modal" aria-label="Close">
+					<i class="fa fa-close"></i>
+				</span>
+			</div>
+			<div class="c-modal__body">
+				<div class="c-field u-mb-xsmall">
+					<label class="c-field__label" for="select12">Nombre</label>
+					<input class="c-input" type="email" placeholder="Ciclo de vida ...">
+				</div>
+				<div class="c-field u-mb-xsmall" data-select2-id="33">
+					<label class="c-field__label" for="select12">Tipo de cultivo</label>
+					<select class="c-input c-combobox" id="select14" data-select2-id="select14" tabindex="-1"
+						aria-hidden="true">
+						<option data-select2-id="12">Twitter</option>
+						<option data-select2-id="34">Facebook</option>
+						<option data-select2-id="35">Google</option>
+					</select>
+				</div>
+				<div class="c-field u-mb-small">
+					<label class="c-field__label" for="select12">Descripcion</label>
+					<textarea class="c-input" type="text" placeholder="Numbers, Captial & Small letters"></textarea>
+				</div>
+				<form action="/file-upload" class="dropzone u-mb-small dz-clickable" id="modal-dropzone"
+					style="height: 180px;">
+					<div class="dz-message" data-dz-message="">
+						<i class="dz-icon fa fa-cloud-upload"></i>
+						<span>Insertar imagen.</span>
+					</div>
+					<div class="fallback" style="display: none;">
+						<input name="file" type="file">
+					</div>
+				</form>
+				<a class="c-btn c-btn--success c-btn--fullwidth">
+					{{ buttomText }}
+				</a>
+			</div>
+		</div><!-- // .c-modal__content -->
+	</div><!-- // .c-modal__dialog -->
+</div><!-- // .c-modal -->

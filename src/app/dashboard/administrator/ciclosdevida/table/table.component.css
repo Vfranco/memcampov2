@@ -1,0 +1,27 @@
+.table {
+    overflow: auto;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+
+.table::-webkit-scrollbar {
+    width: 8px;     /* Tamaño del scroll en vertical */
+    height: 8px;    /* Tamaño del scroll en horizontal */
+}
+
+.table::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.parrafo {
+    white-space: nowrap;
+    overflow: hidden;
+    width: 150px;
+    text-overflow: ellipsis;
+}
+
+.c-field__addon {
+    color: black;
+}
