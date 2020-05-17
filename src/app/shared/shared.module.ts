@@ -31,7 +31,7 @@ import { ToolbarLoaderComponent } from './toolbar-loader/toolbar-loader.componen
 		CardLoaderComponent,
 		CardDetailsLoaderComponent,
 		CardDetailsImageLoaderComponent,
-		TableLoaderComponent
+		TableLoaderComponent,
 		ToolbarLoaderComponent
 	],
 	imports: [
@@ -50,7 +50,7 @@ import { ToolbarLoaderComponent } from './toolbar-loader/toolbar-loader.componen
 		CardLoaderComponent,
 		CardDetailsLoaderComponent,
 		CardDetailsImageLoaderComponent,
-		TableLoaderComponent
+		TableLoaderComponent,
 		ToolbarLoaderComponent
 	]
 })
