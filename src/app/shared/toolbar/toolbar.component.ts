@@ -14,8 +14,8 @@ export class ToolbarComponent implements OnInit {
 
 	ngOnInit() {
 		setTimeout(() => {
-			this.rol = this.user.getRolUser()
-		}, 1000);		
+			this.rol = this.user.getRolUser();
+		}, 1000);	
 	}
 
 }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PipesModule } from 'src/app/pipes/pipes.module';
+import { ModalsModule } from 'src/app/modals/modals.module';
 
 import { HomeComponent } from './home/home.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -17,7 +18,8 @@ const cultivosRoute : Routes = [
 		CommonModule,
 		RouterModule.forChild(cultivosRoute),
 		SharedModule,
-		PipesModule
+		PipesModule,
+		ModalsModule
 	]
 })
 export class CultivosModule { }

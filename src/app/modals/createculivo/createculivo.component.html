@@ -1,0 +1,62 @@
+<div class="c-modal c-modal--xlarge modal fade modalFocusInput" id="modalCreateCultivo" tabindex="-1" role="dialog"
+    aria-labelledby="modalCreateCultivo" data-backdrop="static">
+    <div class="c-modal__dialog modal-dialog" role="document">
+        <div class="modal-content">
+            <header class="c-modal__header">
+                <h1 class="c-modal__title">Registra tu Cultivo</h1>
+                <span class="c-modal__close" data-dismiss="modal" aria-label="Close">
+                    <i class="fa fa-close"></i>
+                </span>
+            </header>
+            <!--pasos-->
+            <div class="u-overflow-x-auto u-width-100">
+                <div class="c-modal__subheader" style="width:750px;">
+                    <nav class="c-counter-nav c-counter-nav--inverse">
+                        <p class="c-counter-nav__title">Pasos: </p>
+                        <div class="c-counter-nav__item">
+                            <a class="c-counter-nav__link" [ngClass]="{'is-active':currentView == 0}"
+                                href="javascript:">
+                                <div *ngIf="currentView == 0">
+                                    <span class="c-counter-nav__counter">1</span>Registra Finca
+                                </div>
+                                <div *ngIf="currentView != 0">
+                                    <span class="c-counter-nav__counter"><i class="fa fa-check"></i></span>Registra Finca
+                                </div>
+                            </a>
+                        </div>
+                        <div class="c-counter-nav__item">
+                            <a class="c-counter-nav__link" [ngClass]="{'is-active':currentView == 1}" href="javascript:">
+                                <div *ngIf="currentView == 1">
+                                    <span class="c-counter-nav__counter">2</span>Crea tu Lote
+                                </div>
+                                <div *ngIf="currentView != 1">
+                                    <span class="c-counter-nav__counter"><i class="fa fa-check"></i></span>Crea tu Lote
+                                </div>
+                            </a>
+                        </div>
+                        <div class="c-counter-nav__item">
+                            <a class="c-counter-nav__link" [ngClass]="{'is-active':currentView == 2}" href="javascript:">
+                                <div *ngIf="currentView == 2">
+                                    <span class="c-counter-nav__counter">3</span>Datos de tu Cultivo
+                                </div>
+                                <div *ngIf="currentView != 2">
+                                    <span class="c-counter-nav__counter"><i class="fa fa-check"></i></span>Datos de tu Cultivo
+                                </div>
+                            </a>
+                        </div>
+                        <div class="c-counter-nav__item">
+                            <a class="c-counter-nav__link" [ngClass]="{'is-active':currentView == 3}" href="javascript:">
+                                <div *ngIf="currentView == 3">
+                                    <span class="c-counter-nav__counter">4</span>Finalizar
+                                </div>
+                                <div *ngIf="currentView != 3">
+                                    <span class="c-counter-nav__counter"><i class="fa fa-check"></i></span>Finalizar
+                                </div>
+                            </a>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
