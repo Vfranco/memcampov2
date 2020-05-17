@@ -11,6 +11,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { SearchoptionsComponent } from './searchoptions/searchoptions.component';
 import { CardLoaderComponent } from './card-loader/card-loader.component';
+import { ToolbarLoaderComponent } from './toolbar-loader/toolbar-loader.component';
 
 @NgModule({
 	declarations: [
@@ -21,7 +22,8 @@ import { CardLoaderComponent } from './card-loader/card-loader.component';
 		SidebarComponent,
 		ToolbarComponent,
 		SearchoptionsComponent,
-		CardLoaderComponent
+		CardLoaderComponent,
+		ToolbarLoaderComponent
 	],
 	imports: [
 		CommonModule,
@@ -36,7 +38,8 @@ import { CardLoaderComponent } from './card-loader/card-loader.component';
 		SidebarComponent,
 		ToolbarComponent,
 		SearchoptionsComponent,
-		CardLoaderComponent
+		CardLoaderComponent,
+		ToolbarLoaderComponent
 	]
 })
 export class SharedModule { }

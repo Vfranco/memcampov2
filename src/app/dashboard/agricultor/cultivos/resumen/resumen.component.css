@@ -1,0 +1,13 @@
+.ended {
+    position: absolute;
+    width: 100%;
+    height: 240px;
+    background: #ccc;
+    opacity: 0.6;
+   
+}
+
+.img-black-white {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+}

@@ -8,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 export class MainComponent implements OnInit {
 
 	menuOptions: any = [];
+	userrol:number;
 
 	constructor() { }
 
 	ngOnInit() {
+	}
+
+	rol(event){
+		this.userrol = event;
 	}
 }
