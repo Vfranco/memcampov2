@@ -1,0 +1,13 @@
+.text-area {
+    min-height: 63px;
+}
+
+.text-area::-webkit-scrollbar {
+    width: 8px;     /* Tamaño del scroll en vertical */
+    height: 8px;    /* Tamaño del scroll en horizontal */
+}
+
+.text-area::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}

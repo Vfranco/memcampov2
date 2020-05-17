@@ -1,4 +1,4 @@
-<div class="c-modal c-modal--xlarge modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="modal2"
+<!-- <div class="c-modal c-modal--xlarge modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="modal2"
     data-backdrop="static">
     <div class="c-modal__dialog modal-dialog" role="document">
         <div class="c-modal__content">
@@ -70,4 +70,68 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
+
+<!-- Modal -->
+<div class="c-modal c-modal--large modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="modal2"
+    data-backdrop="static">
+    <div class="c-modal__dialog modal-dialog" role="document">
+        <div class="c-modal__content">
+            <div class="c-modal__header">
+                <h3 class="c-modal__title">Agregar Fase</h3>
+                <span class="c-modal__close" data-dismiss="modal" aria-label="Close">
+                    <i class="fa fa-close"></i>
+                </span>
+            </div>
+            <div class="c-modal__body">
+                <div class="c-field u-mb-xsmall">
+                    <label class="c-field__label" for="select12">Nombre</label>
+                    <input class="c-input" type="text">
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="c-field u-mb-xsmall">
+                            <label class="c-field__label">Estado de la fase</label>
+                            <select class="c-input c-combobox">
+                                <option>Habilitar</option>
+                                <option>Deshabilitar</option>
+                            </select>
+                        </div>
+                    </div> <!-- end col -->
+
+                    <div class="col-3">
+                        <div class="c-field u-mb-xsmall">
+                            <label class="c-field__label" for="select12">Inicio de la fase</label>
+                            <input class="c-input" type="number">
+                        </div>
+                    </div> <!-- end col -->
+
+                    <div class="col-3">
+                        <div class="c-field u-mb-xsmall">
+                            <label class="c-field__label" for="select12">Fin de la fase</label>
+                            <input class="c-input" type="number">
+                        </div>
+                    </div> <!-- end col -->
+                </div>
+                <div class="c-field u-mb-small">
+                    <label class="c-field__label" for="select12">Fase segun los libros</label>
+                    <textarea class="c-input text-area" type="text"></textarea>
+                </div>
+
+                <div class="c-field u-mb-small">
+                    <label class="c-field__label" for="select12">Detalles de la fase</label>
+                    <textarea class="c-input text-area" type="text"></textarea>
+                </div>
+                
+                <div class="c-field u-mb-small">
+                    <label class="c-field__label" for="select12">Sugerencias</label>
+                    <textarea class="c-input text-area" type="text"></textarea>
+                </div>
+
+                <a class="c-btn c-btn--success c-btn--fullwidth" href="#">
+                    {{ buttomText }}
+                </a>
+            </div>
+        </div><!-- // .c-modal__content -->
+    </div><!-- // .c-modal__dialog -->
+</div><!-- // .c-modal -->
