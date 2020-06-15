@@ -1,5 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { Ciclo } from './../../../../interface/Ciclo.interface';
 
 @Component({
 	selector: 'app-card',
@@ -8,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CardComponent implements OnInit {
 
+	@Input() ciclo: Ciclo;
 	uid: string = "";
 	id: string  = "1";
 	

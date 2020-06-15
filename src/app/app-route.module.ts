@@ -6,6 +6,8 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+
 import { QuicklinkModule, QuicklinkStrategy } from 'ngx-quicklink';
 
 import { environment } from 'src/environments/environment';
@@ -28,7 +30,8 @@ const appRoute: Routes = [
 		}),
 		AngularFireModule.initializeApp(environment.firebase),
 		AngularFirestoreModule,
-		AngularFireAuthModule
+		AngularFireAuthModule,
+		AngularFireStorageModule
 	],
 	exports : [RouterModule]
 })

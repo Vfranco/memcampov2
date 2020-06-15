@@ -1,3 +1,4 @@
+import { CiclosService } from './../../../../services/ciclos.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,15 +9,21 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
 
 	preloadData: boolean = false;
+	ciclos: string[] = [];
 
-	constructor() {
-		this.preloadData = true;
-		setTimeout(() => {
-			this.preloadData = false;
-		}, 1000);
+	constructor(private ciclosService: CiclosService) {
+		this.getCiclos();
 	}
 
 	ngOnInit() {
+	}
+
+	getCiclos() {
+		this.preloadData = true;
+		this.ciclosService.getCiclos().subscribe(data => {
+			this.ciclos = data;
+			this.preloadData = false;
+		});
 	}
 
 }
