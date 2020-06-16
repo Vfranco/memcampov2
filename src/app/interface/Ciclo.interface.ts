@@ -1,4 +1,5 @@
 export interface Ciclo {
+	id?: string,
 	descripcion: string,
 	fases: string[],
 	id_tipo_cultivo: string,

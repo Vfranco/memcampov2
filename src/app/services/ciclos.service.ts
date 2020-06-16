@@ -19,14 +19,20 @@ export class CiclosService {
 		return this.db.collection(collections.CICLOS_DE_VIDA).snapshotChanges().pipe(map((data: any) => {
 			let ciclos: string[] = [];
 			data.forEach(element => {
-				ciclos.push(element.payload.doc.data());
+				let data = element.payload.doc.data();
+				data['id'] = element.payload.doc.id; 
+				ciclos.push(data);
 			});
 			return ciclos;
 		}));
 	}
 
-	createCiclo(collection, formData) {
-		return this.db.collection(collection).add(formData);
+	createCiclo(formData) {
+		return this.db.collection(collections.CICLOS_DE_VIDA).add(formData);
+	}
+
+	deleteCiclo(id: string) {
+		return this.db.collection(collections.CICLOS_DE_VIDA).doc(id).delete();
 	}
 
 	// Metodos para manejar el Storage.
