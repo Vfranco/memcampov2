@@ -16,7 +16,6 @@ export class CardComponent implements OnInit {
 
 	@Input() ciclo: Ciclo;
 	uid: string = "";
-	param: string  = "1";
 	
 	constructor(
 		private activedRoute: ActivatedRoute,
@@ -61,7 +60,7 @@ export class CardComponent implements OnInit {
 	}
 
 	details() {
-		this.router.navigate([`/dashboard/mc/${this.uid}/details/${this.param}`]);
+		this.router.navigate([`/dashboard/mc/${this.uid}/details/${this.ciclo.id}`]);
 	}
 
 }

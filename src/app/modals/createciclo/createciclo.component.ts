@@ -1,8 +1,7 @@
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
-import { collections } from './../../constants/constants';
 import { TipoCultivo } from 'src/app/interface/tipocultivo.interface';
 import { Ciclo } from './../../interface/Ciclo.interface';
 
@@ -10,6 +9,7 @@ import { CiclosService } from './../../services/ciclos.service';
 import { TiposcultivoService } from './../../services/tiposcultivo.service';
 
 import Swal from 'sweetalert2';
+import { IfStmt } from '@angular/compiler';
 declare var $: any;
 
 @Component({
@@ -19,12 +19,13 @@ declare var $: any;
 })
 export class CreatecicloComponent implements OnInit {
 
-	id: string 					= "";
-	tiposCultivo: TipoCultivo;
-	fileSeleted: File;
-	nameFile: string 			= "";
-	imagesSelected: string[]	= [];
-	cicloVida: Ciclo = {
+	id						: string 		= "";
+	tiposCultivo 			: TipoCultivo;
+	fileSeleted  			: File;
+	imageSelectedUpdate 	: boolean		= false;
+	@Input() imagesSelected	: string[]		= [];
+	@Input() nameFile		: string 		= "";
+	@Input() cicloVida		: Ciclo   	    = {
 		descripcion: "",
 		fases: [],
 		id_tipo_cultivo: "",
@@ -34,6 +35,7 @@ export class CreatecicloComponent implements OnInit {
 		nombreTipoCultivo: "",
 		url_ciclo_vida: ""
 	};
+	@Input() respaldo   	: Ciclo;
 
 	constructor(
 		private activatedRouter: ActivatedRoute,
@@ -61,13 +63,14 @@ export class CreatecicloComponent implements OnInit {
 		let i = this.imagesSelected.indexOf(this.nameFile);
 		if (i == -1) {
 			this.imagesSelected.push(this.nameFile);
+			console.log(this.imagesSelected);
 		}
 	}
 
-	clearStorageImages() {
+	clearStorageImages(nombreCiclo: string, nameFile: string) {
 		this.imagesSelected.forEach((element, index) => {
-			if (element != this.nameFile) {
-				this.ciclosService.deleteImgCiclo(this.cicloVida.nombreCicloVida, element).toPromise()
+			if (element != nameFile) {
+				this.ciclosService.deleteImgCiclo(nombreCiclo, element).toPromise()
 					.then(() => {
 						console.log(`Imagen ${element} eliminada.`);
 					});
@@ -78,27 +81,32 @@ export class CreatecicloComponent implements OnInit {
 		});
 	}
 
-	selectedFile(event) {
-		this.fileSeleted = event.target.files[0];
-		if (this.fileSeleted) {
-			this.nameFile = this.fileSeleted.name;
-			this.ciclosService.setImgCiclo(this.cicloVida.nombreCicloVida, this.fileSeleted, this.nameFile)
-				.then(() => {
-					this.ciclosService.getUrlImage(this.cicloVida.nombreCicloVida, this.nameFile).subscribe(url => {
-						this.cicloVida.url_ciclo_vida = url;
-						this.validationNameImages();
-						this.clearStorageImages();
-					});
+	setImgStorage() {
+		this.ciclosService.setImgCiclo(this.cicloVida.nombreCicloVida, this.fileSeleted, this.nameFile)
+			.then(() => {
+				this.ciclosService.getUrlImage(this.cicloVida.nombreCicloVida, this.nameFile).subscribe(url => {
+					this.cicloVida.url_ciclo_vida = url;
+					this.validationNameImages();
 				});
+			});
+	}
+
+	selectedFile(event) {
+		this.fileSeleted 			 = event.target.files[0];
+		if (this.fileSeleted) {
+			this.nameFile 			 = this.fileSeleted.name;
+			this.imageSelectedUpdate = true;
+			this.setImgStorage();
 		}
 		else {
-			this.nameFile = "";
+			this.nameFile				  = "";
 			this.cicloVida.url_ciclo_vida = "";
-			this.clearStorageImages();
+			this.imageSelectedUpdate 	  = false;
+			this.clearStorageImages(this.cicloVida.nombreCicloVida, this.nameFile);
 		}
 	}
 
-	closeModal(form: NgForm) {
+	closeModalCreate(form: NgForm) {
 		if (this.imagesSelected.length > 0) {
 			this.ciclosService.deleteImgCiclo(this.cicloVida.nombreCicloVida, this.nameFile).toPromise()
 				.then(() => {
@@ -109,6 +117,18 @@ export class CreatecicloComponent implements OnInit {
 		} else {
 			this.clearVariables(form);
 		}
+	}
+
+	closeModalUpdate() {
+		console.log(this.respaldo);
+		this.clearStorageImages(this.cicloVida.nombreCicloVida, this.respaldo.nombreImagenCicloVida);
+		this.cicloVida.url_ciclo_vida  = this.respaldo.url_ciclo_vida;
+		this.cicloVida.nombreCicloVida = this.respaldo.nombreCicloVida;
+		this.cicloVida.id_tipo_cultivo = this.respaldo.id_tipo_cultivo;
+		this.cicloVida.descripcion	   = this.respaldo.descripcion;	
+		this.imagesSelected 		   = [this.respaldo.nombreImagenCicloVida];
+		this.nameFile 				   = this.respaldo.nombreImagenCicloVida;
+		this.imageSelectedUpdate	   = false;
 	}
 
 	clearVariables(form) {
@@ -128,6 +148,22 @@ export class CreatecicloComponent implements OnInit {
 		$('#modalCreateCiclo').modal('hide');
 	}
 
+	validationForm(form: NgForm) {
+		if (form.invalid) {
+			Object.values(form.controls).forEach(control => {
+				if (!control.touched) {
+					control.markAsTouched();
+				}
+			});
+			return false;
+		}
+
+		if (this.cicloVida.url_ciclo_vida.length == 0)
+			return false;
+
+		return true;
+	}
+
 	createCiclo(form: NgForm) {
 		Swal.fire({
 			text: '¿Deseas crear un ciclo de vida?',
@@ -138,27 +174,103 @@ export class CreatecicloComponent implements OnInit {
 			showCancelButton: true
 		}).then((result) => {
 			if (result.value) {
-				if (form.invalid) {
-					Object.values(form.controls).forEach(control => {
-						if (!control.touched) {
-							control.markAsTouched();
-						}
-					});
-					return
+				if (!this.validationForm(form)) {
+				} else {
+					this.clearStorageImages(this.cicloVida.nombreCicloVida, this.nameFile);
+					this.cicloVida.nombreTipoCultivo 	 = this.tiposCultivo[this.cicloVida.id_tipo_cultivo].nombre;
+					this.cicloVida.imgCultivo 			 = this.tiposCultivo[this.cicloVida.id_tipo_cultivo].imgCultivo;
+					this.cicloVida.nombreImagenCicloVida = this.nameFile;
+					this.ciclosService.createCiclo(this.cicloVida)
+						.then(() => {
+							Swal.fire('¡Bien!', 'Hemos creado tu ciclo de vida', 'success');
+							this.clearVariables(form);
+						}).catch(err => {
+							console.log(err);
+						});
 				}
-
-				this.cicloVida.nombreTipoCultivo	 = this.tiposCultivo[this.cicloVida.id_tipo_cultivo].nombre;
-				this.cicloVida.imgCultivo			 = this.tiposCultivo[this.cicloVida.id_tipo_cultivo].imgCultivo;
-				this.cicloVida.nombreImagenCicloVida = this.nameFile;
-
-				this.ciclosService.createCiclo(this.cicloVida)
-					.then(() => {
-						Swal.fire('¡Bien!', 'Hemos creado tu ciclo de vida', 'success');
-						this.clearVariables(form);
-					}).catch(err => {
-						console.log(err);
-					});
 			}
 		});
+	}
+
+	validationUpdateStorage(form: NgForm) {
+		if ((this.cicloVida.nombreCicloVida == this.respaldo.nombreCicloVida)) {
+			return true;
+		} else {
+			if (!this.imageSelectedUpdate) {
+				this.nameFile = "";
+				this.cicloVida.url_ciclo_vida = "";
+				this.imageSelectedUpdate = true;
+				form.controls.url_ciclo_vida.markAsTouched();
+				Swal.fire('Ha cambiado el nombre del ciclo','Es necesario elegir otra imagen','info');
+				return false;
+			} else {
+				this.imagesSelected.pop();
+				this.ciclosService.deleteImgCiclo(this.respaldo.nombreCicloVida, this.respaldo.nombreImagenCicloVida).toPromise()
+					.then(() => {
+						console.log(`La imagen ${this.respaldo.nombreImagenCicloVida} se ha eliminado con exito.`);
+					});
+				return true;
+			}
+		}
+	}
+
+	updateCiclo(form: NgForm) {
+		Swal.fire({
+			text: '¿Seguro de actualizar tu ciclo de vida?',
+			icon: 'question',
+			confirmButtonText: 'Sí, actualizar',
+			confirmButtonColor: '#4CAF50',
+			cancelButtonText: 'Cancelar',
+			showCancelButton: true
+		}).then((result) => {
+			if (result.value) {
+				if (!this.validationUpdateStorage(form)) {
+				} else {
+					if (!this.validationForm(form)) {
+					} else {
+						console.log(this.imagesSelected);
+						this.clearStorageImages(this.cicloVida.nombreCicloVida, this.nameFile);
+						this.cicloVida.nombreTipoCultivo 	 = this.tiposCultivo[this.cicloVida.id_tipo_cultivo].nombre;
+						this.cicloVida.imgCultivo			 = this.tiposCultivo[this.cicloVida.id_tipo_cultivo].imgCultivo;
+						this.cicloVida.nombreImagenCicloVida = this.nameFile;
+
+						this.ciclosService.updateCiclo(this.cicloVida, this.id).then(() => {
+							Swal.fire('¡Bien!', 'Ciclo de vida actualizado con exito.', 'success');
+							this.imageSelectedUpdate = false;
+							$('#modalCreateCiclo').modal('hide');
+						}).catch(err => {
+							console.log(err);
+						});
+					}
+
+				}
+			}
+		});
+	}
+
+	pruebaSwal() {
+		Swal.mixin({
+			input: 'file',
+			inputValidator: result => !result && 'You need to select something!',
+			confirmButtonText: 'Next &rarr;',
+			progressSteps: ['1', '2', '3']
+		}).queue([
+			{
+				title: 'Question 1',
+				text: 'Chaining swal2 modals is easy'
+			},
+			'Question 2',
+			'Question 3'
+		]).then((result) => {
+			if (result['value']) {
+				const answers = JSON.stringify(result['value'])
+				console.log(result);
+				Swal.fire({
+					title: 'All done!',
+					text: 'Hola mundo',
+					confirmButtonText: 'Lovely!'
+				})
+			}
+		})
 	}
 }

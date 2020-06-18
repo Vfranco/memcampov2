@@ -1,3 +1,4 @@
+import { Ciclo } from './../interface/Ciclo.interface';
 import { Injectable } from '@angular/core';
 
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -27,12 +28,20 @@ export class CiclosService {
 		}));
 	}
 
-	createCiclo(formData) {
+	getCicloById(id: string) {
+		return this.db.doc(`${collections.CICLOS_DE_VIDA}/${id}`).valueChanges();
+	}
+
+	createCiclo(formData: Object) {
 		return this.db.collection(collections.CICLOS_DE_VIDA).add(formData);
 	}
 
 	deleteCiclo(id: string) {
 		return this.db.collection(collections.CICLOS_DE_VIDA).doc(id).delete();
+	}
+
+	updateCiclo(formData: Object, id: string) {
+		return this.db.collection(collections.CICLOS_DE_VIDA).doc(id).update(formData);
 	}
 
 	// Metodos para manejar el Storage.

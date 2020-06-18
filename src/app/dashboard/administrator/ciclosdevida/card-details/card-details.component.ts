@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Ciclo } from './../../../../interface/Ciclo.interface';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-card-details',
@@ -6,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./card-details.component.css']
 })
 export class CardDetailsComponent implements OnInit {
+
+  @Input() ciclo          : Ciclo;
+  @Input() respaldo       : Ciclo;
+  @Input() imagesRespaldo : string[];
 
   constructor() { }
 
