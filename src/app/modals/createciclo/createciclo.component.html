@@ -1,45 +1,71 @@
 <!-- Modal -->
-<div class="c-modal c-modal--large modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="modal1">
+<div class="c-modal c-modal--large modal fade" id="modalCreateCiclo" tabindex="-1" role="dialog" aria-labelledby="modalCreateCiclo"
+	data-backdrop="static">
 	<div class="c-modal__dialog modal-dialog" role="document">
 		<div class="c-modal__content">
 			<div class="c-modal__header">
-				<h3 class="c-modal__title">Crear ciclo de vida</h3>
-				<span class="c-modal__close" data-dismiss="modal" aria-label="Close">
+				<h3 *ngIf="!id" class="c-modal__title">Crear ciclo de vida</h3>
+				<h3 *ngIf="id" class="c-modal__title">Editar ciclo de vida</h3>
+				<span *ngIf="!id" class="c-modal__close" data-dismiss="modal" aria-label="Close" (click)="closeModalCreate(form)">
+					<i class="fa fa-close"></i>
+				</span>
+				<span *ngIf="id" class="c-modal__close" data-dismiss="modal" aria-label="Close" (click)="closeModalUpdate()">
 					<i class="fa fa-close"></i>
 				</span>
 			</div>
-			<div class="c-modal__body">
-				<div class="c-field u-mb-xsmall">
-					<label class="c-field__label" for="select12">Nombre</label>
-					<input class="c-input" type="email" placeholder="Ciclo de vida ...">
-				</div>
-				<div class="c-field u-mb-xsmall" data-select2-id="33">
-					<label class="c-field__label" for="select12">Tipo de cultivo</label>
-					<select class="c-input c-combobox" id="select14" data-select2-id="select14" tabindex="-1"
-						aria-hidden="true">
-						<option data-select2-id="12">Twitter</option>
-						<option data-select2-id="34">Facebook</option>
-						<option data-select2-id="35">Google</option>
-					</select>
-				</div>
-				<div class="c-field u-mb-small">
-					<label class="c-field__label" for="select12">Descripcion</label>
-					<textarea class="c-input text-area" type="text" placeholder="Numbers, Captial & Small letters"></textarea>
-				</div>
-				<form action="/file-upload" class="dropzone u-mb-small dz-clickable" id="modal-dropzone"
-					style="height: 180px;">
-					<div class="dz-message" data-dz-message="">
-						<i class="dz-icon fa fa-cloud-upload"></i>
-						<span>Insertar imagen.</span>
+			<form #form="ngForm">
+				<div class="form-group c-modal__body">
+					<div class="c-field u-mb-xsmall">
+						<label class="c-field__label" for="select12">Nombre</label>
+						<input #nombreCiclo="ngModel" class="form-control c-input" type="email" name="nombreCicloVida" [(ngModel)]="cicloVida.nombreCicloVida" placeholder="Ciclo de vida ..." [class.c-input--danger]="nombreCiclo.touched && nombreCiclo.invalid" required>
 					</div>
-					<div class="fallback" style="display: none;">
-						<input name="file" type="file">
+					
+					<div class="form-group c-field u-mb-xsmall">
+						<label class="c-field__label" for="select12">Tipo de cultivo</label>
+						<select #tipoCultivo="ngModel" class="form-control c-input c-combobox" name="id_tipo_cultivo" [(ngModel)]="cicloVida.id_tipo_cultivo" [class.c-input--danger]="tipoCultivo.touched && tipoCultivo.invalid" required>
+							<option value="" selected>Seleccionar el tipo de cultivo</option>
+							<option [value]="tipo.key" *ngFor="let tipo of tiposCultivo | keyvalue">
+								{{tipo.value.nombre }}
+							</option>
+						</select>
 					</div>
-				</form>
-				<a class="c-btn c-btn--success c-btn--fullwidth">
-					{{ buttomText }}
-				</a>
-			</div>
-		</div><!-- // .c-modal__content -->
-	</div><!-- // .c-modal__dialog -->
-</div><!-- // .c-modal -->
+
+					<div class="form-group c-field u-mb-small">
+						<label class="c-field__label">Descripcion</label>
+						<textarea #descripcion="ngModel" class="form-control c-input text-area" type="text" name="descripcion" [(ngModel)]="cicloVida.descripcion" [class.c-input--danger]="descripcion.touched && descripcion.invalid"
+							placeholder="Por favor, digite una descripcíon para el ciclo de vida." required></textarea>
+					</div>
+
+					<div class="form-group dropzone u-mb-small" style="height: 180px;">
+						<label class="dz-message" data-dz-message for="uploadImage">
+							<img *ngIf="cicloVida.url_ciclo_vida.length > 0" class="image__ciclo" [src]="cicloVida.url_ciclo_vida">
+							<span *ngIf="nameFile.length > 0">{{ nameFile }}</span>
+
+							<i *ngIf="cicloVida.url_ciclo_vida.length == 0" class="dz-icon fa fa-cloud-upload"></i>
+							<span *ngIf="nameFile.length == 0">Insertar imagen.</span>
+						</label>
+						<div class="fallback" style="display: none;">
+							<input #image="ngModel" class="form-control" id="uploadImage" type="file" name="url_ciclo_vida" ngModel (change)="selectedFile($event)" [disabled]="cicloVida.nombreCicloVida == ''">
+						</div>
+					</div>
+
+					<small *ngIf="nombreCiclo.invalid" class="c-field__message u-mb-small">
+						<i class="fa fa-info-circle"></i>Es necesario colocarle el nombre al ciclo de vida para habilitar la seleccion de la imagen.
+					</small>
+
+					<small *ngIf="cicloVida.url_ciclo_vida.length == 0 && image.touched" class="c-field__message u-color-danger u-mb-small">
+						<i class="fa fa-times-circle"></i>Es necesario elegir una imagen para el ciclo de vida.
+					</small>
+
+					<button *ngIf="!id" type="submit" class="c-btn c-btn--success c-btn--fullwidth" (click)="createCiclo(form)">
+						Crear ciclo
+					</button>
+					
+					<button *ngIf="id" type="submit" class="c-btn c-btn--success c-btn--fullwidth" (click)="updateCiclo(form)">
+						Editar ciclo
+					</button>
+				</div>
+			</form><!-- // .form end -->
+		</div><!-- // .c-modal__content end -->
+	</div><!-- // .c-modal__dialog end -->
+</div><!-- // .c-modal end -->

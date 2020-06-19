@@ -15,10 +15,13 @@
 
 <div class="row" *ngIf="!preloadData">
     <div class="col-sm-12 col-md-6">
-        <app-card-details-image></app-card-details-image>
+        <app-card-details-image [image]="ciclo.url_ciclo_vida"></app-card-details-image>
     </div> <!-- end col -->
     <div class="col-sm-12 col-md-6">
-        <app-card-details></app-card-details>
+        <app-card-details [ciclo]="ciclo"
+                          [respaldo]="repaldo"
+                          [imagesRespaldo]="this.imagesRespaldo">
+        </app-card-details>
     </div> <!-- end col -->
 </div> <!-- end row -->
 

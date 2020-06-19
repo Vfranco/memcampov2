@@ -11,3 +11,10 @@
     background: #ccc;
     border-radius: 4px;
 }
+
+.image__ciclo {
+    height: 82%;
+    width: 50%;
+    border-radius: 20%;
+    object-fit: fill;
+}

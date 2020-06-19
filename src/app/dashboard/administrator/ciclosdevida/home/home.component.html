@@ -12,11 +12,16 @@
 </div>
 <!-- end preload Data -->
 
+<!-- button test momentaneo  -->
+<button type="submit" class="c-btn c-btn--success u-mb-medium" data-toggle="modal" data-target="#modalCreateCiclo">Crear Ciclo de vida</button>
+<!-- end button test momentaneo -->
 
 <!-- card -->
 <div class="row" *ngIf="!preloadData">
-	<div class="col-xl-4">
-		<app-card></app-card>
+	<div class="col-xs-12 col-sm-6 col-md-6 col-xl-4" *ngFor="let ciclo of ciclos">
+		<app-card [ciclo]="ciclo"></app-card>
 	</div>
 </div>
 <!-- card end -->
+
+<app-createciclo></app-createciclo>

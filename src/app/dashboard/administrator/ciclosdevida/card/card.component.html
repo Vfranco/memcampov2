@@ -1,14 +1,14 @@
-<div class="c-project-card u-mb-medium">
-	<img class="c-project-card__img" src="./assets/img/project-card1.jpg" alt="About the image">
+<div *ngIf="ciclo" class="c-project-card u-mb-medium">
+	<img class="c-project-card__img" [src]="ciclo.url_ciclo_vida">
 
 	<div class="c-project-card__content">
 		<div class="c-project-card__head">
-			<h4 class="c-project-card__title">Nombre del ciclo</h4>
-			<p class="c-project-card__info">Tipo de cultivo</p>
+			<h4 class="c-project-card__title"> {{ciclo.nombreCicloVida}} </h4>
+			<p class="c-project-card__info"> {{ciclo.nombreTipoCultivo}} </p>
 		</div>
 
 		<div class="c-project-card__meta">
-			<button class="c-btn c-btn--danger">
+			<button class="c-btn c-btn--danger" (click)="deleteCiclo(ciclo.id)">
 				<i class="fa fa-trash-o"></i>
 			</button>
 			<button class="c-btn c-btn--success" (click)="details()">
