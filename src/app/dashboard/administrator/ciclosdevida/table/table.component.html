@@ -32,7 +32,7 @@
 		</thead>
 
 		<tbody *ngIf="fases.length > 0">
-			<tr class="c-table__row" [class.c-table__row--danger]="fase.habilitar == false" *ngFor="let fase of fases">
+			<tr class="c-table__row" [class.c-table__row--danger]="fase.habilitar == false" *ngFor="let fase of fases, let i = index">
 				<td class="c-table__cell">
 					{{fase.nombre}}
 				</td>
@@ -73,7 +73,7 @@
 						<div class="c-dropdown__menu dropdown-menu" aria-labelledby="dropdownMenuButton27">
 							<a class="c-dropdown__item dropdown-item" data-toggle="modal"
 								data-target="#modal2">Editar</a>
-							<a class="c-dropdown__item dropdown-item">Eliminar</a>
+							<a class="c-dropdown__item dropdown-item" (click)="deleteFase(i)">Eliminar</a>
 						</div>
 					</div>
 				</td>

@@ -1,7 +1,10 @@
 import { Ciclo } from './../../../../interface/Ciclo.interface';
-import { CreatefaseComponent } from './../../../../modals/createfase/createfase.component';
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
+
+import { CiclosService } from './../../../../services/ciclos.service';
+
 import { Fases } from './../../../../interface/fases.interface';
+import Swal from 'sweetalert2';
 
 @Component({
 	selector: 'app-table',
@@ -13,9 +16,10 @@ export class TableComponent implements OnInit {
 	@Input() ciclo: Ciclo;
 	@Input() fases: Fases[];
 	@Input() id   : string;
-	@ViewChild('createFase', { static: true }) createFase: CreatefaseComponent
 
-	constructor() { }
+	constructor(
+		private cicloService: CiclosService
+	) { }
 
 	ngOnInit() {
 		console.log(this.id);
@@ -23,8 +27,25 @@ export class TableComponent implements OnInit {
 		console.log(this.fases);
 	}
 
-	openModal(){
-		this.createFase.init();
+	deleteFase(index) {
+		Swal.fire({
+			title: '¡Advertencia!',
+			text: '¿Seguro que quieres eliminar la fase?',
+			icon: 'warning',
+			confirmButtonText: 'Sí, eliminar',
+			confirmButtonColor: '#dd3333',
+			showCancelButton: true,
+		}).then(result => {
+			if (result.value) {
+				this.fases.splice(index, 1);
+				this.cicloService.updateCiclo(this.ciclo, this.id).then(() => {
+					Swal.fire('¡Hecho!', 'Se ha eliminado la fase', 'info');
+				}).catch((err) => {
+					Swal.fire('Upss', 'Error inesperado', 'warning');
+					console.log(err);
+				});
+			}
+		});
 	}
 
 }
