@@ -1,7 +1,7 @@
 export interface Ciclo {
 	id?						: string,
 	descripcion?			: string,
-	fases?					: string[],
+	fases?					: any[],
 	id_tipo_cultivo?		: string,
 	imgCultivo?				: string,
 	nombreCicloVida?		: string,

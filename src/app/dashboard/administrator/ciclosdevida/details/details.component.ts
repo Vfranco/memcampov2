@@ -15,21 +15,21 @@ export class DetailsComponent implements OnInit {
 	ciclo		   : Ciclo;
 	repaldo        : Ciclo   ;
 	imagesRespaldo : string[] = [];
+	id			   : string;
 
 	constructor(
 		private ciclosService: CiclosService,
-		private activatedRoute: ActivatedRoute) {
-		
-		this.init();
-	}
+		private activatedRoute: ActivatedRoute) { }
 
 	ngOnInit() {
+		this.init();
 	}
 
 	init() {
 		this.preloadData = true;
 		this.activatedRoute.paramMap.subscribe(params => {
-			this.ciclosService.getCicloById(params.get('id')).subscribe(data => {
+			this.id = params.get('id');
+			this.ciclosService.getCicloById(this.id).subscribe(data => {
 				this.ciclo 		 = data;
 				this.repaldo     = {
 					nombreCicloVida: data['nombreCicloVida'],

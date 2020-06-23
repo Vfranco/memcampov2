@@ -247,30 +247,4 @@ export class CreatecicloComponent implements OnInit {
 			}
 		});
 	}
-
-	pruebaSwal() {
-		Swal.mixin({
-			input: 'file',
-			inputValidator: result => !result && 'You need to select something!',
-			confirmButtonText: 'Next &rarr;',
-			progressSteps: ['1', '2', '3']
-		}).queue([
-			{
-				title: 'Question 1',
-				text: 'Chaining swal2 modals is easy'
-			},
-			'Question 2',
-			'Question 3'
-		]).then((result) => {
-			if (result['value']) {
-				const answers = JSON.stringify(result['value'])
-				console.log(result);
-				Swal.fire({
-					title: 'All done!',
-					text: 'Hola mundo',
-					confirmButtonText: 'Lovely!'
-				})
-			}
-		})
-	}
 }
