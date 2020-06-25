@@ -16,43 +16,30 @@ declare var $: any;
 })
 export class CreatefaseComponent implements OnInit {
 
-	buttomText: string   = "";
-	ciclo: Ciclo;
-	@Input() data: any   = {};
-	@Input() fase: Fases = {
-		nombre: "",
-		detalles : "",
-		habilitar : true,
-		rango_dias: { inicio: 0, fin: 0 },
-		rango_dias_literatura: "",
-		sugerencias: ""
-	}
-	habilitar :string	 = "true";
-	inicio	  :number	 = 0;
-	fin		  :number	 = 0;
-
+	buttomText      	   : string  = "";
+	ciclo	        	   : Ciclo; 
+	@Input() inicio	       : number;
+	@Input() fin		   : number;
+	@Input() indexSelected : number;
+	@Input() editar        : boolean = false;
+	@Input() data		   : any = {};
+	@Input() fase: Fases;
+	@Input() habilitarEstadoFase;
 
 	constructor(
-		private cicloService: CiclosService
-	) {
+		private cicloService: CiclosService) {}
+
+	ngOnInit() {
 		this.init();
 	}
 
-	ngOnInit() {
-	}
-
-	init(data?) {
-		if (data) {
-			this.buttomText = "Editar fase";
-		} else {
-			this.buttomText = "Agregar fase";
-		}
+	init() {
 	}
 
 	validationHabilitar(){
-		if (this.habilitar == 'true')
+		if (this.habilitarEstadoFase == 'true')
 			this.fase.habilitar = true;
-		if (this.habilitar == 'false')
+		if (this.habilitarEstadoFase == 'false')
 			this.fase.habilitar = false;
 	}
 
@@ -103,5 +90,36 @@ export class CreatefaseComponent implements OnInit {
 				}
 			}
 		})
+	}
+
+	upadteFase(form: NgForm) {
+		Swal.fire({
+			title: '¡Advertencia!',
+			text: '¿Deseas actualizar la fase?',
+			icon: 'info',
+			confirmButtonText: 'Sí, actualizar fase',
+			confirmButtonColor: '#4CAF50',
+			showCancelButton: true
+		}).then(result => {
+			if(result.value){
+				if (!this.validationForm(form)) {
+				} else {
+					this.fase.rango_dias.inicio = this.inicio;
+					this.fase.rango_dias.fin 	= this.fin;
+					this.ciclo 			   		= this.data.ciclo;
+					this.validationHabilitar();
+
+					this.cicloService.updateCiclo(this.ciclo, this.data.id).then(() => {
+						Swal.fire('¡Bien hecho!', 'Fase actualizada', 'info');
+						this.clearVariables(form);
+						$('#modalFase').modal('hide');
+					}).catch((err) => {
+						Swal.fire('Upss', 'Error inesperado', 'warning');
+						console.log(err);
+					});
+				}
+			}
+		}) 
+
 	}
 }

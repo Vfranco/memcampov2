@@ -1,10 +1,14 @@
-<div class="c-modal c-modal--large modal fade" id="modalFase" tabindex="-1" role="dialog" aria-labelledby="modalFase"
+<div *ngIf="fase" class="c-modal c-modal--large modal fade" id="modalFase" tabindex="-1" role="dialog" aria-labelledby="modalFase"
     data-backdrop="static">
     <div class="c-modal__dialog modal-dialog" role="document">
         <div class="c-modal__content">
             <div class="c-modal__header">
-                <h3 class="c-modal__title">Agregar Fase</h3>
-                <span class="c-modal__close" data-dismiss="modal" aria-label="Close" (click)="clearVariables(form)">
+                <h3 *ngIf="!editar" class="c-modal__title">Agregar Fase</h3>
+                <h3 *ngIf="editar" class="c-modal__title">Editar Fase</h3>
+                <span *ngIf="!editar" class="c-modal__close" data-dismiss="modal" aria-label="Close" (click)="clearVariables(form)">
+                    <i class="fa fa-close"></i>
+                </span>
+                <span *ngIf="editar" class="c-modal__close" data-dismiss="modal" aria-label="Close">
                     <i class="fa fa-close"></i>
                 </span>
             </div>
@@ -19,7 +23,7 @@
                         <div class="col-6">
                             <div class="form-group c-field u-mb-xsmall">
                                 <label class="c-field__label">Estado de la fase</label>
-                                <select #habilitarFase="ngModel" class="form-control c-input c-combobox" name="habilitar" [(ngModel)]="habilitar"
+                                <select #habilitarFase="ngModel" class="form-control c-input c-combobox" name="habilitar" [(ngModel)]="habilitarEstadoFase"
                                     [class.c-input--danger]="habilitarFase.touched && habilitarFase.invalid" required>
                                     <option value="true">Habilitar</option>
                                     <option value="false">Deshabilitar</option>
@@ -64,8 +68,12 @@
                             [class.c-input--danger]="sugerenciasFase.touched && sugerenciasFase.invalid" required></textarea>
                     </div>
             
-                    <button class="c-btn c-btn--success c-btn--fullwidth" (click)="createFase(form)">
-                        {{ buttomText }}
+                    <button *ngIf="!editar" class="c-btn c-btn--success c-btn--fullwidth" (click)="createFase(form)">
+                        Agregar fase
+                    </button>
+
+                     <button *ngIf="editar" class="c-btn c-btn--success c-btn--fullwidth" (click)="upadteFase(form)">
+                        Editar fase
                     </button>
                 </div>
             </form>
