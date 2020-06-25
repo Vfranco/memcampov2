@@ -5,6 +5,7 @@ import { CiclosService } from './../../../../services/ciclos.service';
 
 import { Fases } from './../../../../interface/fases.interface';
 import Swal from 'sweetalert2';
+declare var $: any;
 
 @Component({
 	selector: 'app-table',
@@ -16,15 +17,50 @@ export class TableComponent implements OnInit {
 	@Input() ciclo: Ciclo;
 	@Input() fases: Fases[];
 	@Input() id   : string;
+	editar 		  : boolean = false;
+	inicio		  : number  = 0;
+	fin			  : number  = 0;
+	habilitar	  : any;
+	faseSelected: Fases = {
+		nombre: "",
+		detalles: "",
+		habilitar: true,
+		rango_dias: { inicio: 0, fin: 0 },
+		rango_dias_literatura: "",
+		sugerencias: ""
+	}
+	index         : number  = -1;
 
 	constructor(
 		private cicloService: CiclosService
 	) { }
 
 	ngOnInit() {
-		console.log(this.id);
-		console.log(this.ciclo);
-		console.log(this.fases);
+	}
+
+	createFase() {
+		this.faseSelected = {
+			nombre: "",
+			detalles: "",
+			habilitar: true,
+			rango_dias: { inicio: 0, fin: 0 },
+			rango_dias_literatura: "",
+			sugerencias: ""
+		}
+		this.habilitar = true;
+		this.editar = false;
+		this.inicio = 0;
+		this.fin = 0;
+	}
+
+	updateFase(fase, i) {
+		this.faseSelected = fase;
+		this.habilitar = this.faseSelected.habilitar;
+		this.inicio = this.faseSelected.rango_dias.inicio;
+		this.fin = this.faseSelected.rango_dias.fin
+		this.index = i;
+		this.editar = true;
+		$('#modalFase').modal('show');
 	}
 
 	deleteFase(index) {

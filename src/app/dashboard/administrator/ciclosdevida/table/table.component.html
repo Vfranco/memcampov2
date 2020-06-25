@@ -12,7 +12,7 @@
 				<input class="c-input" type="text" placeholder="Buscar por nombre su Fase">
 			</div>
 
-			<button class="c-btn c-btn--success c-pull-right" data-toggle="modal" data-target="#modalFase">
+			<button class="c-btn c-btn--success c-pull-right" data-toggle="modal" data-target="#modalFase" (click)="createFase()">
 				<i class="fa fa-plus u-mr-xsmall"></i>Agregar fase
 			</button>
 		</caption>
@@ -71,8 +71,7 @@
 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones</button>
 
 						<div class="c-dropdown__menu dropdown-menu" aria-labelledby="dropdownMenuButton27">
-							<a class="c-dropdown__item dropdown-item" data-toggle="modal"
-								data-target="#modal2">Editar</a>
+							<a class="c-dropdown__item dropdown-item" data-toggle="modal" (click)="updateFase(fase, i)">Editar</a>
 							<a class="c-dropdown__item dropdown-item" (click)="deleteFase(i)">Eliminar</a>
 						</div>
 					</div>
@@ -82,4 +81,4 @@
 	</table>
 </div>
 
-<app-createfase [data]="{id: id, fases: fases, ciclo: ciclo}"></app-createfase>
+<app-createfase [data]="{id: id, fases: fases, ciclo: ciclo}" [fase]="faseSelected" [editar]="editar" [indexSelected]="index" [habilitarEstadoFase]="habilitar" [inicio]="inicio" [fin]="fin"></app-createfase>
