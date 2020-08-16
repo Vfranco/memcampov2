@@ -1,7 +1,7 @@
 import { NgForm } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
 import { Ciclo } from '@app/core/interface/Ciclo.interface';
-import { Fases } from '@app/interface/fases.interface';
+import { Fases } from '@app/core/interface/fases.interface';
 import { CiclosService } from '@app/core/services';
 import Swal from 'sweetalert2';
 declare var $: any;

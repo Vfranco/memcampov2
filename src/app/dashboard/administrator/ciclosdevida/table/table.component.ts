@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { Fases } from '@app/interface/fases.interface';
+import { Fases } from '@app/core/interface/fases.interface';
 import { Ciclo } from '@app/core/interface/Ciclo.interface';
 import { CiclosService } from '@app/core/services';
 import Swal from 'sweetalert2';
