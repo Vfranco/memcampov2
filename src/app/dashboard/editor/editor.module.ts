@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from 'src/app/guards/auth.guard';
 
 import { DocumentosComponent } from './documentos/documentos.component';
 import { ListdocumentosComponent } from './listdocumentos/listdocumentos.component';

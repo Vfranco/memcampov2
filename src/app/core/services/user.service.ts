@@ -8,11 +8,11 @@ export class UserService {
 
 	constructor(private localstorage: LocalstorageService) { }
 
-	getUIDFromStorage(){
+	getUIDFromStorage() {
 		return this.localstorage.read('authUser').uid;
 	}
 
-	getRolUser(){
+	getRolUser() {
 		return this.localstorage.read('authUser').rol;
 	}
 }

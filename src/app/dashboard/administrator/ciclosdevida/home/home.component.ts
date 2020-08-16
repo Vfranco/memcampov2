@@ -1,5 +1,5 @@
-import { CiclosService } from './../../../../services/ciclos.service';
 import { Component, OnInit } from '@angular/core';
+import { CiclosService } from '@app/core/services';
 
 @Component({
 	selector: 'app-home',

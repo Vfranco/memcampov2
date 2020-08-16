@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from '@app/core/services';
 import { environment } from 'src/environments/environment';
-import { firebaseErrors } from 'src/app/constants/firebase.errors';
+import { firebaseErrors } from '@app/core/constants/firebase.errors';
 
 @Component({
 	selector: 'app-recovery',
@@ -11,18 +11,18 @@ import { firebaseErrors } from 'src/app/constants/firebase.errors';
 })
 export class RecoveryComponent implements OnInit {
 
-	correo:string = '';
-	showMessage:boolean = false;
-	errorMessage:string = '';
-	errorStyle:string = '';
+	correo: string = '';
+	showMessage: boolean = false;
+	errorMessage: string = '';
+	errorStyle: string = '';
 
 	constructor(private auth: AuthService) { }
 
 	ngOnInit() {
 	}
 
-	recovery(frmRecovery: NgForm){
-		this.auth.recoveryPassword(frmRecovery.value.correo, {url : environment.RESET_PASSWORD }).then(() => {
+	recovery(frmRecovery: NgForm) {
+		this.auth.recoveryPassword(frmRecovery.value.correo, { url: environment.RESET_PASSWORD }).then(() => {
 			this.showMessage = true;
 			this.errorStyle = 'success';
 			this.errorMessage = 'Instrucciones enviadas al correo';

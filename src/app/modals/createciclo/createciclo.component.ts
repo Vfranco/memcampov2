@@ -1,15 +1,10 @@
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
-
-import { TipoCultivo } from 'src/app/interface/tipocultivo.interface';
-import { Ciclo } from './../../interface/Ciclo.interface';
-
-import { CiclosService } from './../../services/ciclos.service';
-import { TiposcultivoService } from './../../services/tiposcultivo.service';
-
+import { TipoCultivo } from '@app/core/interface/tipocultivo.interface';
+import { Ciclo } from '@app/core/interface/Ciclo.interface';
+import { TiposcultivoService, CiclosService } from '@app/core/services';
 import Swal from 'sweetalert2';
-import { IfStmt } from '@angular/compiler';
 declare var $: any;
 
 @Component({
@@ -19,13 +14,13 @@ declare var $: any;
 })
 export class CreatecicloComponent implements OnInit {
 
-	id						: string 		= "";
-	tiposCultivo 			: TipoCultivo;
-	fileSeleted  			: File;
-	imageSelectedUpdate 	: boolean		= false;
-	@Input() imagesSelected	: string[]		= [];
-	@Input() nameFile		: string 		= "";
-	@Input() cicloVida		: Ciclo   	    = {
+	id: string = "";
+	tiposCultivo: TipoCultivo;
+	fileSeleted: File;
+	imageSelectedUpdate: boolean = false;
+	@Input() imagesSelected: string[] = [];
+	@Input() nameFile: string = "";
+	@Input() cicloVida: Ciclo = {
 		descripcion: "",
 		fases: [],
 		id_tipo_cultivo: "",
@@ -35,7 +30,7 @@ export class CreatecicloComponent implements OnInit {
 		nombreTipoCultivo: "",
 		url_ciclo_vida: ""
 	};
-	@Input() respaldo   	: Ciclo;
+	@Input() respaldo: Ciclo;
 
 	constructor(
 		private activatedRouter: ActivatedRoute,
@@ -92,16 +87,16 @@ export class CreatecicloComponent implements OnInit {
 	}
 
 	selectedFile(event) {
-		this.fileSeleted 			 = event.target.files[0];
+		this.fileSeleted = event.target.files[0];
 		if (this.fileSeleted) {
-			this.nameFile 			 = this.fileSeleted.name;
+			this.nameFile = this.fileSeleted.name;
 			this.imageSelectedUpdate = true;
 			this.setImgStorage();
 		}
 		else {
-			this.nameFile				  = "";
+			this.nameFile = "";
 			this.cicloVida.url_ciclo_vida = "";
-			this.imageSelectedUpdate 	  = false;
+			this.imageSelectedUpdate = false;
 			this.clearStorageImages(this.cicloVida.nombreCicloVida, this.nameFile);
 		}
 	}
@@ -122,13 +117,13 @@ export class CreatecicloComponent implements OnInit {
 	closeModalUpdate() {
 		console.log(this.respaldo);
 		this.clearStorageImages(this.cicloVida.nombreCicloVida, this.respaldo.nombreImagenCicloVida);
-		this.cicloVida.url_ciclo_vida  = this.respaldo.url_ciclo_vida;
+		this.cicloVida.url_ciclo_vida = this.respaldo.url_ciclo_vida;
 		this.cicloVida.nombreCicloVida = this.respaldo.nombreCicloVida;
 		this.cicloVida.id_tipo_cultivo = this.respaldo.id_tipo_cultivo;
-		this.cicloVida.descripcion	   = this.respaldo.descripcion;	
-		this.imagesSelected 		   = [this.respaldo.nombreImagenCicloVida];
-		this.nameFile 				   = this.respaldo.nombreImagenCicloVida;
-		this.imageSelectedUpdate	   = false;
+		this.cicloVida.descripcion = this.respaldo.descripcion;
+		this.imagesSelected = [this.respaldo.nombreImagenCicloVida];
+		this.nameFile = this.respaldo.nombreImagenCicloVida;
+		this.imageSelectedUpdate = false;
 	}
 
 	clearVariables(form) {
@@ -177,8 +172,8 @@ export class CreatecicloComponent implements OnInit {
 				if (!this.validationForm(form)) {
 				} else {
 					this.clearStorageImages(this.cicloVida.nombreCicloVida, this.nameFile);
-					this.cicloVida.nombreTipoCultivo 	 = this.tiposCultivo[this.cicloVida.id_tipo_cultivo].nombre;
-					this.cicloVida.imgCultivo 			 = this.tiposCultivo[this.cicloVida.id_tipo_cultivo].imgCultivo;
+					this.cicloVida.nombreTipoCultivo = this.tiposCultivo[this.cicloVida.id_tipo_cultivo].nombre;
+					this.cicloVida.imgCultivo = this.tiposCultivo[this.cicloVida.id_tipo_cultivo].imgCultivo;
 					this.cicloVida.nombreImagenCicloVida = this.nameFile;
 					this.ciclosService.createCiclo(this.cicloVida)
 						.then(() => {
@@ -201,7 +196,7 @@ export class CreatecicloComponent implements OnInit {
 				this.cicloVida.url_ciclo_vida = "";
 				this.imageSelectedUpdate = true;
 				form.controls.url_ciclo_vida.markAsTouched();
-				Swal.fire('Ha cambiado el nombre del ciclo','Es necesario elegir otra imagen','info');
+				Swal.fire('Ha cambiado el nombre del ciclo', 'Es necesario elegir otra imagen', 'info');
 				return false;
 			} else {
 				this.imagesSelected.pop();
@@ -230,8 +225,8 @@ export class CreatecicloComponent implements OnInit {
 					} else {
 						console.log(this.imagesSelected);
 						this.clearStorageImages(this.cicloVida.nombreCicloVida, this.nameFile);
-						this.cicloVida.nombreTipoCultivo 	 = this.tiposCultivo[this.cicloVida.id_tipo_cultivo].nombre;
-						this.cicloVida.imgCultivo			 = this.tiposCultivo[this.cicloVida.id_tipo_cultivo].imgCultivo;
+						this.cicloVida.nombreTipoCultivo = this.tiposCultivo[this.cicloVida.id_tipo_cultivo].nombre;
+						this.cicloVida.imgCultivo = this.tiposCultivo[this.cicloVida.id_tipo_cultivo].imgCultivo;
 						this.cicloVida.nombreImagenCicloVida = this.nameFile;
 
 						this.ciclosService.updateCiclo(this.cicloVida, this.id).then(() => {

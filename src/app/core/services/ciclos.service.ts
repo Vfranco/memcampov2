@@ -1,9 +1,6 @@
-import { Ciclo } from './../interface/Ciclo.interface';
 import { Injectable } from '@angular/core';
-
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
-
 import { collections } from './../constants/constants';
 import { map } from 'rxjs/operators';
 
@@ -21,7 +18,7 @@ export class CiclosService {
 			let ciclos: string[] = [];
 			data.forEach(element => {
 				let data = element.payload.doc.data();
-				data['id'] = element.payload.doc.id; 
+				data['id'] = element.payload.doc.id;
 				ciclos.push(data);
 			});
 			return ciclos;
@@ -43,8 +40,6 @@ export class CiclosService {
 	updateCiclo(formData: Object, id: string) {
 		return this.db.collection(collections.CICLOS_DE_VIDA).doc(id).update(formData);
 	}
-
-	// Metodos para manejar el Storage.
 
 	setImgCiclo(nombreCiclo: string, fileSelected: File, nameFile: string) {
 		let ref = this.storage.ref(`ciclosvida/${nombreCiclo}`);

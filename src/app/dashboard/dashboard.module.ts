@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '../guards/auth.guard';
+
+import { AuthGuard } from '@app/core/guards';
 import { SharedModule } from '../shared/shared.module';
+import { CoreModule } from '@app/core/core.module';
 
 import { MainComponent } from './main/main.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -49,6 +51,7 @@ const dashboardRoute: Routes = [
 	imports: [
 		CommonModule,
 		SharedModule,
+		CoreModule,
 		RouterModule.forChild(dashboardRoute)
 	],
 	exports: [

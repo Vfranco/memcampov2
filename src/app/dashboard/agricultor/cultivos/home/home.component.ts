@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseService } from 'src/app/services/firebase.service';
+import { FirebaseService } from '@app/core/services';
 import { ActivatedRoute } from '@angular/router';
-import { collections } from 'src/app/constants/constants';
+import { collections } from '@app/core/constants/constants';
 
 @Component({
 	selector: 'app-home',
@@ -29,5 +29,9 @@ export class HomeComponent implements OnInit {
 			this.cultivosCollections = data;			
 			this.preloadData = false;
 		});		
+	}
+
+	recibe(event){
+		console.log(event);
 	}
 }

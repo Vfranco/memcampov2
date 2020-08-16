@@ -14,44 +14,54 @@
 
 <!-- resumen de cultivos -->
 <div class="row" *ngIf="!showLoader">
-    <div class="col-lg-4" *ngFor="let row of data">
-        <div class="c-project-card u-mb-medium">
-            <div class="c-graph-card__chart u-p-zero">
-                <img src="./assets/img/{{row.id_tipo_cultivo}}.jpg" style="height: 240px; width: 100%;" [ngClass]="{'img-black-white' : !row.activo}">
-            </div>
-            <div class="c-project-card__content">
-                <div class="c-project-card__head">
-                    <h4 class="c-project-card__title">{{ row.nombre | uppercase }} | {{ row.finca.nombre }} | {{ row.nombre_tipo_cultivo }}</h4>
-                    <p class="c-project-card__info">Registrado | Fecha : {{ row.fecha_inicio | date }} | {{ row.fecha_inicio | timeelapsed }} {{ (!row.activo) ? '| Finalizado: ' + (row.fecha_final | date) : '' | date}}</p>
+    <ng-container *ngFor="let row of data">
+        <div class="col-lg-4">
+            <div class="c-project-card u-mb-medium">
+                <div class="c-graph-card__chart u-p-zero">
+                    <img src="./assets/img/{{row.id_tipo_cultivo}}.jpg" style="height: 240px; width: 100%;"
+                        [ngClass]="{'img-black-white' : !row.activo}">
                 </div>
-                <div class="c-project-card__meta">
-                    <p><span class="c-badge c-badge--success">{{row.actividades | activitys }}</span><small class="u-block u-text-mute">Actividades</small></p>
-                    <p>{{row.actividades | costos | currency}}<small class="u-block u-text-mute">Costos COP</small></p>
-                    <p>{{row.lote.superficie.area}}<small class="u-block u-text-mute">Hectareas Sembradas (Lote)</small></p>
-                </div>
-                <div class="row u-p-small" *ngIf="row.activo; else buttons;">
-                    <div class="col-4">
-                        <button class="c-btn c-btn--danger"><i class="fa fa-trash"></i></button>
+                <div class="c-project-card__content">
+                    <div class="c-project-card__head">
+                        <h4 class="c-project-card__title">{{ row.nombre | uppercase }} | {{ row.finca.nombre }} |
+                            {{ row.nombre_tipo_cultivo }}</h4>
+                        <p class="c-project-card__info">Registrado | Fecha : {{ row.fecha_inicio | date }} |
+                            {{ row.fecha_inicio | timeelapsed }}
+                            {{ (!row.activo) ? '| Finalizado: ' + (row.fecha_final | date) : '' | date}}</p>
                     </div>
-                    <div class="col-4">
-                        <a class="c-btn c-btn--info c-btn--fullwidth" href="#">Seguimiento</a>
+                    <div class="c-project-card__meta">
+                        <p><span class="c-badge c-badge--success">{{row.actividades | activitys }}</span><small
+                                class="u-block u-text-mute">Actividades</small></p>
+                        <p>{{row.actividades | costos | currency}}<small class="u-block u-text-mute">Costos COP</small>
+                        </p>
+                        <p>{{row.lote.superficie.area}}<small cla ss="u-block u-text-mute">Hectareas Sembradas
+                                (Lote)</small></p>
                     </div>
-                    <div class="col-4">
-                        <a class="c-btn c-btn--success c-btn--fullwidth" href="#">Detalles</a>
-                    </div>
-                </div>
-                <ng-template #buttons>
-                    <div class="row u-p-small">
-                        <div class="col">
-                            <span class="c-badge c-badge--info">Cultivo Finalizado</span>
+                    <div class="row u-p-small" *ngIf="row.activo; else buttons;">
+                        <div class="col-4">
+                            <button class="c-btn c-btn--danger"><i class="fa fa-trash"></i></button>
                         </div>
-                        <div class="col">                            
-                            <a class="c-btn c-btn--default c-btn--fullwidth" href="javascript:">Rendimiento</a>
+                        <div class="col-4">
+                            <a class="c-btn c-btn--info c-btn--fullwidth" href="#">Seguimiento</a>
+                        </div>
+                        <div class="col-4">
+                            <a class="c-btn c-btn--success c-btn--fullwidth" href="#">Detalles</a>
                         </div>
                     </div>
-                </ng-template>
+                    <ng-template #buttons>
+                        <div class="row u-p-small">
+                            <div class="col">
+                                <span class="c-badge c-badge--info">Cultivo Finalizado</span>
+                            </div>
+                            <div class="col">
+                                <a class="c-btn c-btn--default c-btn--fullwidth" href="javascript:">Rendimiento</a>
+                            </div>
+                        </div>
+                    </ng-template>
+                </div>
             </div>
         </div>
-    </div>
+    </ng-container>
+
 </div>
 <!-- end resumen de cultivos -->

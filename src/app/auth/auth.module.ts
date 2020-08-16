@@ -8,12 +8,13 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { RecoveryComponent } from './recovery/recovery.component';
 import { ResetComponent } from './reset/reset.component';
+import { CoreModule } from '@app/core/core.module';
 
-const authRoute : Routes = [
-	{ path : '', component : LoginComponent },
-	{ path : 'register', component : RegisterComponent },
-	{ path : 'recovery', component : RecoveryComponent },
-	{ path : 'reset', component : ResetComponent }
+const authRoute: Routes = [
+	{ path: '', component: LoginComponent },
+	{ path: 'register', component: RegisterComponent },
+	{ path: 'recovery', component: RecoveryComponent },
+	{ path: 'reset', component: ResetComponent }
 ]
 
 @NgModule({
@@ -21,13 +22,14 @@ const authRoute : Routes = [
 		LoginComponent,
 		RegisterComponent,
 		RecoveryComponent,
-		ResetComponent		
+		ResetComponent
 	],
 	imports: [
 		CommonModule,
 		FormsModule,
 		RouterModule.forChild(authRoute),
-		SharedModule
+		SharedModule,
+		CoreModule
 	],
 	exports: [ResetComponent]
 })

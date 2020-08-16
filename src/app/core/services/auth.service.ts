@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { collections } from 'src/app/constants/constants';
+import { collections } from '../constants/constants';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Router } from '@angular/router';
 import { LocalstorageService } from './localstorage.service';
@@ -26,7 +26,7 @@ export class AuthService {
 		return this.firebase.auth.createUserWithEmailAndPassword(obj.email, obj.password);
 	}
 
-	recoveryPassword(email, urlrecovery) : Promise<any>{
+	recoveryPassword(email, urlrecovery) : Promise<any> {
 		return this.firebase.auth.sendPasswordResetEmail(email, urlrecovery);
 	}
 

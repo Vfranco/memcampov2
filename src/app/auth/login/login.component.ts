@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Login } from 'src/app/interface/login.interface';
-import { AuthService } from 'src/app/services/auth.service';
-import { LocalstorageService } from 'src/app/services/localstorage.service';
-import { firebaseErrors } from 'src/app/constants/firebase.errors';
+import { Login } from '@app/core/models/login.model';
+import { AuthService, LocalstorageService } from '@app/core/services';
+import { firebaseErrors } from '@app/core/constants/firebase.errors';
 
 @Component({
 	selector: 'app-login',

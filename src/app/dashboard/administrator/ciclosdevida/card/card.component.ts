@@ -1,9 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
-
-import { Ciclo } from './../../../../interface/Ciclo.interface';
-
-import { CiclosService } from './../../../../services/ciclos.service';
+import { Ciclo } from '@app/core/interface/Ciclo.interface';
+import { CiclosService } from '@app/core/services';
 
 import Swal from 'sweetalert2';
 
@@ -16,7 +14,7 @@ export class CardComponent implements OnInit {
 
 	@Input() ciclo: Ciclo;
 	uid: string = "";
-	
+
 	constructor(
 		private activedRoute: ActivatedRoute,
 		private router: Router,
@@ -27,7 +25,7 @@ export class CardComponent implements OnInit {
 
 	ngOnInit() {
 	}
-	
+
 	validationDelete() {
 		if (this.ciclo.fases.length > 0) {
 			Swal.fire('¡Abvertencia!', 'Este ciclo de vida tiene fases asociadas', 'warning')
@@ -47,8 +45,8 @@ export class CardComponent implements OnInit {
 			cancelButtonText: 'Cancelar',
 			showCancelButton: true
 		}).then(result => {
-			if( result ){
-				if (this.validationDelete()) { 
+			if (result) {
+				if (this.validationDelete()) {
 					this.ciclosService.deleteCiclo(id).then(() => {
 						this.ciclosService.deleteImgCiclo(this.ciclo.nombreCicloVida, this.ciclo.nombreImagenCicloVida).toPromise()
 							.then(() => { console.log(`Imagen ${this.ciclo.nombreImagenCicloVida} eliminada con exito.`); });
@@ -62,5 +60,4 @@ export class CardComponent implements OnInit {
 	details() {
 		this.router.navigate([`/dashboard/mc/${this.uid}/details/${this.ciclo.id}`]);
 	}
-
 }

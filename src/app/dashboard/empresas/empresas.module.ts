@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from 'src/app/guards/auth.guard';
+import { AuthGuard } from '@app/core/guards';
 
 import { CultivosComponent } from './cultivos/cultivos.component';
 import { FincasComponent } from './fincas/fincas.component';

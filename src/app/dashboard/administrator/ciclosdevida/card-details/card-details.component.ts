@@ -1,5 +1,6 @@
-import { Ciclo } from './../../../../interface/Ciclo.interface';
+
 import { Component, OnInit, Input } from '@angular/core';
+import { Ciclo } from '@app/core/interface/Ciclo.interface';
 
 @Component({
   selector: 'app-card-details',

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LocalstorageService } from 'src/app/services/localstorage.service';
-import { FirebaseService } from 'src/app/services/firebase.service';
-import { UserService } from 'src/app/services/user.service';
 import { ReadKeyExpr } from '@angular/compiler';
+import { LocalstorageService, FirebaseService, UserService } from '@app/core/services';
 
 @Component({
 	selector: 'app-sidebar',
@@ -12,14 +10,14 @@ import { ReadKeyExpr } from '@angular/compiler';
 })
 export class SidebarComponent implements OnInit {
 
-	titleMenu : string = '';
-	menuOptions :any = [];
-	menuAdministrador :any = [];
-	loadingSideBar:boolean = false;
+	titleMenu: string = '';
+	menuOptions: any = [];
+	menuAdministrador: any = [];
+	loadingSideBar: boolean = false;
 
 	constructor(
-		private route: ActivatedRoute, 
-		private localstorage: LocalstorageService, 
+		private route: ActivatedRoute,
+		private localstorage: LocalstorageService,
 		private firebase: FirebaseService,
 		private userData: UserService) { }
 
@@ -30,33 +28,33 @@ export class SidebarComponent implements OnInit {
 		});
 	}
 
-	setMenuOptionsUser(uid){
+	setMenuOptionsUser(uid) {
 		this.firebase.readCollection('menuRoles').subscribe(result => {
 			this.setMenuByRol(this.userData.getRolUser(), result);
 		});
 	}
 
-	setMenuByRol(rol, menu){
-		switch(rol){
+	setMenuByRol(rol, menu) {
+		switch (rol) {
 
 			case '0':
 				this.titleMenu = menu[0].adminMenu[0].main;
 				this.menuOptions = menu[0].adminMenu[0].options;
 				this.menuAdministrador = menu[0].adminMenu[1].options;
 				this.loadingSideBar = false;
-			break;
+				break;
 
-			case '2':				
+			case '2':
 				this.titleMenu = menu[0].menuUser[0].main;
 				this.menuOptions = menu[0].menuUser[0].options;
 				this.loadingSideBar = false;
-			break;
+				break;
 
-			case '3':			
+			case '3':
 				this.titleMenu = menu[0].editMenu[0].main;
 				this.menuOptions = menu[0].editMenu[0].options;
 				this.loadingSideBar = false;
-			break;
+				break;
 		}
 	}
 }

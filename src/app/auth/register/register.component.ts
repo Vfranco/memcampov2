@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AccountRegister } from 'src/app/models/registro.model';
-import { AuthService } from 'src/app/services/auth.service';
-import { FirebaseService } from 'src/app/services/firebase.service';
-import { collections } from 'src/app/constants/constants';
-import { firebaseErrors } from 'src/app/constants/firebase.errors';
+import { AccountRegister } from '@app/core/models/registro.model';
+import { AuthService, FirebaseService } from '@app/core/services';
+import { collections } from '@app/core/constants/constants';
+import { firebaseErrors } from '@app/core/constants/firebase.errors';
+
 
 @Component({
 	selector: 'app-register',
@@ -44,9 +44,9 @@ export class RegisterComponent implements OnInit {
 					this.errorMessageRegister = firebaseErrors[error.code] || error.message;
 				});
 			}
-
 			this.btnRegisterUser = 'Registrar Usuario';
 			formData.resetForm(new AccountRegister);
+
 		}).catch(error => {
 			this.statusRegister = true;
 			this.colorStatus = 'danger';

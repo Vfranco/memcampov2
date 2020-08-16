@@ -1,8 +1,7 @@
-import { Ciclo } from './../../../../interface/Ciclo.interface';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-
-import { CiclosService } from './../../../../services/ciclos.service';
+import { Ciclo } from '@app/core/interface/Ciclo.interface';
+import { CiclosService } from '@app/core/services';
 
 @Component({
 	selector: 'app-details',
@@ -11,15 +10,12 @@ import { CiclosService } from './../../../../services/ciclos.service';
 })
 export class DetailsComponent implements OnInit {
 
-	preloadData	   : boolean  = false;
-	ciclo		   : Ciclo;
-	repaldo        : Ciclo   ;
-	imagesRespaldo : string[] = [];
+	preloadData: boolean = false;
+	ciclo: Ciclo;
+	repaldo: Ciclo;
+	imagesRespaldo: string[] = [];
 
-	constructor(
-		private ciclosService: CiclosService,
-		private activatedRoute: ActivatedRoute) {
-		
+	constructor(private ciclosService: CiclosService, private activatedRoute: ActivatedRoute) {
 		this.init();
 	}
 
@@ -30,8 +26,8 @@ export class DetailsComponent implements OnInit {
 		this.preloadData = true;
 		this.activatedRoute.paramMap.subscribe(params => {
 			this.ciclosService.getCicloById(params.get('id')).subscribe(data => {
-				this.ciclo 		 = data;
-				this.repaldo     = {
+				this.ciclo = data;
+				this.repaldo = {
 					nombreCicloVida: data['nombreCicloVida'],
 					url_ciclo_vida: data['url_ciclo_vida'],
 					nombreImagenCicloVida: data['nombreImagenCicloVida'],

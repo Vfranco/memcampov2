@@ -8,8 +8,9 @@
 <ng-template #records>
     <div class="row">
         <div class="col">
-            <app-resumen [showLoader]="preloadData" [data]="cultivosCollections"></app-resumen>
+            <app-resumen [showLoader]="preloadData" [data]="cultivosCollections" (query)="recibe($event)"></app-resumen>
         </div>
     </div>
 </ng-template>
-<app-createculivo></app-createculivo>
+
+<app-createculivo ></app-createculivo>

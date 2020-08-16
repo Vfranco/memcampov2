@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
 	selector: 'app-resumen',
@@ -9,9 +9,11 @@ export class ResumenComponent implements OnInit {
 
 	@Input() showLoader : boolean = false;
 	@Input() data: any;
+	@Output() query = new EventEmitter();
 
 	constructor() { }
 
 	ngOnInit() {
+		this.query.emit('algo')
 	}
 }
