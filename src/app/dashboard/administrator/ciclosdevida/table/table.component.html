@@ -2,7 +2,7 @@
 	<table class="c-table c-table--highlight u-mb-small table">
 
 		<caption class="c-table__title">
-			Fases del ciclo ... <small>2 Fases</small>
+			Fases del ciclo ... <small>{{fases.length}}</small>
 
 			<div class=" col-4 c-field has-addon-left c-pull-right">
 				<span class="c-field__addon">
@@ -12,7 +12,7 @@
 				<input class="c-input" type="text" placeholder="Buscar por nombre su Fase">
 			</div>
 
-			<button class="c-btn c-btn--success c-pull-right" data-toggle="modal" data-target="#modal2">
+			<button class="c-btn c-btn--success c-pull-right" data-toggle="modal" data-target="#modalFase" (click)="createFase()">
 				<i class="fa fa-plus u-mr-xsmall"></i>Agregar fase
 			</button>
 		</caption>
@@ -31,38 +31,38 @@
 			</tr>
 		</thead>
 
-		<tbody>
-			<tr class="c-table__row c-table__row--danger">
+		<tbody *ngIf="fases.length > 0">
+			<tr class="c-table__row" [class.c-table__row--danger]="fase.habilitar == false" *ngFor="let fase of fases, let i = index">
 				<td class="c-table__cell">
-					Nombre ...
+					{{fase.nombre}}
 				</td>
 
 				<td class="c-table__cell">
 					<p class="parrafo">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora suscipit architecto temporibus
-						rerum. Dolor quibusdam dignissimos, reprehenderit, eligendi dolorem harum officiis quod iusto
-						dolore repudiandae porro qui velit tempora distinctio?
+						{{fase.detalles}}
 					</p>
 				</td>
 
 				<td class="c-table__cell">
 					<p class="parrafo">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora suscipit architecto temporibus
-						rerum. Dolor quibusdam dignissimos, reprehenderit, eligendi dolorem harum officiis quod iusto
-						dolore repudiandae porro qui velit tempora distinctio?
+						{{fase.sugerencias}}
 					</p>
 				</td>
 
-				<td class="c-table__cell">
-					<span class="c-badge c-badge--danger">deshabilitado</span>
+				<td class="c-table__cell" *ngIf="fase.habilitar == true || fase.habilitar == 'true'">
+					<span class="c-badge c-badge--success">Habilitado</span>
+				</td>
+
+				<td class="c-table__cell" *ngIf="fase.habilitar == false || fase.habilitar == 'false'">
+					<span class="c-badge c-badge--danger">Deshabilitado</span>
 				</td>
 
 				<td class="c-table__cell">
-					<i class="fa fa-circle-o u-color-info u-mr-xsmall"></i>0 | 2
+					<i class="fa fa-circle-o u-color-info u-mr-xsmall"></i>{{fase.rango_dias.inicio}} | {{fase.rango_dias.fin}}
 				</td>
 
 				<td class="c-table__cell">
-					<i class="fa fa-circle-o u-color-info u-mr-xsmall"></i>5-6 días.
+					<i class="fa fa-circle-o u-color-info u-mr-xsmall"></i>{{fase.rango_dias_literatura}}.
 				</td>
 
 				<td class="c-table__cell u-text-right">
@@ -71,56 +71,8 @@
 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones</button>
 
 						<div class="c-dropdown__menu dropdown-menu" aria-labelledby="dropdownMenuButton27">
-							<a class="c-dropdown__item dropdown-item" data-toggle="modal"
-								data-target="#modal2">Editar</a>
-							<a class="c-dropdown__item dropdown-item">Eliminar</a>
-						</div>
-					</div>
-				</td>
-			</tr>
-
-			<tr class="c-table__row">
-				<td class="c-table__cell">
-					Nombre
-				</td>
-
-				<td class="c-table__cell">
-					<p class="parrafo">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora suscipit architecto temporibus
-						rerum. Dolor quibusdam dignissimos, reprehenderit, eligendi dolorem harum officiis quod iusto
-						dolore repudiandae porro qui velit tempora distinctio?
-					</p>
-				</td>
-
-				<td class="c-table__cell">
-					<p class="parrafo">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora suscipit architecto temporibus
-						rerum. Dolor quibusdam dignissimos, reprehenderit, eligendi dolorem harum officiis quod iusto
-						dolore repudiandae porro qui velit tempora distinctio?
-					</p>
-				</td>
-
-				<td class="c-table__cell">
-					<span class="c-badge c-badge--success">Habilitado</span>
-				</td>
-
-				<td class="c-table__cell">
-					<i class="fa fa-circle-o u-color-info u-mr-xsmall"></i>2 | 4
-				</td>
-
-				<td class="c-table__cell">
-					<i class="fa fa-circle-o u-color-info u-mr-xsmall"></i>6-10 días
-				</td>
-
-				<td class="c-table__cell u-text-right">
-					<div class="c-dropdown dropdown">
-						<button class="c-btn c-btn--secondary has-dropdown dropdown-toggle" id="dropdownMenuButton28"
-							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones</button>
-
-						<div class="c-dropdown__menu dropdown-menu" aria-labelledby="dropdownMenuButton28">
-							<a class="c-dropdown__item dropdown-item" data-toggle="modal"
-								data-target="#modal2">Editar</a>
-							<a class="c-dropdown__item dropdown-item">Eliminar</a>
+							<a class="c-dropdown__item dropdown-item" data-toggle="modal" (click)="updateFase(fase, i)">Editar</a>
+							<a class="c-dropdown__item dropdown-item" (click)="deleteFase(i)">Eliminar</a>
 						</div>
 					</div>
 				</td>
@@ -129,4 +81,4 @@
 	</table>
 </div>
 
-<app-createfase></app-createfase>
+<app-createfase [data]="{id: id, fases: fases, ciclo: ciclo}" [fase]="faseSelected" [editar]="editar" [indexSelected]="index" [habilitarEstadoFase]="habilitar" [inicio]="inicio" [fin]="fin"></app-createfase>

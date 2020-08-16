@@ -1,137 +1,82 @@
-<!-- <div class="c-modal c-modal--xlarge modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="modal2"
+<div *ngIf="fase" class="c-modal c-modal--large modal fade" id="modalFase" tabindex="-1" role="dialog" aria-labelledby="modalFase"
     data-backdrop="static">
     <div class="c-modal__dialog modal-dialog" role="document">
         <div class="c-modal__content">
-
             <div class="c-modal__header">
-                <h3 class="c-modal__title">Crear una nueva Fase</h3>
-                <span class="c-modal__close" data-dismiss="modal" aria-label="Close">
+                <h3 *ngIf="!editar" class="c-modal__title">Agregar Fase</h3>
+                <h3 *ngIf="editar" class="c-modal__title">Editar Fase</h3>
+                <span *ngIf="!editar" class="c-modal__close" data-dismiss="modal" aria-label="Close" (click)="clearVariables(form)">
+                    <i class="fa fa-close"></i>
+                </span>
+                <span *ngIf="editar" class="c-modal__close" data-dismiss="modal" aria-label="Close">
                     <i class="fa fa-close"></i>
                 </span>
             </div>
-
-            <div class="c-modal__body">
-                <form id="frm-crear-fase" action="javascript:" autocomplete="off">
+            <form #form="ngForm">
+                <div class="c-modal__body">
+                    <div class="form-group c-field u-mb-xsmall">
+                        <label class="c-field__label" for="select12">Nombre</label>
+                        <input #nombreFase="ngModel" class="form-control c-input" type="text" name="nombre" [(ngModel)]="fase.nombre"
+                            [class.c-input--danger]="nombreFase.touched && nombreFase.invalid" required>
+                    </div>
                     <div class="row">
-                        <div class="col-4">
-                            <div class=" c-field u-mb-small ">
-                                <label class="c-field__label" for="nombre_actividad ">Nombre de la Fase</label>
-                                <input class="c-input required" placeholder="Ejemplo: Germinacion" name="nombreFase"
-                                    id="nombreCrearFase" type="text" value="">
-                            </div>
-                            <div class="c-field u-mb-small ">
-                                <select id="crearFaseHabilitar" class="c-input c-combobox required">
-                                    <option value="" selected>Seleccioner estado de Fase</option>
-                                    <option value="1">true</option>
-                                    <option value="2">false</option>
+                        <div class="col-6">
+                            <div class="form-group c-field u-mb-xsmall">
+                                <label class="c-field__label">Estado de la fase</label>
+                                <select #habilitarFase="ngModel" class="form-control c-input c-combobox" name="habilitar" [(ngModel)]="habilitarEstadoFase"
+                                    [class.c-input--danger]="habilitarFase.touched && habilitarFase.invalid" required>
+                                    <option value="true">Habilitar</option>
+                                    <option value="false">Deshabilitar</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="c-field u-mb-small ">
-                                <label class="c-field__label u-text-center">Duracion en dias de la Fase</label>
-                                <input class="c-input required" placeholder="Inicio de la etapa" id="inicioCrearFase"
-                                    type="number">
-                                <input class="c-input required u-mt-small" placeholder="Fin de la etapa"
-                                    id="finCrearFase" type="number">
+                        </div> <!-- end col -->
+            
+                        <div class="col-3">
+                            <div class="form-group c-field u-mb-xsmall">
+                                <label class="c-field__label" for="select12">Inicio de la fase</label>
+                                <input #inicioFase="ngModel" class="form-control c-input" type="number" name="inicio" [(ngModel)]="inicio"
+                                    [class.c-input--danger]="inicioFase.touched && inicioFase.invalid" required>
                             </div>
-                        </div>
-                        <div class="col-4">
-                            <label class="c-field__label u-text-center">Duracion de la etapa segun libros:</label>
-                            <textarea class="c-input u-height-100 required" id="creaRangoDiasLiteratura"
-                                placeholder="Ejemplo: La etapa de germinacion de este cultivo varia de 3 a 5 días dependiendo de la literatura."></textarea>
-                        </div>
+                        </div> <!-- end col -->
+            
+                        <div class="col-3">
+                            <div class="form-group c-field u-mb-xsmall">
+                                <label class="c-field__label" for="select12">Fin de la fase</label>
+                                <input #finFase="ngModel" class="form-control c-input" type="number" name="fin" [(ngModel)]="fin"
+                                    [class.c-input--danger]="finFase.touched && finFase.invalid" required>
+                            </div>
+                        </div> <!-- end col -->
                     </div>
-
-                    <div class="row u-mt-small">
-                        <div class="col-12">
-                            <label class="c-field__label">Escriba algunos detalles de esta etapa.</label>
-                            <textarea class="c-input required" id="crearDetalleFase"
-                                placeholder="Ejemplo: En la etapa de germinacion la semilla empieza a crecer."></textarea>
-                        </div>
+                    <div class="form-group c-field u-mb-small">
+                        <label class="c-field__label" for="select12">Fase segun los libros</label>
+                        <textarea #faseLibros="ngModel" class="form-control c-input text-area" type="text" name="libros"
+                            [(ngModel)]="fase.rango_dias_literatura"
+                            [class.c-input--danger]="faseLibros.touched && faseLibros.invalid" required></textarea>
                     </div>
-                    <div class="row u-mt-small">
-                        <div class="col-12">
-                            <label class="c-field__label">Escriba algunas sugerencias para esta etapa.</label>
-                            <textarea class="c-input required" id="crearSugerenciasFase"
-                                placeholder="Ejemplo: Se sugiere que para esta estapa se apliquen en el suelo algunos abonos para fortalecer el crecimiento de la semilla."></textarea>
-                        </div>
+            
+                    <div class="form-group c-field u-mb-small">
+                        <label class="c-field__label" for="select12">Detalles de la fase</label>
+                        <textarea #detallesFase="ngModel" class="form-control c-input text-area" type="text" name="detalles"
+                            [(ngModel)]="fase.detalles" [class.c-input--danger]="detallesFase.touched && detallesFase.invalid"
+                            required></textarea>
                     </div>
-
-                    <div class="row u-mt-small">
-                        <div class="col-12" style="text-align: center;">
-                            <button class="c-btn c-btn--info" style="width: 50%;">
-                                {{ buttomText }}
-                            </button>
-                        </div>
+            
+                    <div class="form-group c-field u-mb-small">
+                        <label class="c-field__label" for="select12">Sugerencias</label>
+                        <textarea #sugerenciasFase="ngModel" class="form-control c-input text-area" type="text" name="sugerencias"
+                            [(ngModel)]="fase.sugerencias"
+                            [class.c-input--danger]="sugerenciasFase.touched && sugerenciasFase.invalid" required></textarea>
                     </div>
+            
+                    <button *ngIf="!editar" class="c-btn c-btn--success c-btn--fullwidth" (click)="createFase(form)">
+                        Agregar fase
+                    </button>
 
-                </form>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-<!-- Modal -->
-<div class="c-modal c-modal--large modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="modal2"
-    data-backdrop="static">
-    <div class="c-modal__dialog modal-dialog" role="document">
-        <div class="c-modal__content">
-            <div class="c-modal__header">
-                <h3 class="c-modal__title">Agregar Fase</h3>
-                <span class="c-modal__close" data-dismiss="modal" aria-label="Close">
-                    <i class="fa fa-close"></i>
-                </span>
-            </div>
-            <div class="c-modal__body">
-                <div class="c-field u-mb-xsmall">
-                    <label class="c-field__label" for="select12">Nombre</label>
-                    <input class="c-input" type="text">
+                     <button *ngIf="editar" class="c-btn c-btn--success c-btn--fullwidth" (click)="upadteFase(form)">
+                        Editar fase
+                    </button>
                 </div>
-                <div class="row">
-                    <div class="col-6">
-                        <div class="c-field u-mb-xsmall">
-                            <label class="c-field__label">Estado de la fase</label>
-                            <select class="c-input c-combobox">
-                                <option>Habilitar</option>
-                                <option>Deshabilitar</option>
-                            </select>
-                        </div>
-                    </div> <!-- end col -->
-
-                    <div class="col-3">
-                        <div class="c-field u-mb-xsmall">
-                            <label class="c-field__label" for="select12">Inicio de la fase</label>
-                            <input class="c-input" type="number">
-                        </div>
-                    </div> <!-- end col -->
-
-                    <div class="col-3">
-                        <div class="c-field u-mb-xsmall">
-                            <label class="c-field__label" for="select12">Fin de la fase</label>
-                            <input class="c-input" type="number">
-                        </div>
-                    </div> <!-- end col -->
-                </div>
-                <div class="c-field u-mb-small">
-                    <label class="c-field__label" for="select12">Fase segun los libros</label>
-                    <textarea class="c-input text-area" type="text"></textarea>
-                </div>
-
-                <div class="c-field u-mb-small">
-                    <label class="c-field__label" for="select12">Detalles de la fase</label>
-                    <textarea class="c-input text-area" type="text"></textarea>
-                </div>
-                
-                <div class="c-field u-mb-small">
-                    <label class="c-field__label" for="select12">Sugerencias</label>
-                    <textarea class="c-input text-area" type="text"></textarea>
-                </div>
-
-                <a class="c-btn c-btn--success c-btn--fullwidth" href="#">
-                    {{ buttomText }}
-                </a>
-            </div>
+            </form>
         </div><!-- // .c-modal__content -->
     </div><!-- // .c-modal__dialog -->
 </div><!-- // .c-modal -->

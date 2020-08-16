@@ -20,6 +20,7 @@ export class DetailsComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.init();
 	}
 
 	init() {

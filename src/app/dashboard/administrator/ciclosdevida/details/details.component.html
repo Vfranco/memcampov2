@@ -27,6 +27,6 @@
 
 <div class="row u-mb-medium" *ngIf="!preloadData">
     <div class="col-12">
-        <app-table></app-table>
+        <app-table [ciclo]="ciclo" [fases]="ciclo.fases" [id]="id"></app-table>
     </div> <!-- end col -->
 </div>
