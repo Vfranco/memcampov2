@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LocalstorageService } from './localstorage.service';
 
-@Injectable({
-	providedIn: 'root'
-})
+@Injectable()
 export class UserService {
 
 	constructor(private localstorage: LocalstorageService) { }

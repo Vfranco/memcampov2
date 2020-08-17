@@ -4,9 +4,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { collections } from './../constants/constants';
 import { map } from 'rxjs/operators';
 
-@Injectable({
-	providedIn: 'root'
-})
+@Injectable()
 export class CiclosService {
 
 	constructor(
