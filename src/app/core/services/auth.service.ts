@@ -6,9 +6,7 @@ import { Router } from '@angular/router';
 import { LocalstorageService } from './localstorage.service';
 import { AccountRegister } from '../models/registro.model';
 
-@Injectable({
-	providedIn: 'root'
-})
+@Injectable()
 export class AuthService {
 
 	constructor(
