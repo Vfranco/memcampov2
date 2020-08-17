@@ -8,6 +8,7 @@ import { CoreModule } from '@app/core/core.module';
 
 import { MainComponent } from './main/main.component';
 import { ProfileComponent } from './profile/profile.component';
+import { QuicklinkModule } from 'ngx-quicklink';
 
 const dashboardRoute: Routes = [
 	{ 
@@ -18,26 +19,22 @@ const dashboardRoute: Routes = [
 			{ 
 				path 			: '',
 				loadChildren 	: () => import('./agricultor/agricultor.module').then(m => m.AgricultorModule ),
-				canActivate 	: [AuthGuard],
-				data 			: { preload : false }
+				canActivate 	: [AuthGuard]
 			},
 			{
 				path			: '',
 				loadChildren	: () => import('./editor/editor.module').then(m => m.EditorModule),
-				canActivate		: [AuthGuard],
-				data 			: { preload : false }
+				canActivate		: [AuthGuard]
 			},
 			{
 				path			: '',
 				loadChildren	: () => import('./empresas/empresas.module').then(m => m.EmpresasModule),
-				canActivate		: [AuthGuard],
-				data 			: { preload : false }
+				canActivate		: [AuthGuard]
 			},
 			{
 				path			: '',
 				loadChildren	: () => import('./administrator/administrator.module').then(m => m.AdministratorModule),
-				canActivate		: [AuthGuard],
-				data 			: { preload : false }
+				canActivate		: [AuthGuard]
 			}
 		]		
 	}	
@@ -52,7 +49,8 @@ const dashboardRoute: Routes = [
 		CommonModule,
 		SharedModule,
 		CoreModule,
-		RouterModule.forChild(dashboardRoute)
+		RouterModule.forChild(dashboardRoute),
+		QuicklinkModule
 	],
 	exports: [
 		ProfileComponent

@@ -7,7 +7,7 @@ import { CoreModule } from '@app/core/core.module';
 import { FincasComponent } from './fincas/fincas.component';
 
 const agricultorRoute : Routes = [
-	{ path: '', loadChildren : () => import('./cultivos/cultivos.module').then(m => m.CultivosModule), data : { preload : false }},
+	{ path: '', loadChildren : () => import('./cultivos/cultivos.module').then(m => m.CultivosModule), data : { preload : false } },
 	{ path: 'fincas', component: FincasComponent }
 ]
 

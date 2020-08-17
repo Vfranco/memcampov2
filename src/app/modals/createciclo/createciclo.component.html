@@ -24,9 +24,9 @@
 						<label class="c-field__label" for="select12">Tipo de cultivo</label>
 						<select #tipoCultivo="ngModel" class="form-control c-input c-combobox" name="id_tipo_cultivo" [(ngModel)]="cicloVida.id_tipo_cultivo" [class.c-input--danger]="tipoCultivo.touched && tipoCultivo.invalid" required>
 							<option value="" selected>Seleccionar el tipo de cultivo</option>
-							<option [value]="tipo.key" *ngFor="let tipo of tiposCultivo | keyvalue">
+							<!-- <option [value]="tipo.key" *ngFor="let tipo of tiposCultivo | keyvalue">
 								{{tipo.value.nombre }}
-							</option>
+							</option> -->
 						</select>
 					</div>
 

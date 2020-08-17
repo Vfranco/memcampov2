@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { QuicklinkModule } from 'ngx-quicklink';
 
 import { TopComponent } from './top/top.component';
 import { MenuComponent } from './menu/menu.component';
@@ -37,7 +38,8 @@ import { ToolbarLoaderComponent } from './toolbar-loader/toolbar-loader.componen
 	imports: [
 		CommonModule,
 		RouterModule,
-		NgxSkeletonLoaderModule
+		NgxSkeletonLoaderModule,
+		QuicklinkModule
 	],
 	exports: [
 		TopComponent,

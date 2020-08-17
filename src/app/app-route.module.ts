@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 
-import { QuicklinkModule, QuicklinkStrategy } from 'ngx-quicklink';
+import { QuicklinkStrategy } from 'ngx-quicklink';
 
 const appRoute: Routes = [
 	{ path: '', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },	
@@ -15,8 +15,7 @@ const appRoute: Routes = [
 	declarations: [],
 	imports: [
 		CommonModule,
-		HttpClientModule,
-		QuicklinkModule,		
+		HttpClientModule,		
 		RouterModule.forRoot(appRoute, {
 			enableTracing : false,
 			preloadingStrategy : QuicklinkStrategy
