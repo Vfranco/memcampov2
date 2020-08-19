@@ -7,6 +7,8 @@ import { LocalstorageService } from './localstorage.service';
 import { TiposcultivoService } from './tiposcultivo.service';
 import { TipsService } from './tips.service';
 import { UserService } from './user.service';
+import { FileManagerService } from './file-manager.service';
+import { CultivosService } from './cultivos.service';
 
 export * from './auth.service';
 export * from './ciclos.service';
@@ -17,6 +19,8 @@ export * from './localstorage.service';
 export * from './tiposcultivo.service';
 export * from './tips.service';
 export * from './user.service';
+export * from './file-manager.service';
+export * from './cultivos.service';
 
 export const SERVICES = [
     AuthService,
@@ -27,5 +31,7 @@ export const SERVICES = [
     LocalstorageService,
     TiposcultivoService,
     TipsService,
-    UserService
+    UserService,
+    FileManagerService,
+    CultivosService
 ]

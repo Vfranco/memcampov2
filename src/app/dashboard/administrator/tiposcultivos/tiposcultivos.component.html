@@ -1,1 +1,66 @@
-<p>tiposcultivos works!</p>
+<!-- button test momentaneo  -->
+<button type="submit" class="c-btn c-btn--success u-mb-medium" data-toggle="modal" data-target="#modalTipocultivo" (click)="openModal()">Crear
+	Tipo de cultivo</button>
+<!-- end button test momentaneo -->
+
+
+<table class="c-table" *ngIf="tiposCultivo">
+	<caption class="c-table__title">
+		Tipos de cultivo <small>{{tiposCultivo.length}}</small>
+	</caption>
+
+	<thead class="c-table__head c-table__head--slim">
+		<tr class="c-table__row">
+			<th class="c-table__cell c-table__cell--head">ID</th>
+			<th class="c-table__cell c-table__cell--head">Nombre</th>
+			<th class="c-table__cell c-table__cell--head">Imagen Principal</th>
+			<th class="c-table__cell c-table__cell--head">Icono</th>
+			<th class="c-table__cell c-table__cell--head">Opciones</th>
+			<th class="c-table__cell c-table__cell--head">
+				<span class="u-hidden-visually">Actions</span>
+			</th>
+		</tr>
+	</thead>
+
+	<tbody *ngFor="let tipo of tiposCultivo; let i = index">
+		<tr class="c-table__row c-table__row">
+			<td class="c-table__cell">
+				{{i + 1}}
+			</td>
+
+			<td class="c-table__cell">
+				{{tipo.nombre}}
+			</td>
+
+			<td class="c-table__cell">
+				<div class="c-avatar c-avatar--xsmall">
+					<img class="c-avatar__img" [src]="tipo.imgCultivo" alt="Adam's Face">
+				</div>
+			</td>
+
+			<td class="c-table__cell">
+				<div class="c-avatar c-avatar--xsmall">
+					<img class="c-avatar__img" [src]="tipo.imgIcono" alt="Adam's Face">
+				</div>
+			</td>
+
+			<td class="c-table__cell u-text-right">
+				<div class="c-dropdown dropdown">
+					<button class="c-btn c-btn--secondary has-dropdown dropdown-toggle" id="dropdownMenuButton1"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones</button>
+
+					<div class="c-dropdown__menu dropdown-menu" aria-labelledby="dropdownMenuButton1">
+						<a class="c-dropdown__item dropdown-item" data-toggle="modal" data-target="#modalTipocultivo"
+							(click)="setData(tipo)">Editar</a>
+						<a class="c-dropdown__item dropdown-item"
+							(click)="validationDeleteTipoCultivo(tipo.id)">Eliminar</a>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<app-createtipocultivo [id]="tipo.id" (clear)="clearData($event)" (closeModal)="closeModalTipo($event)" (create)="saveTipoCultivo($event)" (update)="updateTipoCultivo($event)"
+	*ngIf="showModal">
+</app-createtipocultivo>

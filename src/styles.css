@@ -1,13 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 .mc-logo {
-    background: url('./assets/img/back-mem-campo.jpg') no-repeat top;
+    background: url("./assets/img/back-mem-campo.jpg") no-repeat top;
     background-position: center;
     background-size: cover;
     position: absolute;
     height: 100%;
     width: 100%;
     z-index: -1;
-
 }
 
 .mc-backgroud-color {
@@ -30,7 +29,16 @@
     width: auto !important;
 }
 
-@media(max-height: 768px) {
+.image__ciclo {
+    position: absolute;
+    object-fit: cover;
+    object-position: center;
+    height: 80%;
+    width: 40%;
+    border-radius: 20px;
+}
+
+@media (max-height: 768px) {
     .o-page {
         padding-top: 8rem !important;
     }
