@@ -5,12 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { CreatecicloComponent } from './createciclo/createciclo.component';
 import { CreatefaseComponent } from './createfase/createfase.component';
 import { CreateculivoComponent } from './createculivo/createculivo.component';
+import { CreatetipocultivoComponent } from './createtipocultivo/createtipocultivo.component';
 
 @NgModule({
 	declarations: [
 		CreatecicloComponent,
 		CreatefaseComponent,
-		CreateculivoComponent
+		CreateculivoComponent,
+		CreatetipocultivoComponent,
 	],
 	imports: [
 		CommonModule,
@@ -19,7 +21,8 @@ import { CreateculivoComponent } from './createculivo/createculivo.component';
 	exports: [
 		CreatecicloComponent,
 		CreatefaseComponent,
-		CreateculivoComponent
+		CreateculivoComponent,
+		CreatetipocultivoComponent
 	]
 })
 export class ModalsModule { }

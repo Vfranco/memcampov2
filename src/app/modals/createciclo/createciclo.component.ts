@@ -15,7 +15,7 @@ declare var $: any;
 export class CreatecicloComponent implements OnInit {
 
 	id: string = "";
-	tiposCultivo: TipoCultivo;
+	tiposCultivo: TipoCultivo[];
 	fileSeleted: File;
 	imageSelectedUpdate: boolean = false;
 	@Input() imagesSelected: string[] = [];
@@ -50,7 +50,7 @@ export class CreatecicloComponent implements OnInit {
 
 	getTiposCultivo() {
 		this.tiposService.getTiposCultivo().subscribe((data) => {
-			this.tiposCultivo = data;
+			this.tiposCultivo = data.tiposA;
 		})
 	}
 

@@ -1,0 +1,61 @@
+<div class="c-modal c-modal--large modal fade" id="modalTipocultivo" tabindex="-1" role="dialog"
+    aria-labelledby="modalTipocultivo" data-backdrop="static" *ngIf="tipo">
+    <div class="c-modal__dialog modal-dialog" role="document">
+        <div class="c-modal__content">
+            <div class="c-modal__header">
+                <h3 class="c-modal__title" *ngIf="tipo.id == ''">Agregar Tipo de cutlivo</h3>
+                <h3 class="c-modal__title" *ngIf="tipo.id != ''">Editar Tipo de cutlivo</h3>
+                <span class="c-modal__close" (click)="closeModalTipo()">
+                    <i class="fa fa-close"></i>
+                </span>
+            </div>
+            <form #form="ngForm">
+                <div class="c-modal__body">
+                    <div class="form-group c-field u-mb-xsmall">
+                        <label class="c-field__label" for="select12">Nombre</label>
+                        <input #nombreFase="ngModel" class="form-control c-input" type="text" name="nombre"
+                            [(ngModel)]="tipo.nombre" [class.c-input--danger]="nombreFase.touched && nombreFase.invalid"
+                            required>
+                    </div>
+                    <div class="row">
+                        <div class="form-group dropzone u-mb-small" style="height: 180px; width: 100%;">
+                             <label class="dz-message" data-dz-message for="uploadImage">
+                                <img class="image__ciclo" *ngIf="base64Img" [src]="base64Img">
+                                <img class="image__ciclo" *ngIf="!base64Img && tipo.imgCultivo" [src]="tipo.imgCultivo">
+                                <i class="icono dz-icon fa fa-cloud-upload" *ngIf="!base64Img && !tipo.imgCultivo"></i>
+                                <i class="icono dz-icon  fa fa-times" *ngIf="base64Img || tipo.imgCultivo"></i>
+                                <span *ngIf="!base64Img && !tipo.imgCultivo">Selecciona la imagen principal del tipo de cultivo.</span>
+                            </label>
+                            <div class="fallback" style="display: none;">
+                                <input #image="ngModel" class="form-control" id="uploadImage" type="file"
+                                    name="image" ngModel (change)="selectedFile($event)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group dropzone u-mb-small" style="height: 180px; width: 100%;">
+                             <label class="dz-message" data-dz-message for="uploadIcono">
+                                <img class="image__ciclo" *ngIf="base64Icon" [src]="base64Icon">
+                                <img class="image__ciclo" *ngIf="!base64Icon && tipo.imgIcono" [src]="tipo.imgIcono">
+                                <i class="icono dz-icon fa fa-cloud-upload" *ngIf="!base64Icon && !tipo.imgIcono"></i>
+                                <i class="icono dz-icon fa fa-times" *ngIf="base64Icon || tipo.imgIcono"></i>
+                                <span *ngIf="!base64Icon && !tipo.imgIcono">Selecciona el icono del tipo de cultivo.</span>
+                            </label>
+                            <div class="fallback" style="display: none;">
+                                <input #image="ngModel" class="form-control" id="uploadIcono" type="file"
+                                    name="icon" ngModel (change)="selectedFileIcon($event)">
+                            </div>
+                        </div>
+                    </div>
+                    <button class="c-btn c-btn--success c-btn--fullwidth" *ngIf="tipo.id == ''" (click)="saveData()">
+                        Agregar Tipo
+                    </button>
+                    <button class="c-btn c-btn--success c-btn--fullwidth" *ngIf="tipo.id != ''" (click)="updateData()">
+                        Actualizar Tipo
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
