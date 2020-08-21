@@ -1,23 +1,35 @@
-<div *ngIf="ciclo" class="c-card u-p-medium u-mb-small">
-    <h4 class="u-h5 u-text-bold u-text-center">Ciclo de vida</h4>
-    <h5 class="u-h6 u-text-bold">Nombre del ciclo</h5>
-    <p class="u-text-small u-text-mute">
-        {{ ciclo.nombreCicloVida }}
-    </p>
-    <h5 class="u-h6 u-text-bold">Tipo del cultivo</h5>
-    <p class="u-text-small u-text-mute">
-        {{ ciclo.nombreTipoCultivo }}
-    </p>
-    <h5 class="u-h6 u-text-bold">Descripcion del ciclo de vida</h5>
-    <p class="u-text-small u-text-mute">
-        {{ ciclo.descripcion }}
-    </p>
+<div class="row">
+    <div class="col-sm-12 col-md-6">
+        <div class="c-card u-mb-small heigth">
+            <img class="image" [src]="ciclo.url_ciclo_vida">
+        </div>
+    </div>
 
-    <a class="c-btn c-btn--info c-btn--fullwidth u-mt-small" data-toggle="modal" data-target="#modalCreateCiclo">Editar ciclo</a>
+    <div class="col-sm-12 col-md-6">
+        <div *ngIf="ciclo" class="c-card u-p-medium u-mb-small">
+            <h4 class="u-h5 u-text-bold u-text-center">Ciclo de vida</h4>
+            <h5 class="u-h6 u-text-bold">Nombre del ciclo</h5>
+            <p class="u-text-small u-text-mute">
+                {{ ciclo.nombreCicloVida }}
+            </p>
+            <h5 class="u-h6 u-text-bold">Tipo del cultivo</h5>
+            <p class="u-text-small u-text-mute">
+                {{ ciclo.nombreTipoCultivo }}
+            </p>
+            <h5 class="u-h6 u-text-bold">Descripcion del ciclo de vida</h5>
+            <p class="u-text-small u-text-mute">
+                {{ ciclo.descripcion }}
+            </p>
+
+            <a class="c-btn c-btn--info c-btn--fullwidth u-mt-small" data-toggle="modal"
+                data-target="#modalCreateCiclo" (click)="openModal()">Editar
+                ciclo</a>
+        </div>
+    </div>
 </div>
 
-<app-createciclo [cicloVida]="ciclo"
-                 [respaldo]="respaldo"
-                 [imagesSelected]="imagesRespaldo"
-                 [nameFile]="respaldo.nombreImagenCicloVida">
-</app-createciclo>
+<!-- <app-createciclo [cicloVida]="ciclo" [respaldo]="respaldo" [imagesSelected]="imagesRespaldo"
+    [nameFile]="respaldo.nombreImagenCicloVida">
+</app-createciclo> -->
+
+<app-createciclo *ngIf="showModal" (show)="closeModal($event)"></app-createciclo>

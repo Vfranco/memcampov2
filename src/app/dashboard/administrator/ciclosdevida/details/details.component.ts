@@ -15,9 +15,9 @@ export class DetailsComponent implements OnInit {
 	repaldo: Ciclo;
 	imagesRespaldo: string[] = [];
 
-	constructor(private ciclosService: CiclosService, private activatedRoute: ActivatedRoute) {
-		this.init();
-	}
+	constructor(
+		private ciclosService: CiclosService,
+		private activatedRoute: ActivatedRoute) { }
 
 	ngOnInit() {
 		this.init();
@@ -25,21 +25,11 @@ export class DetailsComponent implements OnInit {
 
 	init() {
 		this.preloadData = true;
-		this.activatedRoute.paramMap.subscribe(params => {
-			this.ciclosService.getCicloById(params.get('id')).subscribe(data => {
-				this.ciclo = data;
-				this.repaldo = {
-					nombreCicloVida: data['nombreCicloVida'],
-					url_ciclo_vida: data['url_ciclo_vida'],
-					nombreImagenCicloVida: data['nombreImagenCicloVida'],
-					nombreTipoCultivo: data['nombreTipoCultivo'],
-					descripcion: data['descripcion'],
-					id_tipo_cultivo: data['id_tipo_cultivo']
-				}
+		this.activatedRoute.paramMap.subscribe(async (params) => {
+			this.ciclosService.getCicloById(params.get('id')).subscribe(ciclo => {
+				this.ciclo = ciclo;
 				this.preloadData = false;
-				this.imagesRespaldo.push(this.repaldo.nombreImagenCicloVida);
 			});
 		});
 	}
-
 }

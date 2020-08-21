@@ -1,7 +1,9 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
 import { Fases } from '@app/core/interface/fases.interface';
 import { Ciclo } from '@app/core/interface/Ciclo.interface';
 import { CiclosService } from '@app/core/services';
+
 import Swal from 'sweetalert2';
 declare var $: any;
 
@@ -14,11 +16,7 @@ export class TableComponent implements OnInit {
 
 	@Input() ciclo: Ciclo;
 	@Input() fases: Fases[];
-	@Input() id   : string;
-	editar 		  : boolean = false;
-	inicio		  : number  = 0;
-	fin			  : number  = 0;
-	habilitar	  : any;
+	editar: boolean = false;
 	faseSelected: Fases = {
 		nombre: "",
 		detalles: "",
@@ -27,7 +25,8 @@ export class TableComponent implements OnInit {
 		rango_dias_literatura: "",
 		sugerencias: ""
 	}
-	index         : number  = -1;
+	i: number;
+	showModal: boolean = false;
 
 	constructor(
 		private cicloService: CiclosService
@@ -36,29 +35,19 @@ export class TableComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	createFase() {
-		this.faseSelected = {
-			nombre: "",
-			detalles: "",
-			habilitar: true,
-			rango_dias: { inicio: 0, fin: 0 },
-			rango_dias_literatura: "",
-			sugerencias: ""
-		}
-		this.habilitar = true;
-		this.editar = false;
-		this.inicio = 0;
-		this.fin = 0;
+	closeModal(e) {
+		this.showModal = e;
 	}
 
-	updateFase(fase, i) {
-		this.faseSelected = fase;
-		this.habilitar = this.faseSelected.habilitar;
-		this.inicio = this.faseSelected.rango_dias.inicio;
-		this.fin = this.faseSelected.rango_dias.fin
-		this.index = i;
-		this.editar = true;
-		$('#modalFase').modal('show');
+	indexClear(e) {
+		console.log(e);
+		this.i = e;
+	}
+
+	updateFase(i) {
+		this.showModal = true;
+		this.i = i;
+		console.log(this.i);
 	}
 
 	deleteFase(index) {
@@ -72,7 +61,7 @@ export class TableComponent implements OnInit {
 		}).then(result => {
 			if (result.value) {
 				this.fases.splice(index, 1);
-				this.cicloService.updateCiclo(this.ciclo, this.id).then(() => {
+				this.cicloService.updateCiclo(this.ciclo, this.ciclo.id).then(() => {
 					Swal.fire('¡Hecho!', 'Se ha eliminado la fase', 'info');
 				}).catch((err) => {
 					Swal.fire('Upss', 'Error inesperado', 'warning');

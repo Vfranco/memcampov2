@@ -12,7 +12,8 @@
 				<input class="c-input" type="text" placeholder="Buscar por nombre su Fase">
 			</div>
 
-			<button class="c-btn c-btn--success c-pull-right" data-toggle="modal" data-target="#modalFase" (click)="createFase()">
+			<button class="c-btn c-btn--success c-pull-right" data-toggle="modal" data-target="#modalFase"
+				(click)="showModal = !showModal">
 				<i class="fa fa-plus u-mr-xsmall"></i>Agregar fase
 			</button>
 		</caption>
@@ -32,7 +33,8 @@
 		</thead>
 
 		<tbody *ngIf="fases.length > 0">
-			<tr class="c-table__row" [class.c-table__row--danger]="fase.habilitar == false" *ngFor="let fase of fases, let i = index">
+			<tr class="c-table__row" [class.c-table__row--danger]="fase.habilitar == false"
+				*ngFor="let fase of fases, let i = index">
 				<td class="c-table__cell">
 					{{fase.nombre}}
 				</td>
@@ -58,7 +60,8 @@
 				</td>
 
 				<td class="c-table__cell">
-					<i class="fa fa-circle-o u-color-info u-mr-xsmall"></i>{{fase.rango_dias.inicio}} | {{fase.rango_dias.fin}}
+					<i class="fa fa-circle-o u-color-info u-mr-xsmall"></i>{{fase.rango_dias.inicio}} |
+					{{fase.rango_dias.fin}}
 				</td>
 
 				<td class="c-table__cell">
@@ -71,7 +74,8 @@
 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones</button>
 
 						<div class="c-dropdown__menu dropdown-menu" aria-labelledby="dropdownMenuButton27">
-							<a class="c-dropdown__item dropdown-item" data-toggle="modal" (click)="updateFase(fase, i)">Editar</a>
+							<a class="c-dropdown__item dropdown-item" data-toggle="modal" data-target="#modalFase"
+								(click)="updateFase(i)">Editar</a>
 							<a class="c-dropdown__item dropdown-item" (click)="deleteFase(i)">Eliminar</a>
 						</div>
 					</div>
@@ -81,4 +85,4 @@
 	</table>
 </div>
 
-<app-createfase [data]="{id: id, fases: fases, ciclo: ciclo}" [fase]="faseSelected" [editar]="editar" [indexSelected]="index" [habilitarEstadoFase]="habilitar" [inicio]="inicio" [fin]="fin"></app-createfase>
+<app-createfase [index]="i" (show)="closeModal($event)" (i)="indexClear($event)" *ngIf="showModal" [ciclo]="ciclo"></app-createfase>

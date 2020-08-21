@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { collections } from './../constants/constants';
+import { collections } from '@app/core/constants/constants';
 import { map } from 'rxjs/operators';
 
 @Injectable()
@@ -23,8 +23,27 @@ export class CiclosService {
 		}));
 	}
 
+	async getCiclosPromesa() {
+		let dataReturn: Array<any> = [];
+		var data = await this.db.collection(collections.CICLOS_DE_VIDA).get().toPromise();
+		data.forEach(info => {
+			var ciclo = info.data();
+			ciclo['id'] = info.id;
+			dataReturn.push(ciclo)
+		});
+		return dataReturn;
+	}
+
 	getCicloById(id: string) {
 		return this.db.doc(`${collections.CICLOS_DE_VIDA}/${id}`).valueChanges();
+	}
+
+	async getCicloByIdPromesa(id: string) {
+		let dataReturn = {};
+		var data = await this.db.doc(`${collections.CICLOS_DE_VIDA}/${id}`).get().toPromise();
+		dataReturn = data.data();
+		dataReturn['id'] = data.id;
+		return dataReturn;
 	}
 
 	createCiclo(formData: Object) {

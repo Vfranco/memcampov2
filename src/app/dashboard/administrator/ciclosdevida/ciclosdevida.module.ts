@@ -12,7 +12,6 @@ import { CardComponent } from './card/card.component';
 import { AuthGuard } from '@app/core/guards';
 import { TableComponent } from './table/table.component';
 import { CardDetailsComponent } from './card-details/card-details.component';
-import { CardDetailsImageComponent } from './card-details-image/card-details-image.component';
 
 const ciclosRoutes: Routes = [
 	{ path: 'ciclos', component: HomeComponent, canActivate: [AuthGuard] },
@@ -26,7 +25,6 @@ const ciclosRoutes: Routes = [
 		CardComponent,
 		TableComponent,
 		CardDetailsComponent,
-		CardDetailsImageComponent
 	],
 	imports: [
 		CommonModule,

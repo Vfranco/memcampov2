@@ -1,7 +1,8 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
+
+import { CiclosService, FileManagerService } from '@app/core/services';
 import { Ciclo } from '@app/core/interface/Ciclo.interface';
-import { CiclosService } from '@app/core/services';
 
 import Swal from 'sweetalert2';
 
@@ -18,12 +19,11 @@ export class CardComponent implements OnInit {
 	constructor(
 		private activedRoute: ActivatedRoute,
 		private router: Router,
-		private ciclosService: CiclosService) {
-
-		activedRoute.parent.params.subscribe(data => this.uid = data.uid);
-	}
+		private fileMager: FileManagerService,
+		private ciclosService: CiclosService) { }
 
 	ngOnInit() {
+		this.activedRoute.parent.params.subscribe(data => this.uid = data.uid);
 	}
 
 	validationDelete() {
@@ -44,12 +44,11 @@ export class CardComponent implements OnInit {
 			confirmButtonColor: '#dd3333',
 			cancelButtonText: 'Cancelar',
 			showCancelButton: true
-		}).then(result => {
-			if (result) {
+		}).then(async (result) => {
+			if (result.value) {
 				if (this.validationDelete()) {
+					await this.fileMager.deleteFilesFolder(this.ciclo.path);
 					this.ciclosService.deleteCiclo(id).then(() => {
-						this.ciclosService.deleteImgCiclo(this.ciclo.nombreCicloVida, this.ciclo.nombreImagenCicloVida).toPromise()
-							.then(() => { console.log(`Imagen ${this.ciclo.nombreImagenCicloVida} eliminada con exito.`); });
 						Swal.fire('¡Bien!', 'Ciclo eliminado con exito.', 'success');
 					});
 				}

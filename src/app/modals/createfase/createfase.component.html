@@ -1,14 +1,11 @@
-<div *ngIf="fase" class="c-modal c-modal--large modal fade" id="modalFase" tabindex="-1" role="dialog" aria-labelledby="modalFase"
+<div class="c-modal c-modal--large modal fade" id="modalFase" tabindex="-1" role="dialog" aria-labelledby="modalFase"
     data-backdrop="static">
     <div class="c-modal__dialog modal-dialog" role="document">
         <div class="c-modal__content">
             <div class="c-modal__header">
-                <h3 *ngIf="!editar" class="c-modal__title">Agregar Fase</h3>
-                <h3 *ngIf="editar" class="c-modal__title">Editar Fase</h3>
-                <span *ngIf="!editar" class="c-modal__close" data-dismiss="modal" aria-label="Close" (click)="clearVariables(form)">
-                    <i class="fa fa-close"></i>
-                </span>
-                <span *ngIf="editar" class="c-modal__close" data-dismiss="modal" aria-label="Close">
+                <h3 *ngIf="index == undefined" class="c-modal__title">Agregar Fase</h3>
+                <h3 *ngIf="index != undefined" class="c-modal__title">Editar Fase</h3>
+                <span class="c-modal__close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
                     <i class="fa fa-close"></i>
                 </span>
             </div>
@@ -16,33 +13,37 @@
                 <div class="c-modal__body">
                     <div class="form-group c-field u-mb-xsmall">
                         <label class="c-field__label" for="select12">Nombre</label>
-                        <input #nombreFase="ngModel" class="form-control c-input" type="text" name="nombre" [(ngModel)]="fase.nombre"
-                            [class.c-input--danger]="nombreFase.touched && nombreFase.invalid" required>
+                        <input #nombreFase="ngModel" class="form-control c-input" type="text" name="nombre"
+                            [(ngModel)]="fase.nombre" [class.c-input--danger]="nombreFase.touched && nombreFase.invalid"
+                            required>
                     </div>
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group c-field u-mb-xsmall">
                                 <label class="c-field__label">Estado de la fase</label>
-                                <select #habilitarFase="ngModel" class="form-control c-input c-combobox" name="habilitar" [(ngModel)]="habilitarEstadoFase"
+                                <select #habilitarFase="ngModel" class="form-control c-input c-combobox"
+                                    name="habilitar" [(ngModel)]="fase.habilitar"
                                     [class.c-input--danger]="habilitarFase.touched && habilitarFase.invalid" required>
                                     <option value="true">Habilitar</option>
                                     <option value="false">Deshabilitar</option>
                                 </select>
                             </div>
                         </div> <!-- end col -->
-            
+
                         <div class="col-3">
                             <div class="form-group c-field u-mb-xsmall">
                                 <label class="c-field__label" for="select12">Inicio de la fase</label>
-                                <input #inicioFase="ngModel" class="form-control c-input" type="number" name="inicio" [(ngModel)]="inicio"
+                                <input #inicioFase="ngModel" class="form-control c-input" type="number" name="inicio"
+                                    [(ngModel)]="fase.rango_dias.inicio"
                                     [class.c-input--danger]="inicioFase.touched && inicioFase.invalid" required>
                             </div>
                         </div> <!-- end col -->
-            
+
                         <div class="col-3">
                             <div class="form-group c-field u-mb-xsmall">
                                 <label class="c-field__label" for="select12">Fin de la fase</label>
-                                <input #finFase="ngModel" class="form-control c-input" type="number" name="fin" [(ngModel)]="fin"
+                                <input #finFase="ngModel" class="form-control c-input" type="number" name="fin"
+                                    [(ngModel)]="fase.rango_dias.fin"
                                     [class.c-input--danger]="finFase.touched && finFase.invalid" required>
                             </div>
                         </div> <!-- end col -->
@@ -53,26 +54,29 @@
                             [(ngModel)]="fase.rango_dias_literatura"
                             [class.c-input--danger]="faseLibros.touched && faseLibros.invalid" required></textarea>
                     </div>
-            
+
                     <div class="form-group c-field u-mb-small">
                         <label class="c-field__label" for="select12">Detalles de la fase</label>
-                        <textarea #detallesFase="ngModel" class="form-control c-input text-area" type="text" name="detalles"
-                            [(ngModel)]="fase.detalles" [class.c-input--danger]="detallesFase.touched && detallesFase.invalid"
-                            required></textarea>
+                        <textarea #detallesFase="ngModel" class="form-control c-input text-area" type="text"
+                            name="detalles" [(ngModel)]="fase.detalles"
+                            [class.c-input--danger]="detallesFase.touched && detallesFase.invalid" required></textarea>
                     </div>
-            
+
                     <div class="form-group c-field u-mb-small">
                         <label class="c-field__label" for="select12">Sugerencias</label>
-                        <textarea #sugerenciasFase="ngModel" class="form-control c-input text-area" type="text" name="sugerencias"
-                            [(ngModel)]="fase.sugerencias"
-                            [class.c-input--danger]="sugerenciasFase.touched && sugerenciasFase.invalid" required></textarea>
+                        <textarea #sugerenciasFase="ngModel" class="form-control c-input text-area" type="text"
+                            name="sugerencias" [(ngModel)]="fase.sugerencias"
+                            [class.c-input--danger]="sugerenciasFase.touched && sugerenciasFase.invalid"
+                            required></textarea>
                     </div>
-            
-                    <button *ngIf="!editar" class="c-btn c-btn--success c-btn--fullwidth" (click)="createFase(form)">
+
+                    <button *ngIf="index == undefined" class="c-btn c-btn--success c-btn--fullwidth"
+                        (click)="createFase(form)">
                         Agregar fase
                     </button>
 
-                     <button *ngIf="editar" class="c-btn c-btn--success c-btn--fullwidth" (click)="upadteFase(form)">
+                    <button *ngIf="index != undefined" class="c-btn c-btn--success c-btn--fullwidth"
+                        (click)="upadteFase(form)">
                         Editar fase
                     </button>
                 </div>

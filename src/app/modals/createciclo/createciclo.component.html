@@ -6,14 +6,14 @@
 			<div class="c-modal__header">
 				<h3 *ngIf="!id" class="c-modal__title">Crear ciclo de vida</h3>
 				<h3 *ngIf="id" class="c-modal__title">Editar ciclo de vida</h3>
-				<span *ngIf="!id" class="c-modal__close" data-dismiss="modal" aria-label="Close"
-					(click)="closeModalCreate(form)">
+				<span class="c-modal__close" data-dismiss="modal" aria-label="Close"
+					(click)="closeModal()">
 					<i class="fa fa-close"></i>
 				</span>
-				<span *ngIf="id" class="c-modal__close" data-dismiss="modal" aria-label="Close"
+				<!-- <span *ngIf="id" class="c-modal__close" data-dismiss="modal" aria-label="Close"
 					(click)="closeModalUpdate()">
 					<i class="fa fa-close"></i>
-				</span>
+				</span> -->
 			</div>
 			<form #form="ngForm">
 				<div class="form-group c-modal__body">
@@ -29,7 +29,6 @@
 						<select #tipoCultivo="ngModel" class="form-control c-input c-combobox" name="id_tipo_cultivo"
 							[(ngModel)]="cicloVida.id_tipo_cultivo"
 							[class.c-input--danger]="tipoCultivo.touched && tipoCultivo.invalid" required>
-							<option value="" selected>Seleccionar el tipo de cultivo</option>
 							<option [ngValue]="tipo" *ngFor="let tipo of tiposCultivo">
 								{{tipo.nombre}}
 							</option>
@@ -46,16 +45,17 @@
 
 					<div class="form-group dropzone u-mb-small" style="height: 180px;">
 						<label class="dz-message" data-dz-message for="uploadImage">
-							<img *ngIf="cicloVida.url_ciclo_vida.length > 0" class="image__ciclo"
+							<img *ngIf="cicloVida.url_ciclo_vida.length > 0 && !base64" class="image__ciclo"
 								[src]="cicloVida.url_ciclo_vida">
-							<span *ngIf="nameFile.length > 0">{{ nameFile }}</span>
+							<img class="image__ciclo" [src]="base64" *ngIf="base64">
+							<span class="spanImg" *ngIf="nameFile.length > 0">{{ nameFile }}</span>
 
 							<i *ngIf="cicloVida.url_ciclo_vida.length == 0" class="dz-icon fa fa-cloud-upload"></i>
 							<span *ngIf="nameFile.length == 0">Insertar imagen.</span>
 						</label>
 						<div class="fallback" style="display: none;">
 							<input #image="ngModel" class="form-control" id="uploadImage" type="file"
-								name="url_ciclo_vida" ngModel (change)="selectedFile($event)"
+								name="url_ciclo_vida" ngModel (change)="fileSelected($event)"
 								[disabled]="cicloVida.nombreCicloVida == ''">
 						</div>
 					</div>
