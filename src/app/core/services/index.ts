@@ -9,6 +9,7 @@ import { TipsService } from './tips.service';
 import { UserService } from './user.service';
 import { FileManagerService } from './file-manager.service';
 import { CultivosService } from './cultivos.service';
+import { UniqueService } from './unique.service';
 
 export * from './auth.service';
 export * from './ciclos.service';
@@ -21,6 +22,7 @@ export * from './tips.service';
 export * from './user.service';
 export * from './file-manager.service';
 export * from './cultivos.service';
+export * from './unique.service';
 
 export const SERVICES = [
     AuthService,
@@ -33,5 +35,6 @@ export const SERVICES = [
     TipsService,
     UserService,
     FileManagerService,
-    CultivosService
+    CultivosService,
+    UniqueService
 ]

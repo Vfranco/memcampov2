@@ -1,9 +1,11 @@
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, Input } from '@angular/core';
+
+import { TiposcultivoService, CiclosService, FileManagerService, UniqueService } from '@app/core/services';
 import { TipoCultivo } from '@app/core/interface/tipocultivo.interface';
 import { Ciclo } from '@app/core/interface/Ciclo.interface';
-import { TiposcultivoService, CiclosService } from '@app/core/services';
+
 import Swal from 'sweetalert2';
 declare var $: any;
 
@@ -14,13 +16,9 @@ declare var $: any;
 })
 export class CreatecicloComponent implements OnInit {
 
-	id: string = "";
-	tiposCultivo: TipoCultivo[];
-	fileSeleted: File;
-	imageSelectedUpdate: boolean = false;
-	@Input() imagesSelected: string[] = [];
-	@Input() nameFile: string = "";
-	@Input() cicloVida: Ciclo = {
+	@Output() show = new EventEmitter<boolean>();
+	cicloVida: Ciclo = {
+		idunique: "",
 		descripcion: "",
 		fases: [],
 		id_tipo_cultivo: "",
@@ -30,120 +28,81 @@ export class CreatecicloComponent implements OnInit {
 		nombreTipoCultivo: "",
 		url_ciclo_vida: ""
 	};
-	@Input() respaldo: Ciclo;
+	id: string = "";
+	tiposCultivo: TipoCultivo[];
+	nameFile: string = "";
+	file: File = null;
+	base64: string;
+	nombreUpload: string;
 
 	constructor(
 		private activatedRouter: ActivatedRoute,
 		private tiposService: TiposcultivoService,
-		private ciclosService: CiclosService) {
-
-		this.init();
-		this.getTiposCultivo();
-	}
+		private ciclosService: CiclosService,
+		private fileManager: FileManagerService,
+		private uniqueId: UniqueService) { }
 
 	ngOnInit() {
+		this.init();
 	}
 
 	init() {
-		this.activatedRouter.paramMap.subscribe(params => this.id = params.get('id'));
-	}
-
-	getTiposCultivo() {
-		this.tiposService.getTiposCultivo().subscribe((data) => {
-			this.tiposCultivo = data.tiposA;
-		})
-	}
-
-	validationNameImages() {
-		let i = this.imagesSelected.indexOf(this.nameFile);
-		if (i == -1) {
-			this.imagesSelected.push(this.nameFile);
-			console.log(this.imagesSelected);
-		}
-	}
-
-	clearStorageImages(nombreCiclo: string, nameFile: string) {
-		this.imagesSelected.forEach((element, index) => {
-			if (element != nameFile) {
-				this.ciclosService.deleteImgCiclo(nombreCiclo, element).toPromise()
-					.then(() => {
-						console.log(`Imagen ${element} eliminada.`);
-					});
+		this.getTiposCultivo();
+		this.activatedRouter.paramMap.subscribe(params => {
+			this.id = params.get('id')
+			if (this.id) {
+				console.log("Update");
+				this.uploadData();
+			} else {
+				console.log("Create");
 			}
-
-			if (element == this.nameFile)
-				this.imagesSelected = [this.imagesSelected[index]];
 		});
 	}
 
-	setImgStorage() {
-		this.ciclosService.setImgCiclo(this.cicloVida.nombreCicloVida, this.fileSeleted, this.nameFile)
-			.then(() => {
-				this.ciclosService.getUrlImage(this.cicloVida.nombreCicloVida, this.nameFile).subscribe(url => {
-					this.cicloVida.url_ciclo_vida = url;
-					this.validationNameImages();
-				});
-			});
-	}
-
-	selectedFile(event) {
-		this.fileSeleted = event.target.files[0];
-		if (this.fileSeleted) {
-			this.nameFile = this.fileSeleted.name;
-			this.imageSelectedUpdate = true;
-			this.setImgStorage();
-		}
-		else {
-			this.nameFile = "";
-			this.cicloVida.url_ciclo_vida = "";
-			this.imageSelectedUpdate = false;
-			this.clearStorageImages(this.cicloVida.nombreCicloVida, this.nameFile);
-		}
-	}
-
-	closeModalCreate(form: NgForm) {
-		if (this.imagesSelected.length > 0) {
-			this.ciclosService.deleteImgCiclo(this.cicloVida.nombreCicloVida, this.nameFile).toPromise()
-				.then(() => {
-					console.log(`Imagen ${this.nameFile} eliminada.`);
-					this.imagesSelected = [];
-					this.clearVariables(form);
-				});
-		} else {
-			this.clearVariables(form);
-		}
-	}
-
-	closeModalUpdate() {
-		console.log(this.respaldo);
-		this.clearStorageImages(this.cicloVida.nombreCicloVida, this.respaldo.nombreImagenCicloVida);
-		this.cicloVida.url_ciclo_vida = this.respaldo.url_ciclo_vida;
-		this.cicloVida.nombreCicloVida = this.respaldo.nombreCicloVida;
-		this.cicloVida.id_tipo_cultivo = this.respaldo.id_tipo_cultivo;
-		this.cicloVida.descripcion = this.respaldo.descripcion;
-		this.imagesSelected = [this.respaldo.nombreImagenCicloVida];
-		this.nameFile = this.respaldo.nombreImagenCicloVida;
-		this.imageSelectedUpdate = false;
-	}
-
-	clearVariables(form) {
-		form.reset();
-		form.setValue({ nombreCicloVida: "", descripcion: "", id_tipo_cultivo: "", url_ciclo_vida: "" });
-		this.cicloVida = {
-			descripcion: "",
-			fases: [],
-			id_tipo_cultivo: "",
+	async getTiposCultivo() {
+		let data = await this.tiposService.getTiposCultivoPromesa();
+		this.tiposCultivo = data.tiposA;
+		this.tiposCultivo.unshift({
+			id: "",
 			imgCultivo: "",
-			nombreCicloVida: "",
-			nombreImagenCicloVida: "",
-			nombreTipoCultivo: "",
-			url_ciclo_vida: ""
-		};
-		this.nameFile = "";
-		$('#modalCreateCiclo').modal('hide');
+			pathCultivo: "",
+			imgIcono: "",
+			pathIcono: "",
+			nombre: "Seleccionar tipo cultivo",
+			nombreImagenes: []
+		});
+		this.cicloVida.id_tipo_cultivo = this.tiposCultivo[0];
 	}
 
-	validationForm(form: NgForm) {
+	uploadData() {
+		setTimeout(async () => {
+			this.cicloVida = await this.ciclosService.getCicloByIdPromesa(this.id);
+			this.nombreUpload = this.cicloVida.nombreCicloVida;
+			this.nameFile = this.cicloVida.nombreImagenCicloVida
+			let data = this.tiposCultivo.filter(tipo => tipo.id === this.cicloVida.id_tipo_cultivo)
+			this.cicloVida.id_tipo_cultivo = data[0];
+		}, 500);
+	}
+
+	closeModal() {
+		this.show.emit(false);
+	}
+
+	fileSelected(e) {
+		if (e.target.files[0]) {
+			this.file = e.target.files[0];
+			const reader = new FileReader();
+			reader.onload = (e: any) => {
+				this.base64 = (e.target.result);
+			}
+			reader.readAsDataURL(this.file);
+		} else {
+			this.file = null;
+			this.base64 = "";
+		}
+	}
+
+	validationForm(form: NgForm, type?) {
 		if (form.invalid) {
 			Object.values(form.controls).forEach(control => {
 				if (!control.touched) {
@@ -152,10 +111,12 @@ export class CreatecicloComponent implements OnInit {
 			});
 			return false;
 		}
-
-		if (this.cicloVida.url_ciclo_vida.length == 0)
-			return false;
-
+		if (type == 'update') {
+			return true;
+		} else {
+			if (this.file == null)
+				return false;
+		}
 		return true;
 	}
 
@@ -167,46 +128,29 @@ export class CreatecicloComponent implements OnInit {
 			confirmButtonColor: '#4CAF50',
 			cancelButtonText: 'Cancelar',
 			showCancelButton: true
-		}).then((result) => {
+		}).then(async (result) => {
 			if (result.value) {
 				if (!this.validationForm(form)) {
 				} else {
-					this.clearStorageImages(this.cicloVida.nombreCicloVida, this.nameFile);
-					this.cicloVida.nombreTipoCultivo = this.tiposCultivo[this.cicloVida.id_tipo_cultivo].nombre;
-					this.cicloVida.imgCultivo = this.tiposCultivo[this.cicloVida.id_tipo_cultivo].imgCultivo;
-					this.cicloVida.nombreImagenCicloVida = this.nameFile;
-					this.ciclosService.createCiclo(this.cicloVida)
-						.then(() => {
-							Swal.fire('¡Bien!', 'Hemos creado tu ciclo de vida', 'success');
-							this.clearVariables(form);
-						}).catch(err => {
-							console.log(err);
-						});
+					this.cicloVida.idunique = this.uniqueId.uniqueId();
+					this.cicloVida.nombreTipoCultivo = this.cicloVida.id_tipo_cultivo['nombre'];
+					this.cicloVida.imgCultivo = this.cicloVida.id_tipo_cultivo['imgCultivo'];
+					this.cicloVida.id_tipo_cultivo = this.cicloVida.id_tipo_cultivo['id'];
+					this.cicloVida.nombreImagenCicloVida = this.file.name;
+					this.cicloVida.path = `ciclosvida/${this.cicloVida.idunique}/${this.file.name}`;
+					await this.fileManager.upload(this.file, this.cicloVida.path);
+					await this.fileManager.getUrlFileInfo(this.cicloVida.path).toPromise().then(url => this.cicloVida.url_ciclo_vida = url);
+					console.log(this.cicloVida);
+					this.ciclosService.createCiclo(this.cicloVida).then(() => {
+						Swal.fire('¡Bien!', 'Hemos creado tu ciclo de vida', 'success');
+						this.show.emit(false);
+						$('#modalCreateCiclo').modal('hide');
+					}).catch(err => {
+						console.log(err);
+					});
 				}
 			}
 		});
-	}
-
-	validationUpdateStorage(form: NgForm) {
-		if ((this.cicloVida.nombreCicloVida == this.respaldo.nombreCicloVida)) {
-			return true;
-		} else {
-			if (!this.imageSelectedUpdate) {
-				this.nameFile = "";
-				this.cicloVida.url_ciclo_vida = "";
-				this.imageSelectedUpdate = true;
-				form.controls.url_ciclo_vida.markAsTouched();
-				Swal.fire('Ha cambiado el nombre del ciclo', 'Es necesario elegir otra imagen', 'info');
-				return false;
-			} else {
-				this.imagesSelected.pop();
-				this.ciclosService.deleteImgCiclo(this.respaldo.nombreCicloVida, this.respaldo.nombreImagenCicloVida).toPromise()
-					.then(() => {
-						console.log(`La imagen ${this.respaldo.nombreImagenCicloVida} se ha eliminado con exito.`);
-					});
-				return true;
-			}
-		}
 	}
 
 	updateCiclo(form: NgForm) {
@@ -217,27 +161,26 @@ export class CreatecicloComponent implements OnInit {
 			confirmButtonColor: '#4CAF50',
 			cancelButtonText: 'Cancelar',
 			showCancelButton: true
-		}).then((result) => {
+		}).then(async (result) => {
 			if (result.value) {
-				if (!this.validationUpdateStorage(form)) {
+				if (!this.validationForm(form, 'update')) {
 				} else {
-					if (!this.validationForm(form)) {
-					} else {
-						console.log(this.imagesSelected);
-						this.clearStorageImages(this.cicloVida.nombreCicloVida, this.nameFile);
-						this.cicloVida.nombreTipoCultivo = this.tiposCultivo[this.cicloVida.id_tipo_cultivo].nombre;
-						this.cicloVida.imgCultivo = this.tiposCultivo[this.cicloVida.id_tipo_cultivo].imgCultivo;
-						this.cicloVida.nombreImagenCicloVida = this.nameFile;
-
-						this.ciclosService.updateCiclo(this.cicloVida, this.id).then(() => {
-							Swal.fire('¡Bien!', 'Ciclo de vida actualizado con exito.', 'success');
-							this.imageSelectedUpdate = false;
-							$('#modalCreateCiclo').modal('hide');
-						}).catch(err => {
-							console.log(err);
-						});
+					if (this.file != null) {
+						await this.fileManager.deleteFilesFolder(this.cicloVida.path);
+						this.cicloVida.path = `ciclosvida/${this.cicloVida.idunique}/${this.file.name}`;
+						await this.fileManager.upload(this.file, this.cicloVida.path);
+						await this.fileManager.getUrlFileInfo(this.cicloVida.path).toPromise().then(url => this.cicloVida.url_ciclo_vida = url);
 					}
-
+					this.cicloVida.nombreTipoCultivo = this.cicloVida.id_tipo_cultivo['nombre'];
+					this.cicloVida.imgCultivo = this.cicloVida.id_tipo_cultivo['imgCultivo'];
+					this.cicloVida.id_tipo_cultivo = this.cicloVida.id_tipo_cultivo['id'];
+					this.ciclosService.updateCiclo(this.cicloVida, this.id).then(() => {
+						Swal.fire('¡Bien!', 'Ciclo de vida actualizado con exito.', 'success');
+						this.show.emit(false);
+						$('#modalCreateCiclo').modal('hide');
+					}).catch(err => {
+						console.log(err);
+					});
 				}
 			}
 		});

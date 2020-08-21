@@ -3,11 +3,16 @@
 }
 
 .text-area::-webkit-scrollbar {
-    width: 8px;     /* Tamaño del scroll en vertical */
-    height: 8px;    /* Tamaño del scroll en horizontal */
+    width: 8px; /* Tamaño del scroll en vertical */
+    height: 8px; /* Tamaño del scroll en horizontal */
 }
 
 .text-area::-webkit-scrollbar-thumb {
     background: #ccc;
     border-radius: 4px;
+}
+
+.spanImg {
+    z-index: 10;
+    color: black;
 }

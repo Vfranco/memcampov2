@@ -10,20 +10,24 @@ export class HomeComponent implements OnInit {
 
 	preloadData: boolean = false;
 	ciclos: string[] = [];
+	showModal: boolean = false;
 
-	constructor(private ciclosService: CiclosService) {
+	constructor(private ciclosService: CiclosService) { }
+
+	ngOnInit() {
 		this.getCiclos();
 	}
 
-	ngOnInit() {
-	}
-
-	getCiclos() {
+	async getCiclos() {
 		this.preloadData = true;
-		this.ciclosService.getCiclos().subscribe(data => {
-			this.ciclos = data;
+		this.ciclosService.getCiclos().subscribe(ciclo => {
+			this.ciclos = ciclo
 			this.preloadData = false;
 		});
+
 	}
 
+	closeModal(e) {
+		this.showModal = e;
+	}
 }

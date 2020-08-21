@@ -14,6 +14,7 @@ export class TiposcultivoService {
 
 	getTiposCultivo() {
 		return this.db.collection(collections.TIPOS_DE_CULTIVO).snapshotChanges().pipe(map((data => {
+			console.log(data);
 			let tipos: TipoCultivo[] = [];
 			let objeto: any;
 			data.forEach(element => {
@@ -26,6 +27,22 @@ export class TiposcultivoService {
 			});
 			return { tiposA: tipos, tiposB: objeto.tipos_cultivos };
 		})));
+	}
+
+	async getTiposCultivoPromesa() {
+		let tipos: Array<TipoCultivo> = [];
+		let tipo: any = {};
+		var data = await this.db.collection(collections.TIPOS_DE_CULTIVO).get().toPromise();
+		data.forEach(info => {
+			tipo = info.data();
+			tipo['id'] = info.id;
+			let keys = Object.keys(tipo.tipos_cultivos);
+			Object.values(tipo.tipos_cultivos).forEach((element, i) => {
+				element['id'] = keys[i];
+				tipos.push(element);
+			})
+		});
+		return { tiposA: tipos, tiposB: tipo.tipos_cultivos };
 	}
 
 	updateTipoCultivo(formData) {
