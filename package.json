@@ -21,7 +21,7 @@
     "@angular/router": "~8.2.14",
     "@babel/compat-data": "7.8.0",
     "angularfire2": "^5.4.2",
-    "moment": "^2.26.0",
+    "moment": "^2.29.2",
     "ngx-quicklink": "^0.2.1",
     "ngx-skeleton-loader": "^2.0.0",
     "promise-polyfill": "8.1.3",
